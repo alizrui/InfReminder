@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">InfReminder</string>
+    <string name="crate_reminder">Crear Recordatorio</string>
+    <string name="show_reminders">Ver Recordatorios</string>
 </resources>
