@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.infreminder.R;
 import com.example.infreminder.fragments.CreateReminderFragment;
+import com.example.infreminder.fragments.ReminderListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         final int clickedButton = view.getId();
 
+
         if (clickedButton == R.id.bCreate){
             // Keep a reference to the FragmentContainerView to be used to add the Fragment
             layout = R.id.fcvFragment;
@@ -37,7 +39,14 @@ public class MainActivity extends AppCompatActivity {
             fragmentToAdd = CreateReminderFragment.class;
 
             bundle = new Bundle();
-        } else if (clickedButton == R.id.bSettings) {
+        } else
+
+
+        if (clickedButton == R.id.bShow) {
+
+            layout = R.id.fcvFragment;
+            // Get a reference to the Fragment class
+            fragmentToAdd = ReminderListFragment.class;
 
         }
         // Get a FragmentTransaction to begin some operations with the current FragmentManager
