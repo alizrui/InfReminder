@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         // Replace the Fragments in the required Layout by the selected one
         if (fragmentToAdd != null) {
             transaction.replace(layout, fragmentToAdd, bundle);
-            Log.d("LOL","no paso nada");
         }
         // Add the transaction to the BackStack, so it can be reversed by pressing the Back button
         transaction.addToBackStack(null);
