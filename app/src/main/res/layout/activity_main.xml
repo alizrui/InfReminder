@@ -8,17 +8,19 @@
     tools:context=".activities.MainActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <Button
             android:id="@+id/bShow"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
             android:onClick="updateFragments"
             android:text="@string/show_reminders"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,10 +28,13 @@
 
         <Button
             android:id="@+id/bCreate"
-            android:layout_width="166dp"
-            android:layout_height="55dp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="12dp"
             android:onClick="updateFragments"
             android:text="@string/crate_reminder"
@@ -37,7 +42,7 @@
             app:layout_constraintHorizontal_bias="0.275"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
     <androidx.fragment.app.FragmentContainerView

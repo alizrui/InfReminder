@@ -1,4 +1,4 @@
-package com.example.infreminder.Adapter;
+package com.example.infreminder.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

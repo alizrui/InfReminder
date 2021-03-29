@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 
 import com.example.infreminder.R;
-import com.example.infreminder.Adapter.ReminderListAdapter;
+import com.example.infreminder.adapter.ReminderListAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
