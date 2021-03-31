@@ -1,4 +1,4 @@
 package com.example.infreminder.fragmentsview;
 
-public class CreateReminderFragment {
+public class CreateSpecialFragment {
 }
