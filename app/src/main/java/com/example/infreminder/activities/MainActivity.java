@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.infreminder.R;
-import com.example.infreminder.fragmentsview.CreateReminderFragment;
+import com.example.infreminder.fragmentsview.CreateAlarmFragment;
 import com.example.infreminder.fragmentsview.ReminderListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             // Keep a reference to the FragmentContainerView to be used to add the Fragment
             layout = R.id.fcvFragment;
             // Get a reference to the Fragment class
-            fragmentToAdd = CreateReminderFragment.class;
+            fragmentToAdd = CreateAlarmFragment.class;
 
             bundle = new Bundle();
         } else
