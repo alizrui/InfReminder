@@ -5,4 +5,7 @@
     <string name="settings">Ajustes</string>
     <string name="description_image_reminder">Imagen que caracteriza el recordatorio</string>
     <string name="tv_no_reminder">No hay ningún recordatorio creado</string>
+    <string name="name">Nombre</string>
+    <string name="hour">Hora</string>
+    <string name="description">Descripción</string>
 </resources>

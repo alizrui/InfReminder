@@ -19,7 +19,7 @@ public class CreateAlarmFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_reminder, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_alarm, container, false);
 
         final TextView tvAux = view.findViewById(R.id.tvPrueba);
 
