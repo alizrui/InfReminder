@@ -1,4 +1,4 @@
-package database;
+package com.example.infreminder.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
-import reminder.Reminder;
+import com.example.infreminder.reminder.Reminder;
 @Dao
 public interface reminderDao {
     @Query("SELECT * FROM reminder_table")
@@ -26,4 +26,5 @@ public interface reminderDao {
 
     @Delete
     void deleteReminder(Reminder reminder);
+
 }

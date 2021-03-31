@@ -1,4 +1,4 @@
-package reminder;
+package com.example.infreminder.reminder;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -12,17 +12,20 @@ public class Reminder {
     @NonNull
     @ColumnInfo(name = "reminder_name")
     private String name;
-    @ColumnInfo(name = "reminder_description")
-    private String description;
-    @NonNull
-    @ColumnInfo(name= "reminder_type")
-    private int type;
 
-    public Reminder(String name, String description, int type)
+    @NonNull
+    @ColumnInfo(name = "reminder_features")
+    private String features;
+
+    @NonNull
+    @ColumnInfo(name= "reminder_days")
+    private String days;
+
+    public Reminder(String name, String features, String days)
     {
         this.name = name;
-        this.description = description;
-        this.type = type;
+        this.features = features;
+        this.days = days;
     }
 
     public int getId() {
@@ -41,19 +44,11 @@ public class Reminder {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getFeatures() { return features; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public void setFeatures(String features) { this.features = features; }
 
-    public int getType() {
-        return type;
-    }
+    public String getDays() { return days; }
 
-    public void setType(int type) {
-        this.type = type;
-    }
+    public void setDays(String days) { this.days = days; }
 }

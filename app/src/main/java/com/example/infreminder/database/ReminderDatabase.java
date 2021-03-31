@@ -1,4 +1,4 @@
-package database;
+package com.example.infreminder.database;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import reminder.Reminder;
+import com.example.infreminder.reminder.Reminder;
 
 @Database(entities = {Reminder.class}, version = 1, exportSchema = false)
 public abstract class ReminderDatabase extends RoomDatabase {
@@ -22,4 +22,5 @@ public abstract class ReminderDatabase extends RoomDatabase {
     }
 
     public abstract reminderDao reminderDao();
+
 }
