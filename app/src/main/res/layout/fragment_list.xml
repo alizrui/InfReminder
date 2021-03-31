@@ -31,7 +31,6 @@
         android:clickable="true"
         android:outlineAmbientShadowColor="@color/white"
         android:src="@drawable/ic_action_add"
-        app:fab_size="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -43,7 +42,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="88dp"
         android:clickable="true"
-        app:fab_size="mini"
         android:outlineAmbientShadowColor="@color/white"
         android:src="@drawable/ic_action_add"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +58,6 @@
         android:clickable="true"
         android:outlineAmbientShadowColor="@color/white"
         android:src="@drawable/ic_action_add"
-        app:fab_size="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -71,7 +68,6 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/ic_action_add"
-        app:fab_size="normal"
         android:outlineAmbientShadowColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
