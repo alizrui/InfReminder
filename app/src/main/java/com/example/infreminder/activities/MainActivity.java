@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.infreminder.R;
-import com.example.infreminder.fragments.CreateReminderFragment;
-import com.example.infreminder.fragments.ReminderListFragment;
+import com.example.infreminder.fragmentsview.CreateReminderFragment;
+import com.example.infreminder.fragmentsview.ReminderListFragment;
 
 public class MainActivity extends AppCompatActivity {
 

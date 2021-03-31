@@ -1,9 +1,7 @@
-package com.example.infreminder.fragments;
+package com.example.infreminder.fragmentsview;
 import android.os.Bundle;
 
 import androidx.preference.PreferenceFragmentCompat;
-
-import com.example.infreminder.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat{
 
