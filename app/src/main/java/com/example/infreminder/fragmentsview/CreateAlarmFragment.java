@@ -11,8 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.infreminder.R;
+import com.example.infreminder.fragmentsview.interfaces.I_CreateAlarmFragment;
 
-public class CreateAlarmFragment extends Fragment {
+public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragment {
 
     public CreateAlarmFragment() {}
 

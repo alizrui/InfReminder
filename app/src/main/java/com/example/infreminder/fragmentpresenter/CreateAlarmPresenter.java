@@ -1,4 +1,7 @@
 package com.example.infreminder.fragmentpresenter;
 
-public class CreateAlarmPresenter {
+import com.example.infreminder.fragmentpresenter.interfaces.I_CreateAlarmPresenter;
+
+public class CreateAlarmPresenter implements I_CreateAlarmPresenter {
+
 }

@@ -11,8 +11,6 @@ import com.example.infreminder.R;
 import com.example.infreminder.activities.interfaces.I_MainActivity;
 import com.example.infreminder.activitiespresenter.MainActivityPresenter;
 import com.example.infreminder.activitiespresenter.interfaces.I_MainActivityPresenter;
-import com.example.infreminder.fragmentsview.CreateAlarmFragment;
-import com.example.infreminder.fragmentsview.ReminderListFragment;
 
 public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
