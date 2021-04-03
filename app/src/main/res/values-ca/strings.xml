@@ -9,4 +9,14 @@
     <string name="name">Nom</string>
     <string name="hour">Hora</string>
     <string name="description">Descripció (opcional)</string>
+    <string name="select_days">Seleccionar dies</string>
+    <string name="only_once">Només una vegada</string>
+    <string name="monday">Dilluns</string>
+    <string name="tuesday">Dimarts</string>
+    <string name="wednesday">Dimecres</string>
+    <string name="thursday">Dijous</string>
+    <string name="friday">Divendres</string>
+    <string name="saturday">Dissabte</string>
+    <string name="sunday">Diumenge</string>
+    <string name="all_days">Tots els dies</string>
 </resources>

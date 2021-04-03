@@ -17,15 +17,7 @@
         android:layout_gravity="center"
         android:layout_margin="8dp" />
 
-    <TextView
-        android:id="@+id/tvPrueba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:text="@string/app_name"/>
-
-    <EditText
+        <EditText
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,11 +37,41 @@
         android:importantForAutofill="no"
         android:inputType="none" />
 
-        <Button
-            android:id="@+id/button"
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbOnlyOnce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/only_once" />
+
+            <RadioButton
+                android:id="@+id/rbEveryDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/all_days" />
+
+            <RadioButton
+                android:id="@+id/rbSelectDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/select_days" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/bNewAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/create_alarm" />
 
     </LinearLayout>
 
