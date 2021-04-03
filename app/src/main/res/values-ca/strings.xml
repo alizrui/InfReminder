@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_reminder">Crear Recordatori</string>
+    <string name="create_alarm">Crear Alarma</string>
+    <string name="show_reminders">Vore Recordatoris</string>
+    <string name="settings">Ajustos</string>
+    <string name="description_image_reminder">Imatge que caracteritzael recordatori</string>
+    <string name="tv_no_reminder">No hi ha cap recordatori creat</string>
+    <string name="name">Nom</string>
+    <string name="hour">Hora</string>
+    <string name="description">Descripció (opcional)</string>
+</resources>
