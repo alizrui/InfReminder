@@ -1,4 +1,24 @@
 package com.example.infreminder.fragmentsview;
 
-public class CreateReminderFragment {
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.example.infreminder.R;
+
+public class CreateReminderFragment extends Fragment {
+    public CreateReminderFragment() {}
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_create_reminder, container, false);
+        return view;
+    }
 }

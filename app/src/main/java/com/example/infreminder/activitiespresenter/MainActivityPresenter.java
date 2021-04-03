@@ -10,6 +10,7 @@ import com.example.infreminder.R;
 import com.example.infreminder.activities.interfaces.I_MainActivity;
 import com.example.infreminder.activitiespresenter.interfaces.I_MainActivityPresenter;
 import com.example.infreminder.fragmentsview.CreateAlarmFragment;
+import com.example.infreminder.fragmentsview.CreateReminderFragment;
 import com.example.infreminder.fragmentsview.ReminderListFragment;
 
 public class MainActivityPresenter implements I_MainActivityPresenter {
@@ -25,22 +26,21 @@ public class MainActivityPresenter implements I_MainActivityPresenter {
         Fragment fragmentToRemove = null; // not used yet
 
         Bundle bundle = null;
-        int layout = 0;
+        int layout = R.id.fcvFragment;
 
-        if (idButton == R.id.bCreate){
-            // Keep a reference to the FragmentContainerView to be used to add the Fragment
-            layout = R.id.fcvFragment;
-            // Get a reference to the Fragment class
-            fragmentToAdd = CreateAlarmFragment.class;
+        switch(idButton) {
 
-            bundle = new Bundle();
-        } else if (idButton == R.id.bShow) {
-
-            layout = R.id.fcvFragment;
-            // Get a reference to the Fragment class
-            fragmentToAdd = ReminderListFragment.class;
-
+            case R.id.bCreateAlarm:
+                fragmentToAdd = CreateAlarmFragment.class;
+                break;
+            case R.id.bShow:
+                fragmentToAdd = ReminderListFragment.class;
+                break;
+            case R.id.bCreateReminder:
+                fragmentToAdd = CreateReminderFragment.class;
+                break;
         }
+
         // Get a FragmentTransaction to begin some operations with the current FragmentManager
         FragmentTransaction transaction = i_MainActivity.getMainActivity().getSupportFragmentManager().beginTransaction();
         transaction.setReorderingAllowed(true);

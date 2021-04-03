@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">InfReminder</string>
-    <string name="crate_reminder">Crear Recordatorio</string>
+    <string name="create_reminder">Crear Recordatorio</string>
+    <string name="create_alarm">Crear Alarma</string>
     <string name="show_reminders">Ver Recordatorios</string>
     <string name="settings">Ajustes</string>
     <string name="description_image_reminder">Imagen que caracteriza el recordatorio</string>
