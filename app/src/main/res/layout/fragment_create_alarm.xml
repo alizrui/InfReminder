@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical">
 
-    <TimePicker
+        <TimePicker
         android:id="@+id/tpHours"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:importantForAutofill="no"
         android:inputType="none" />
 
-    <EditText
+        <EditText
         android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,6 +60,7 @@
 
             <RadioButton
                 android:id="@+id/rbSelectDays"
+                android:onClick="showSelectDays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"

@@ -19,4 +19,5 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="all_days">Every day</string>
+    <string name="accept">OK</string>
 </resources>

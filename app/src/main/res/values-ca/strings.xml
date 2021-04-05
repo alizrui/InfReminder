@@ -19,4 +19,5 @@
     <string name="saturday">Dissabte</string>
     <string name="sunday">Diumenge</string>
     <string name="all_days">Tots els dies</string>
+    <string name="accept">Acceptar</string>
 </resources>
