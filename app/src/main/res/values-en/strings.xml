@@ -20,4 +20,7 @@
     <string name="sunday">Sunday</string>
     <string name="all_days">Every day</string>
     <string name="accept">OK</string>
+    <string name="fab_text_reminder">Add New Reminder</string>
+    <string name="fab_text_alarm">"Add New Alarm "</string>
+    <string name="fab_text_special">Add New Special</string>
 </resources>

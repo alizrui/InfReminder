@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/ic_action_add"
+        app:startIconDrawable="@drawable/ic_add_alarm"
         tools:layout_editor_absoluteX="119dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        >
+
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

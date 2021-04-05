@@ -20,4 +20,8 @@
     <string name="sunday">Domingo</string>
     <string name="all_days">Todos los días</string>
     <string name="accept">Aceptar</string>
+    <string name="fab_text_alarm">Añadir Alarma</string>
+    <string name="fab_text_special">Añadir Especial</string>
+    <string name="fab_text_reminder">Añadir Recordatorio</string>
+
 </resources>
