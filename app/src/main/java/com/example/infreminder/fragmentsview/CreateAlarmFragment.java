@@ -1,7 +1,5 @@
 package com.example.infreminder.fragmentsview;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +12,7 @@ import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.infreminder.R;
 import com.example.infreminder.dialogs.DialogAlarmDaysFragment;
@@ -25,6 +21,7 @@ import com.example.infreminder.fragmentsview.interfaces.I_CreateAlarmFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
 
 public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragment {
 
@@ -73,13 +70,15 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
             createAlarm();
         });
 
+        getChildFragmentManager().setFragmentResultListener("requestDays", this,
+                (requestKey, result) -> daysSelected = result.getStringArrayList("days"));
+
         return view;
     }
 
     private void openSelectDaysDialog(){
         DialogAlarmDaysFragment dialog = new DialogAlarmDaysFragment();
         dialog.show(getChildFragmentManager(),null);
-
     }
 
     public void createAlarm() {
@@ -87,16 +86,55 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
         String desc = etDes.getText().toString();
         int hour = tpTime.getCurrentHour();
         int min = tpTime.getCurrentMinute();
+        ArrayList<String> days = new ArrayList<>();
+        //boolean soundOnce = false;
 
-        if (rbOnlyOnce.isChecked()){
-            // Solo la siguiente vez que aparezca la hora
+        if (rbOnlyOnce.isChecked()) {
+            Calendar rightNow = Calendar.getInstance();
+            if (rightNow.get(Calendar.HOUR_OF_DAY) > hour ||
+                    (rightNow.get(Calendar.HOUR_OF_DAY) == hour && rightNow.get(Calendar.MINUTE) >= min)) {
+                days.add(dayTranslator(rightNow.get(Calendar.DAY_OF_WEEK) + 1));
+            } else {
+                days.add(dayTranslator(rightNow.get(Calendar.DAY_OF_WEEK)));
+            }
+//            soundOnce = true;
+
         } else if (rbEveryDay.isChecked()) {
-            // ArrayList con todos los días
+            for(int i = 1; i <= 7; i++) days.add(dayTranslator(i));
         } else if(rbSelectDays.isChecked()){
-            // Trabajo con getChildFragmentManager
+            days = daysSelected;
         }
-        Log.d("LOL", "nombre: "+ name + " desc: "+ desc + " hora: " + hour + " min:" + min);
+    }
 
+    private String dayTranslator(int day){ // esto debería ir en la lógica? cual es la lógica?
+        String res = "";
+        switch(day){
+            case Calendar.MONDAY: // 2
+                res ="Monday";
+                break;
+            case Calendar.TUESDAY: // 3
+                res = "Tuesday";
+                break;
+            case Calendar.WEDNESDAY: // 4
+                res = "Wednesday";
+                break;
+            case Calendar.THURSDAY: // 5
+                res = "Thursday";
+                break;
+            case Calendar.FRIDAY: // 6
+                res = "Friday";
+                break;
+            case Calendar.SATURDAY: // 7
+                res = "Saturday";
+                break;
+            case Calendar.SUNDAY: // 1
+                res = "Sunday";
+                break;
+            default:
+                res = "";
+                break;
+        }
+        return res;
     }
 
 

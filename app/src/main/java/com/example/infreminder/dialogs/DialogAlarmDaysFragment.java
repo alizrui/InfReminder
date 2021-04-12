@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.infreminder.R;
 
+import java.util.ArrayList;
+
 public class DialogAlarmDaysFragment extends DialogFragment {
 
     /* Views */
@@ -29,10 +32,7 @@ public class DialogAlarmDaysFragment extends DialogFragment {
     private CheckBox cbSaturday;
     private CheckBox cbSunday;
 
-
-
     public DialogAlarmDaysFragment(){ }
-
 
     @NonNull
     @Override
@@ -62,13 +62,23 @@ public class DialogAlarmDaysFragment extends DialogFragment {
 
     private void buttonListener(){
         bOkDays.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
+            ArrayList<String> daysSelected = new ArrayList<>();
 
+            if (cbSunday.isChecked()) daysSelected.add("Sunday");
+            if (cbMonday.isChecked()) daysSelected.add("Monday");
+            if (cbTuesday.isChecked()) daysSelected.add("Tuesday");
+            if (cbWednesday.isChecked()) daysSelected.add("Wednesday");
+            if (cbThursday.isChecked()) daysSelected.add("Thursday");
+            if (cbFriday.isChecked()) daysSelected.add("Friday");
+            if (cbSaturday.isChecked()) daysSelected.add("Saturday");
 
-            // AQUÍ CÓDIGO PARA PASAR LA LISTA DE DIAS A CREATEALARMFRAGMENT
+            Log.d("DIA","HASHECHO");
+            Bundle result = new Bundle();
+            result.putStringArrayList("days", daysSelected);
+            getParentFragmentManager().setFragmentResult("requestDays", result);
+
             dismiss();
         });
-
     }
 
     @Override
