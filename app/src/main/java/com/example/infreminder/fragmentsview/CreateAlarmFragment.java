@@ -1,6 +1,7 @@
 package com.example.infreminder.fragmentsview;
 
-import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -24,6 +24,7 @@ import com.example.infreminder.fragmentpresenter.interfaces.I_CreateAlarmPresent
 import com.example.infreminder.fragmentsview.interfaces.I_CreateAlarmFragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragment {
 
@@ -44,7 +45,6 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
     /* */
     private ArrayList<String> daysSelected;
 
-
     public CreateAlarmFragment() { }
 
 
@@ -63,8 +63,14 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
         rbEveryDay = view.findViewById(R.id.rbEveryDay);
         rbSelectDays = view.findViewById(R.id.rbSelectDays);
 
+        bNewAlarm = view.findViewById(R.id.bNewAlarm);
+
         rbSelectDays.setOnClickListener(v -> {
             openSelectDaysDialog();
+        });
+
+        bNewAlarm.setOnClickListener(v -> {
+            createAlarm();
         });
 
         return view;
@@ -75,4 +81,23 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
         dialog.show(getChildFragmentManager(),null);
 
     }
+
+    public void createAlarm() {
+        String name = etName.getText().toString();
+        String desc = etDes.getText().toString();
+        int hour = tpTime.getCurrentHour();
+        int min = tpTime.getCurrentMinute();
+
+        if (rbOnlyOnce.isChecked()){
+            // Solo la siguiente vez que aparezca la hora
+        } else if (rbEveryDay.isChecked()) {
+            // ArrayList con todos los días
+        } else if(rbSelectDays.isChecked()){
+            // Trabajo con getChildFragmentManager
+        }
+        Log.d("LOL", "nombre: "+ name + " desc: "+ desc + " hora: " + hour + " min:" + min);
+
+    }
+
+
 }

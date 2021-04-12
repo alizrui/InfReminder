@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.infreminder.R;
 
@@ -60,12 +61,12 @@ public class DialogAlarmDaysFragment extends DialogFragment {
     }
 
     private void buttonListener(){
-        bOkDays.setOnClickListener( new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // AQUÍ CÓDIGO PARA PASAR LA LISTA DE DIAS A CREATEALARMFRAGMENT
-                dismiss();
-            }
+        bOkDays.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+
+
+            // AQUÍ CÓDIGO PARA PASAR LA LISTA DE DIAS A CREATEALARMFRAGMENT
+            dismiss();
         });
 
     }
