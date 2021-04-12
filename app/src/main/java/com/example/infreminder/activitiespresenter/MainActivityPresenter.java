@@ -12,6 +12,7 @@ import com.example.infreminder.activitiespresenter.interfaces.I_MainActivityPres
 import com.example.infreminder.fragmentsview.CreateAlarmFragment;
 import com.example.infreminder.fragmentsview.CreateReminderFragment;
 import com.example.infreminder.fragmentsview.ReminderListFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivityPresenter implements I_MainActivityPresenter {
 
@@ -20,6 +21,7 @@ public class MainActivityPresenter implements I_MainActivityPresenter {
     public MainActivityPresenter(I_MainActivity activity) {
         i_MainActivity = activity;
     }
+
     @Override
     public void updateFragments(int idButton) {
         Class<? extends Fragment> fragmentToAdd = null;
@@ -57,5 +59,6 @@ public class MainActivityPresenter implements I_MainActivityPresenter {
         // Make changes effective
         transaction.commit();
     }
+
 
 }

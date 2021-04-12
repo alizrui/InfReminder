@@ -21,22 +21,26 @@ import java.util.ArrayList;
 public class ReminderListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<String> nameTitle ;
-    private ArrayList<String> rDescription ;
+    private ArrayList<String> rDate ;
+    private ArrayList<String> rHour ;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //super.onCreateView(inflater, container, savedInstanceState);
         nameTitle = new ArrayList<>();
-        rDescription = new ArrayList<>();
+        rDate = new ArrayList<>();
+        rHour = new ArrayList<>();
         //examples
         for (int i = 0; i<10; i++){
-            nameTitle.add("Tittle" + i);
-            rDescription.add("Description " +i);
+            nameTitle.add("Name Example" + i);
+            rDate.add("10/05/200" +i);
+            rHour.add("10:0" + i);
         }
         View view = inflater.inflate(R.layout.fragment_list,container,false);
         recyclerView = view.findViewById(R.id.recycler_list_reminder);
-        ReminderListAdapter reminderListAdapter = new ReminderListAdapter(getContext(),nameTitle,rDescription);
+        ReminderListAdapter reminderListAdapter = new ReminderListAdapter(getContext(),nameTitle,rDate,rHour);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(reminderListAdapter);

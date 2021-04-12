@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_reminder">Create Reminder</string>
+    <string name="create_alarm">Create Alarm</string>
+    <string name="show_reminders">Show Reminders</string>
+    <string name="settings">Settings</string>
+    <string name="description_image_reminder">Image characterizing the reminder</string>
+    <string name="tv_no_reminder">There is no reminder created</string>
+    <string name="name">Name</string>
+    <string name="hour">Time</string>
+    <string name="description">Description (optional)</string>
+    <string name="select_days">Select days</string>
+    <string name="only_once">Only once</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="all_days">Every day</string>
+    <string name="accept">OK</string>
+    <string name="fab_text_reminder">Add New Reminder</string>
+    <string name="fab_text_alarm">"Add New Alarm "</string>
+    <string name="fab_text_special">Add New Special</string>
+</resources>

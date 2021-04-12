@@ -16,13 +16,15 @@ import java.util.List;
 public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapter.ViewHolder> {
     Context context;
     List<String> listName;
-    List<String> listDescription;
+    List<String> listDate;
+    List<String> listHour;
 
 
-    public ReminderListAdapter(Context c ,List<String> ln, List<String> ld){
+    public ReminderListAdapter(Context c ,List<String> ln, List<String> ld,List<String> lh){
         this.context =c;
         this.listName = ln;
-        this.listDescription = ld;
+        this.listDate = ld;
+        this.listHour = lh;
 
     }
 
@@ -37,7 +39,9 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(listName.get(position));
-        holder.description.setText(listDescription.get(position));
+        holder.date.setText(listDate.get(position));
+        holder.hour.setText(listHour.get(position));
+
     }
 
 
@@ -50,14 +54,17 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         //ImageView imageView;
         TextView name;
-        TextView description;
+        TextView date;
+        TextView hour;
 
 
         public ViewHolder(@NonNull View view) {
             super(view);
 
             name = view.findViewById(R.id.tvNameReminder);
-            description = view.findViewById(R.id.tvDescriptionReminder);
+            date = view.findViewById(R.id.tvDate);
+            hour = view.findViewById(R.id.tvHour);
+
             //imageView = view.findViewById(R.id.ivIdReminder);
         }
 

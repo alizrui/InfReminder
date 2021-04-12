@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_reminder">Crear Recordatori</string>
+    <string name="create_alarm">Crear Alarma</string>
+    <string name="show_reminders">Vore Recordatoris</string>
+    <string name="settings">Ajustos</string>
+    <string name="description_image_reminder">Imatge que caracteritzael recordatori</string>
+    <string name="tv_no_reminder">No hi ha cap recordatori creat</string>
+    <string name="name">Nom</string>
+    <string name="hour">Hora</string>
+    <string name="description">Descripció (opcional)</string>
+    <string name="select_days">Seleccionar dies</string>
+    <string name="only_once">Només una vegada</string>
+    <string name="monday">Dilluns</string>
+    <string name="tuesday">Dimarts</string>
+    <string name="wednesday">Dimecres</string>
+    <string name="thursday">Dijous</string>
+    <string name="friday">Divendres</string>
+    <string name="saturday">Dissabte</string>
+    <string name="sunday">Diumenge</string>
+    <string name="all_days">Tots els dies</string>
+    <string name="accept">Acceptar</string>
+    <string name="fab_text_reminder">Afegir Recordatori</string>
+    <string name="fab_text_alarm">Afegir Alarma</string>
+    <string name="fab_text_special">Afegir Especial</string>
+</resources>
