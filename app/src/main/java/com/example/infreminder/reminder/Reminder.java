@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "reminder_table")
 public class Reminder {
     @PrimaryKey(autoGenerate = true)
@@ -21,11 +23,15 @@ public class Reminder {
     @ColumnInfo(name= "reminder_days")
     private String days;
 
-    public Reminder(String name, String features, String days)
+    @ColumnInfo(name= "reminder_Date")
+    private Date birthday;
+
+    public Reminder(String name, String features, String days, Date birthday)
     {
         this.name = name;
         this.features = features;
         this.days = days;
+        this.birthday = birthday;
     }
 
     public int getId() {
@@ -51,4 +57,12 @@ public class Reminder {
     public String getDays() { return days; }
 
     public void setDays(String days) { this.days = days; }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 }
