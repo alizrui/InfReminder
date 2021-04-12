@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.infreminder"
-        minSdkVersion 17 // edited by @alejandro (16 before)
+        minSdkVersion 24 //17 before // edited by @alejandro (16 before)
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

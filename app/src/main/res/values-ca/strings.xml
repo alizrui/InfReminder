@@ -23,4 +23,6 @@
     <string name="fab_text_reminder">Afegir Recordatori</string>
     <string name="fab_text_alarm">Afegir Alarma</string>
     <string name="fab_text_special">Afegir Especial</string>
+    <string name="lista">Llista</string>
+    <string name="calendario">Calendari</string>
 </resources>

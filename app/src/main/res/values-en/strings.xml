@@ -23,4 +23,6 @@
     <string name="fab_text_reminder">Add New Reminder</string>
     <string name="fab_text_alarm">"Add New Alarm "</string>
     <string name="fab_text_special">Add New Special</string>
+    <string name="lista">List</string>
+    <string name="calendario">Calendar</string>
 </resources>

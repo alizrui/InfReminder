@@ -23,5 +23,7 @@
     <string name="fab_text_alarm">Añadir Alarma</string>
     <string name="fab_text_special">Añadir Especial</string>
     <string name="fab_text_reminder">Añadir Recordatorio</string>
+    <string name="lista">Lista</string>
+    <string name="calendario">Calendario</string>
 
 </resources>

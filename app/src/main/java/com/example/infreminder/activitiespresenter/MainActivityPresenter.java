@@ -2,7 +2,9 @@ package com.example.infreminder.activitiespresenter;
 
 
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -12,7 +14,6 @@ import com.example.infreminder.activitiespresenter.interfaces.I_MainActivityPres
 import com.example.infreminder.fragmentsview.CreateAlarmFragment;
 import com.example.infreminder.fragmentsview.CreateReminderFragment;
 import com.example.infreminder.fragmentsview.ReminderListFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivityPresenter implements I_MainActivityPresenter {
 
@@ -24,6 +25,7 @@ public class MainActivityPresenter implements I_MainActivityPresenter {
 
     @Override
     public void updateFragments(int idButton) {
+
         Class<? extends Fragment> fragmentToAdd = null;
         Fragment fragmentToRemove = null; // not used yet
 
@@ -31,14 +33,10 @@ public class MainActivityPresenter implements I_MainActivityPresenter {
         int layout = R.id.fcvFragment;
 
         switch(idButton) {
-
-            case R.id.bCreateAlarm:
+            case R.id.fab_alarm:
                 fragmentToAdd = CreateAlarmFragment.class;
                 break;
-            case R.id.bShow:
-                fragmentToAdd = ReminderListFragment.class;
-                break;
-            case R.id.bCreateReminder:
+            case R.id.fab_reminder:
                 fragmentToAdd = CreateReminderFragment.class;
                 break;
         }
@@ -59,6 +57,7 @@ public class MainActivityPresenter implements I_MainActivityPresenter {
         // Make changes effective
         transaction.commit();
     }
+
 
 
 }
