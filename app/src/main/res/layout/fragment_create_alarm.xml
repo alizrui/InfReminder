@@ -50,26 +50,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-       <!--- <EditText
-        android:id="@+id/etName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="@string/name"
-        android:layout_margin="8dp"
-        android:importantForAutofill="no"
-        android:inputType="none" />
-
-        <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="@string/description"
-        android:layout_margin="8dp"
-        android:importantForAutofill="no"
-        android:inputType="none" /> -->
-
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
