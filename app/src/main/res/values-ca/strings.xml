@@ -25,4 +25,6 @@
     <string name="fab_text_special">Afegir Especial</string>
     <string name="lista">Llista</string>
     <string name="calendario">Calendari</string>
+    <string name="fecha">Data</string>
+    <string name="cancel">Cancel·lar</string>
 </resources>

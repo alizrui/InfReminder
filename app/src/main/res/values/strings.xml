@@ -25,5 +25,7 @@
     <string name="fab_text_reminder">Añadir Recordatorio</string>
     <string name="lista">Lista</string>
     <string name="calendario">Calendario</string>
+    <string name="fecha">Fecha</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>
