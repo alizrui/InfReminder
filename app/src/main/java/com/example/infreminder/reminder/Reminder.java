@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONObject;
+
 import java.util.Date;
 
 @Entity(tableName = "reminder_table")
@@ -23,15 +25,15 @@ public class Reminder {
     @ColumnInfo(name= "reminder_days")
     private String days;
 
-    @ColumnInfo(name= "reminder_Date")
-    private Date birthday;
+    @ColumnInfo(name= "reminder_json")
+    private String json;
 
-    public Reminder(String name, String features, String days, Date birthday)
+    public Reminder(String name, String features, String days, String json)
     {
         this.name = name;
         this.features = features;
         this.days = days;
-        this.birthday = birthday;
+        this.json = json;
     }
 
     public int getId() {
@@ -58,11 +60,7 @@ public class Reminder {
 
     public void setDays(String days) { this.days = days; }
 
-    public Date getBirthday() {
-        return birthday;
-    }
+    public String getJson() { return json; }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
+    public void setJson(String json) { this.json = json; }
 }
