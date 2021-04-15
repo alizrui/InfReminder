@@ -32,8 +32,6 @@ public class CreateReminderFragment extends Fragment {
         tiDate = (TextInputLayout) view.findViewById(R.id.prueba);
         tieDate = (TextInputEditText) view.findViewById(R.id.tIDay);
         tiDate.setError("La fecha no tiene el formato correcto");
-        List<Reminder> prueba = ReminderDatabase.getInstance(getContext()).reminderDao().getReminders();
-
         tieDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

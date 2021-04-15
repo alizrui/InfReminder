@@ -7,12 +7,14 @@ import androidx.room.PrimaryKey;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity(tableName = "reminder_table")
 public class Reminder {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
+
     @NonNull
     @ColumnInfo(name = "reminder_name")
     private String name;
@@ -25,15 +27,19 @@ public class Reminder {
     @ColumnInfo(name= "reminder_days")
     private String days;
 
-    @ColumnInfo(name= "reminder_json")
-    private String json;
+    @NonNull
+    @ColumnInfo(name= "reminder_date")
+    private Calendar date;
 
-    public Reminder(String name, String features, String days, String json)
+
+
+    public Reminder(int id, String name, String features, String days, Calendar date)
     {
+        this.id = id;
         this.name = name;
         this.features = features;
         this.days = days;
-        this.json = json;
+        this.date = date;
     }
 
     public int getId() {
@@ -60,7 +66,7 @@ public class Reminder {
 
     public void setDays(String days) { this.days = days; }
 
-    public String getJson() { return json; }
+    public Calendar getDate() { return date; }
 
-    public void setJson(String json) { this.json = json; }
+    public void setDate(Calendar date) { this.date = date; }
 }
