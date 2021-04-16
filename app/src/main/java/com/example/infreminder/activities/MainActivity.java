@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,6 +20,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.infreminder.R;
 import com.example.infreminder.activities.interfaces.I_MainActivity;
 import com.example.infreminder.activitiespresenter.MainActivityPresenter;
@@ -42,13 +47,12 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     private boolean fragmentActive;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         fragmentActive = false;
-
         //Floating Buttons
         fMain = findViewById(R.id.fab_principal);
         fAlarm = findViewById(R.id.fab_alarm);
@@ -88,7 +92,15 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_settings, menu);
+        return true;
+    }
+
+    @Override
     public void onBackPressed() {
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         if(fragmentActive){
             pager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);

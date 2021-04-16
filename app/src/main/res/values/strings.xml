@@ -27,5 +27,7 @@
     <string name="calendario">Calendario</string>
     <string name="fecha">Fecha</string>
     <string name="cancel">Cancelar</string>
+    <string name="info">Información</string>
+    <string name="alarmatorio" translatable="false">by Alarmatorio</string>
 
 </resources>
