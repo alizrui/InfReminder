@@ -8,7 +8,7 @@ import androidx.room.Update;
 import java.util.List;
 import com.example.infreminder.reminder.Reminder;
 @Dao
-public interface reminderDao {
+public interface ReminderDao {
     @Query("SELECT * FROM reminder_table")
     List<Reminder> getReminders();
 

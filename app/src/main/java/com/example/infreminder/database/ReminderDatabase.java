@@ -23,6 +23,6 @@ public abstract class ReminderDatabase extends RoomDatabase {
         return reminderDatabase;
     }
 
-    public abstract reminderDao reminderDao();
+    public abstract ReminderDao reminderDao();
 
 }
