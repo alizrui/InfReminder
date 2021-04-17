@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
     private TextView tAlarm,tSpecial,tReminder;
     private boolean isOpen;
-    //private Animation animFabOpen, animFabClose;
+    private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward;
 
     private boolean fragmentActive;
 
@@ -62,8 +62,13 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         tAlarm = findViewById(R.id.t_alarm);
         tSpecial = findViewById(R.id.t_special);
         tReminder = findViewById(R.id.t_reminder);
-        //animFabOpen = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_open);
-        //animFabClose = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_close);
+
+        animFabOpen = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_open);
+        animFabClose = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_close);
+
+        // {Nieves} no consigo que funcione sin que al pasar de fragment desaparezca, seguiré intentandolo
+       // animFabRotateForward= AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_rotate_forward);
+       // animFabRotateBackward = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_rotate_backward);
 
         isOpen = true;
         showMenu(null);
@@ -100,14 +105,15 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     @Override
     public void onBackPressed() {
+
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         if(fragmentActive){
             pager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
             fcView.setVisibility(View.INVISIBLE);
             fMain.setVisibility(View.VISIBLE);
-
         }
+
 
         super.onBackPressed();
     }
@@ -116,54 +122,50 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
         /*  */
         fragmentActive = true;
-
         pager.setVisibility(View.INVISIBLE);
         tabLayout.setVisibility(View.INVISIBLE);
         fcView.setVisibility(View.VISIBLE);
         fMain.setVisibility(View.INVISIBLE);
         showMenu(null);
 
-
         final int clickedButton = view.getId();
         logic.updateFragments(clickedButton);
     }
 
 
+
+
     public void showMenu(View v){
         if (isOpen) {
-            fAlarm.setVisibility(View.INVISIBLE);
-            fSpecial.setVisibility(View.INVISIBLE);
-            fReminder.setVisibility(View.INVISIBLE);
+            fAlarm.setAnimation(animFabClose);
+            fSpecial.setAnimation(animFabClose);
+            fReminder.setAnimation(animFabClose);
+            animFabClose.start();
+
+            fAlarm.setClickable(false);
+            fSpecial.setClickable(false);
+            fReminder.setClickable(false);
+
             tAlarm.setVisibility(View.INVISIBLE);
             tSpecial.setVisibility(View.INVISIBLE);
             tReminder.setVisibility(View.INVISIBLE);
-            //Quiero ponerle animación, pero no funciona. Está en proceso (NIEVES)
-            /*
-                fAlarm.setAnimation(animFabClose);
-                    fSpecial.setAnimation(animFabClose);
-                    fReminder.setAnimation(animFabClose);
-                    /*
-
-                    */
 
             isOpen = false;
         } else {
-            fAlarm.setVisibility(View.VISIBLE);
-            fSpecial.setVisibility(View.VISIBLE);
-            fReminder.setVisibility(View.VISIBLE);
+            fAlarm.setAnimation(animFabOpen);
+            fSpecial.setAnimation(animFabOpen);
+            fReminder.setAnimation(animFabOpen);
+            animFabOpen.start();
+
+
+            fAlarm.setClickable(true);
+            fSpecial.setClickable(true);
+            fReminder.setClickable(true);
+
             tAlarm.setVisibility(View.VISIBLE);
             tSpecial.setVisibility(View.VISIBLE);
             tReminder.setVisibility(View.VISIBLE);
 
-            //Quiero ponerle animación, pero no funciona. Está en proceso (NIEVES)
-            /*
-            fAlarm.setAnimation(animFabOpen);
-            fSpecial.setAnimation(animFabOpen);
-            fReminder.setAnimation(animFabOpen);
-            /*
-            mAddUserText.setVisibility(View.VISIBLE);
-            mAddContactText.setVisibility(View.VISIBLE);
-            */
             isOpen = true;
         }
     }
