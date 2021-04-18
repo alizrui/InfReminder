@@ -1,4 +1,4 @@
-package com.example.infreminder.fragmentsview;
+package com.example.infreminder.view;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -13,16 +13,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.infreminder.R;
-import com.example.infreminder.database.ReminderDatabase;
-import com.example.infreminder.reminder.Reminder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
-public class CreateReminderFragment extends Fragment {
+public class CreateReminderView extends Fragment {
     TextInputLayout tiDate;
     TextInputEditText tieDate;
     @Nullable

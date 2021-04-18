@@ -1,7 +1,6 @@
-package com.example.infreminder.fragmentsview;
+package com.example.infreminder.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +15,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.infreminder.R;
 import com.example.infreminder.dialogs.DialogAlarmDaysFragment;
-import com.example.infreminder.fragmentpresenter.interfaces.I_CreateAlarmPresenter;
-import com.example.infreminder.fragmentsview.interfaces.I_CreateAlarmFragment;
+import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
+import com.example.infreminder.view.interfaces.I_CreateAlarmView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragment {
+public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
-    private I_CreateAlarmPresenter i_createAlarmPresenter;
-    private I_CreateAlarmPresenter presenter;
+    private I_CreateAlarmLogic i_createAlarmLogic;
+    private I_CreateAlarmLogic presenter;
 
 
     /* Views */
@@ -42,7 +41,7 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
     /* */
     private ArrayList<String> daysSelected;
 
-    public CreateAlarmFragment() { }
+    public CreateAlarmView() { }
 
 
     @Nullable
@@ -84,8 +83,9 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
     public void createAlarm() {
         String name = etName.getText().toString();
         String desc = etDes.getText().toString();
-        int hour = tpTime.getCurrentHour();
-        int min = tpTime.getCurrentMinute();
+        //int hour = tpTime.getCurrentHour();
+        int hour = tpTime.getHour();
+        int min = tpTime.getMinute();
         ArrayList<String> days = new ArrayList<>();
         //boolean soundOnce = false;
 
@@ -104,6 +104,9 @@ public class CreateAlarmFragment extends Fragment implements I_CreateAlarmFragme
         } else if(rbSelectDays.isChecked()){
             days = daysSelected;
         }
+
+        // Añadir alarma a BD
+
     }
 
     private String dayTranslator(int day){ // esto debería ir en la lógica? cual es la lógica?

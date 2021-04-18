@@ -1,25 +1,22 @@
-package com.example.infreminder.activitiespresenter;
+package com.example.infreminder.activitieslogic;
 
 
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infreminder.R;
 import com.example.infreminder.activities.interfaces.I_MainActivity;
-import com.example.infreminder.activitiespresenter.interfaces.I_MainActivityPresenter;
-import com.example.infreminder.fragmentsview.CreateAlarmFragment;
-import com.example.infreminder.fragmentsview.CreateReminderFragment;
-import com.example.infreminder.fragmentsview.ReminderListFragment;
+import com.example.infreminder.activitieslogic.interfaces.I_MainActivityLogic;
+import com.example.infreminder.view.CreateAlarmView;
+import com.example.infreminder.view.CreateReminderView;
 
-public class MainActivityPresenter implements I_MainActivityPresenter {
+public class MainActivityLogic implements I_MainActivityLogic {
 
     private I_MainActivity i_MainActivity;
 
-    public MainActivityPresenter(I_MainActivity activity) {
+    public MainActivityLogic(I_MainActivity activity) {
         i_MainActivity = activity;
     }
 
@@ -34,10 +31,10 @@ public class MainActivityPresenter implements I_MainActivityPresenter {
 
         switch(idButton) {
             case R.id.fab_alarm:
-                fragmentToAdd = CreateAlarmFragment.class;
+                fragmentToAdd = CreateAlarmView.class;
                 break;
             case R.id.fab_reminder:
-                fragmentToAdd = CreateReminderFragment.class;
+                fragmentToAdd = CreateReminderView.class;
                 break;
         }
 

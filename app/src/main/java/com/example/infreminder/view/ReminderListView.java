@@ -1,4 +1,4 @@
-package com.example.infreminder.fragmentsview;
+package com.example.infreminder.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ReminderListFragment extends Fragment {
+public class ReminderListView extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<String> nameTitle ;
     private ArrayList<String> rDate ;
@@ -54,7 +54,7 @@ public class ReminderListFragment extends Fragment {
 
     }
 
-    public ReminderListFragment(){}
+    public ReminderListView(){}
 
 
 }

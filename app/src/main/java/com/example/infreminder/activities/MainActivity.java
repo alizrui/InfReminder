@@ -1,36 +1,26 @@
 package com.example.infreminder.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.infreminder.R;
 import com.example.infreminder.activities.interfaces.I_MainActivity;
-import com.example.infreminder.activitiespresenter.MainActivityPresenter;
-import com.example.infreminder.activitiespresenter.interfaces.I_MainActivityPresenter;
+import com.example.infreminder.activitieslogic.MainActivityLogic;
+import com.example.infreminder.activitieslogic.interfaces.I_MainActivityLogic;
 import com.example.infreminder.adapter.ViewPagerFragmentStateAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
@@ -39,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private TabLayout tabLayout;
 
 
-    private I_MainActivityPresenter logic;
+    private I_MainActivityLogic logic;
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
     private TextView tAlarm,tSpecial,tReminder;
     private boolean isOpen;
@@ -73,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         isOpen = true;
         showMenu(null);
 
-        logic = new MainActivityPresenter(this);
+        logic = new MainActivityLogic(this);
 
         pager = findViewById(R.id.viewPager);
         fcView = findViewById(R.id.fcvFragment);
