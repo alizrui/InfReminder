@@ -27,7 +27,9 @@
     <string name="calendario">Calendario</string>
     <string name="fecha">Fecha</string>
     <string name="cancel">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
     <string name="info">Información</string>
+    <string name ="title_cancel">¿Está seguro de querer cancelar la operación?</string>
     <string name="alarmatorio" translatable="false">by Alarmatorio</string>
 
 </resources>

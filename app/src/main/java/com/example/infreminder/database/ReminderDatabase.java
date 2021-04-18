@@ -17,7 +17,6 @@ public abstract class ReminderDatabase extends RoomDatabase {
         if (reminderDatabase == null) {
             reminderDatabase = Room
                     .databaseBuilder(context, ReminderDatabase.class, "reminder_database")
-                    .allowMainThreadQueries()
                     .build();
         }
         return reminderDatabase;

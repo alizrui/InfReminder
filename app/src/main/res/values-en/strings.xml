@@ -28,4 +28,6 @@
     <string name="fecha">Date</string>
     <string name="cancel">Cancel</string>
     <string name="info">Info</string>
+    <string name="title_cancel">¿Are you sure you want to cancel the operation?</string>
+    <string name="aceptar">Accept</string>
 </resources>
