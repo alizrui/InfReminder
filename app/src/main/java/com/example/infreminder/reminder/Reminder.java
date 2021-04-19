@@ -1,5 +1,7 @@
 package com.example.infreminder.reminder;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -33,13 +35,27 @@ public class Reminder {
 
 
 
-    public Reminder(int id, String name, String features, String days, Calendar date)
+    public Reminder( String name, String features, String days, Calendar date)
     {
-        this.id = id;
+        //this.id = id;
         this.name = name;
         this.features = features;
         this.days = days;
         this.date = date;
+
+        Calendar calendarSchema = Calendar.getInstance();
+        calendarSchema.set(2021, 0, 0, 0, 0, 0);
+
+        long millis = date.getTimeInMillis() - calendarSchema.getTimeInMillis();
+        // date de alarmas, día de esta semana que vaya a sonar
+
+        millis = millis / 1000;
+        millis = millis / 60;
+
+        millis = millis * 10;
+
+        // falta comprobar que no haya igual
+        this.id = (int) millis;
     }
 
     public int getId() {

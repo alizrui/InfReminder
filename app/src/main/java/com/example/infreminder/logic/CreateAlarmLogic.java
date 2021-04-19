@@ -17,10 +17,13 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
     }
 
     @Override
-    public void createAlarm(int id, int hour, int min, String name, String desc, ArrayList<Integer> days) {
+    public void createAlarm(int hour, int min, String name, String desc, ArrayList<Integer> days) {
         ArrayList<String> nameDays = new ArrayList<>();
-        //for(int i =days.)
-        Log.d("LOL",  id + " " + hour + " " + min + " " + name + " " +desc + " " +days);
+        for(Integer day:days){
+            nameDays.add(dayTranslator(day));
+        }
+
+        Log.d("LOL",    " " + hour + " " + min + " " + name + " " +desc + " " +nameDays);
     }
 
     private String dayTranslator(int day){ // esto debería ir en la lógica? cual es la lógica?

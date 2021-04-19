@@ -111,17 +111,16 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     public void updateFragments(View view) {
 
         /*  */
+        showMenu(null);
         fragmentActive = true;
         pager.setVisibility(View.INVISIBLE);
         tabLayout.setVisibility(View.INVISIBLE);
         fcView.setVisibility(View.VISIBLE);
         fMain.setVisibility(View.INVISIBLE);
-        showMenu(null);
 
         final int clickedButton = view.getId();
         logic.updateFragments(clickedButton);
     }
-
 
 
 

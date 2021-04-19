@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -43,10 +44,20 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
     public CreateAlarmView() { }
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_alarm, container, false);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+            }
+        };
+        //requireActivity().getOnBackPressedDispatcher().addCallback(this,callback);
 
         createAlarmLogic = new CreateAlarmLogic(this);
 
@@ -82,7 +93,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     }
 
     public void createAlarm() {
-        int id = 1; // 1 de enero de 2020
+
         String name = etName.getText().toString();
         String desc = etDes.getText().toString();
         int hour = tpTime.getHour();
@@ -106,7 +117,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             days = daysSelected;
         }
 
-        createAlarmLogic.createAlarm(id, hour, min, name, desc, days); // falta meter otras características
+        createAlarmLogic.createAlarm(hour, min, name, desc, days); // falta meter otras características
 
         // Añadir alarma a BD (lógica)
 
