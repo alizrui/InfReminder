@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -95,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     @Override
     public void onBackPressed() {
-
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
         if(fragmentActive){
             pager.setVisibility(View.VISIBLE);
@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             fMain.setVisibility(View.VISIBLE);
         }
 
-
         super.onBackPressed();
+        setResult(Activity.RESULT_CANCELED);
     }
 
     public void updateFragments(View view) {

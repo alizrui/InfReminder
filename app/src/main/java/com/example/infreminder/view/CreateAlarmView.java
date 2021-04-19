@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.infreminder.R;
 import com.example.infreminder.dialogs.DialogAlarmDaysFragment;
+import com.example.infreminder.logic.CreateAlarmLogic;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.view.interfaces.I_CreateAlarmView;
 
@@ -24,9 +25,7 @@ import java.util.Calendar;
 
 public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
-    private I_CreateAlarmLogic i_createAlarmLogic;
-    private I_CreateAlarmLogic presenter;
-
+    private I_CreateAlarmLogic createAlarmLogic;
 
     /* Views */
     private TimePicker tpTime;
@@ -39,15 +38,17 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     private Button bNewAlarm;
 
     /* */
-    private ArrayList<String> daysSelected;
+    private ArrayList<Integer> daysSelected;
+
 
     public CreateAlarmView() { }
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_alarm, container, false);
+
+        createAlarmLogic = new CreateAlarmLogic(this);
 
         /*
         * Keep a reference to views in the create alarm fragment
@@ -70,7 +71,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         });
 
         getChildFragmentManager().setFragmentResultListener("requestDays", this,
-                (requestKey, result) -> daysSelected = result.getStringArrayList("days"));
+                (requestKey, result) -> daysSelected = result.getIntegerArrayList("days"));
 
         return view;
     }
@@ -81,64 +82,36 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     }
 
     public void createAlarm() {
+        int id = 1; // 1 de enero de 2020
         String name = etName.getText().toString();
         String desc = etDes.getText().toString();
-        //int hour = tpTime.getCurrentHour();
         int hour = tpTime.getHour();
         int min = tpTime.getMinute();
-        ArrayList<String> days = new ArrayList<>();
+        ArrayList<Integer> days = new ArrayList<>();
         //boolean soundOnce = false;
 
         if (rbOnlyOnce.isChecked()) {
             Calendar rightNow = Calendar.getInstance();
             if (rightNow.get(Calendar.HOUR_OF_DAY) > hour ||
                     (rightNow.get(Calendar.HOUR_OF_DAY) == hour && rightNow.get(Calendar.MINUTE) >= min)) {
-                days.add(dayTranslator(rightNow.get(Calendar.DAY_OF_WEEK) + 1));
+                days.add(rightNow.get(Calendar.DAY_OF_WEEK) + 1);
             } else {
-                days.add(dayTranslator(rightNow.get(Calendar.DAY_OF_WEEK)));
+                days.add(rightNow.get(Calendar.DAY_OF_WEEK));
             }
 //            soundOnce = true;
 
         } else if (rbEveryDay.isChecked()) {
-            for(int i = 1; i <= 7; i++) days.add(dayTranslator(i));
+            for(int i = 1; i <= 7; i++) days.add(i);
         } else if(rbSelectDays.isChecked()){
             days = daysSelected;
         }
 
-        // Añadir alarma a BD
+        createAlarmLogic.createAlarm(id, hour, min, name, desc, days); // falta meter otras características
+
+        // Añadir alarma a BD (lógica)
 
     }
 
-    private String dayTranslator(int day){ // esto debería ir en la lógica? cual es la lógica?
-        String res = "";
-        switch(day){
-            case Calendar.MONDAY: // 2
-                res ="Monday";
-                break;
-            case Calendar.TUESDAY: // 3
-                res = "Tuesday";
-                break;
-            case Calendar.WEDNESDAY: // 4
-                res = "Wednesday";
-                break;
-            case Calendar.THURSDAY: // 5
-                res = "Thursday";
-                break;
-            case Calendar.FRIDAY: // 6
-                res = "Friday";
-                break;
-            case Calendar.SATURDAY: // 7
-                res = "Saturday";
-                break;
-            case Calendar.SUNDAY: // 1
-                res = "Sunday";
-                break;
-            default:
-                res = "";
-                break;
-        }
-        return res;
-    }
 
 
 }

@@ -62,19 +62,19 @@ public class DialogAlarmDaysFragment extends DialogFragment {
 
     private void buttonListener(){
         bOkDays.setOnClickListener(v -> {
-            ArrayList<String> daysSelected = new ArrayList<>();
+            ArrayList<Integer> daysSelected = new ArrayList<>();
 
-            if (cbSunday.isChecked()) daysSelected.add("Sunday");
-            if (cbMonday.isChecked()) daysSelected.add("Monday");
-            if (cbTuesday.isChecked()) daysSelected.add("Tuesday");
-            if (cbWednesday.isChecked()) daysSelected.add("Wednesday");
-            if (cbThursday.isChecked()) daysSelected.add("Thursday");
-            if (cbFriday.isChecked()) daysSelected.add("Friday");
-            if (cbSaturday.isChecked()) daysSelected.add("Saturday");
+            if (cbSunday.isChecked()) daysSelected.add(1);
+            if (cbMonday.isChecked()) daysSelected.add(2);
+            if (cbTuesday.isChecked()) daysSelected.add(3);
+            if (cbWednesday.isChecked()) daysSelected.add(4);
+            if (cbThursday.isChecked()) daysSelected.add(5);
+            if (cbFriday.isChecked()) daysSelected.add(6);
+            if (cbSaturday.isChecked()) daysSelected.add(7);
 
-            Log.d("DIA","HASHECHO");
+
             Bundle result = new Bundle();
-            result.putStringArrayList("days", daysSelected);
+            result.putIntegerArrayList("days", daysSelected);
             getParentFragmentManager().setFragmentResult("requestDays", result);
 
             dismiss();
