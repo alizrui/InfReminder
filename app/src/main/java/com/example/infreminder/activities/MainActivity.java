@@ -1,24 +1,31 @@
 package com.example.infreminder.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.infreminder.R;
 import com.example.infreminder.activities.interfaces.I_MainActivity;
 import com.example.infreminder.activitieslogic.MainActivityLogic;
 import com.example.infreminder.activitieslogic.interfaces.I_MainActivityLogic;
 import com.example.infreminder.adapter.ViewPagerFragmentStateAdapter;
+import com.example.infreminder.fragmentsview.InfoFragment;
+//import com.example.infreminder.fragmentsview.SettingsFragment;
+import com.example.infreminder.fragmentsview.SettingsFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,8 +40,9 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private I_MainActivityLogic logic;
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
     private TextView tAlarm,tSpecial,tReminder;
+    private ImageView backgroundWhite;
     private boolean isOpen;
-    private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward;
+    private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward,enterLeftToRight;
 
     private boolean fragmentActive;
 
@@ -44,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentActive = false;
+        backgroundWhite = findViewById(R.id.img_background_white);
         //Floating Buttons
         fMain = findViewById(R.id.fab_principal);
         fAlarm = findViewById(R.id.fab_alarm);
@@ -54,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         tSpecial = findViewById(R.id.t_special);
         tReminder = findViewById(R.id.t_reminder);
 
+        //Animations
+        enterLeftToRight = AnimationUtils.loadAnimation(MainActivity.this,R.anim.enter_left_to_right);
         animFabOpen = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_open);
         animFabClose = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_close);
 
@@ -96,13 +107,20 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     @Override
     public void onBackPressed() {
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
+        overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_right_to_left);
+
         if(fragmentActive){
+
             pager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
+            pager.setAnimation(enterLeftToRight);
+            tabLayout.setAnimation(enterLeftToRight);
             fcView.setVisibility(View.INVISIBLE);
+
             fMain.setVisibility(View.VISIBLE);
         }
+
 
         super.onBackPressed();
     }
@@ -123,8 +141,11 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
 
 
+
+
     public void showMenu(View v){
         if (isOpen) {
+            backgroundWhite.setVisibility(View.INVISIBLE);
             fAlarm.setAnimation(animFabClose);
             fSpecial.setAnimation(animFabClose);
             fReminder.setAnimation(animFabClose);
@@ -140,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
             isOpen = false;
         } else {
+            backgroundWhite.setVisibility(View.VISIBLE);
             fAlarm.setAnimation(animFabOpen);
             fSpecial.setAnimation(animFabOpen);
             fReminder.setAnimation(animFabOpen);
@@ -163,4 +185,59 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     public MainActivity getMainActivity() {
         return this;
     }
-}
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        fragmentActive = true;
+        pager.setVisibility(View.INVISIBLE);
+        tabLayout.setVisibility(View.INVISIBLE);
+        fcView.setVisibility(View.VISIBLE);
+        fMain.setVisibility(View.INVISIBLE);
+
+        fAlarm.setVisibility(View.INVISIBLE);
+        fSpecial.setVisibility(View.INVISIBLE);
+        fReminder.setVisibility(View.INVISIBLE);
+        tAlarm.setVisibility(View.INVISIBLE);
+        tSpecial.setVisibility(View.INVISIBLE);
+        tReminder.setVisibility(View.INVISIBLE);
+
+        int id = item.getItemId();
+        Class<? extends Fragment> fragmentToAdd = null;
+        Fragment fragmentToRemove = null; // not used yet
+        Fragment settingsFragment = new SettingsFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fcvFragment,settingsFragment);
+        ft.commit();
+    /*
+        switch(id){
+            case R.id.menu_item_settings:
+                fragmentToAdd = SettingsFragment.class;
+                break;
+            case R.id.menu_item_info:
+                fragmentToAdd = InfoFragment.class;
+                break;
+
+        }
+        //fragmentToAdd = SettingsFragment.class;
+        Bundle bundle = null;
+        int layout = R.id.fcvFragment;
+        // Get a FragmentTransaction to begin some operations with the current FragmentManager
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setReorderingAllowed(true);
+        // Remove the required Fragment NOT USED YET
+        if (fragmentToRemove != null) {
+            transaction.remove(fragmentToRemove);
+        }
+        // Replace the Fragments in the required Layout by the selected one
+        if (fragmentToAdd != null) {
+            transaction.replace(layout, fragmentToAdd, bundle);
+        }
+        // Add the transaction to the BackStack, so it can be reversed by pressing the Back button
+        transaction.addToBackStack(null);
+        // Make changes effective
+        transaction.commit();
+        return super.onOptionsItemSelected(item);
+        */
+        return super.onOptionsItemSelected(item);
+    }
+    }

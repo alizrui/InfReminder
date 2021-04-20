@@ -29,6 +29,6 @@
     <string name="cancel">Cancel·lar</string>
     <string name="info">Informació</string>
     <string name="title_cancel">Esteu segur que voleu cancel·lar l\'operació?</string>
-    <string name="aceptar">Acceptar</string>
+    <string name="reminder">Recordatori</string>
     <string name="days_error">No hi ha dies seleccionats</string>
 </resources>

@@ -116,7 +116,7 @@ public class CreateReminderView extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle(R.string.cancel);
                 builder.setMessage(R.string.title_cancel);
-                builder.setPositiveButton(R.string.aceptar, (dialog, which) -> {
+                builder.setPositiveButton(R.string.accept, (dialog, which) -> {
                     getActivity().onBackPressed();
                 });
                 builder.setNegativeButton(R.string.cancel, null);

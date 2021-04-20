@@ -27,10 +27,20 @@
     <string name="calendario">Calendario</string>
     <string name="fecha">Fecha</string>
     <string name="cancel">Cancelar</string>
-    <string name="aceptar">Aceptar</string>
     <string name="info">Información</string>
-    <string name ="title_cancel">¿Está seguro de querer cancelar la operación?</string>
+    <string name="title_cancel">¿Está seguro de querer cancelar la operación?</string>
     <string name="alarmatorio" translatable="false">by Alarmatorio</string>
+    <!-- Preference Titles -->
+    <string name="reminder">Recordatorio</string>
+
+
+
+
+    <!-- Messages Preferences -->
+
+
+    <!-- Sync Preferences -->
+
     <string name="days_error">No hay días seleccionados</string>
 
 </resources>
