@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         }
 
         super.onBackPressed();
-        setResult(Activity.RESULT_CANCELED);
     }
 
     public void updateFragments(View view) {

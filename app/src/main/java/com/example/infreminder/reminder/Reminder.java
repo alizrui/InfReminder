@@ -8,6 +8,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Entity(tableName = "reminder_table")
 public class Reminder {
@@ -43,13 +44,11 @@ public class Reminder {
         calendarSchema.set(2021, 0, 0, 0, 0, 0);
 
         long millis = date.getTimeInMillis() - calendarSchema.getTimeInMillis();
-        // date de alarmas, día de esta semana que vaya a sonar
 
         millis = millis / 1000;
         millis = millis / 60;
 
         millis = millis * 10;
-
 
         this.id = (int) millis;
     }

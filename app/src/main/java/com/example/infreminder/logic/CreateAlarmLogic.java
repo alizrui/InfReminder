@@ -24,11 +24,12 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
     public void createAlarm(int hour, int min, String name, String desc, ArrayList<Integer> days) {
         Calendar rightNow = Calendar.getInstance();
         int daysToNext = daysToNext(days, rightNow, hour, min);
-        // desc es un campo del json¡
+
         /* GregorianCalendar(year,month,dayofmonth,hourofday,minute) */
         Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min);
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
+        // desc es un campo del json¡ hacer gson
         Reminder reminder = new Reminder(name, desc,days.toString(), dateAlarm);
 
         new Thread(() -> {
