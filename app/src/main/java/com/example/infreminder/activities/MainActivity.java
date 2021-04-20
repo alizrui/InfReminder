@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             pager.setAnimation(enterLeftToRight);
             tabLayout.setAnimation(enterLeftToRight);
             fcView.setVisibility(View.INVISIBLE);
-
+            enterLeftToRight.start();
             fMain.setVisibility(View.VISIBLE);
         }
 
@@ -201,43 +201,13 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         tSpecial.setVisibility(View.INVISIBLE);
         tReminder.setVisibility(View.INVISIBLE);
 
-        int id = item.getItemId();
-        Class<? extends Fragment> fragmentToAdd = null;
-        Fragment fragmentToRemove = null; // not used yet
+        //int id = item.getItemId();
+        //Class<? extends Fragment> fragmentToAdd = null;
+        //Fragment fragmentToRemove = null; // not used yet
         Fragment settingsFragment = new SettingsFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fcvFragment,settingsFragment);
         ft.commit();
-    /*
-        switch(id){
-            case R.id.menu_item_settings:
-                fragmentToAdd = SettingsFragment.class;
-                break;
-            case R.id.menu_item_info:
-                fragmentToAdd = InfoFragment.class;
-                break;
-
-        }
-        //fragmentToAdd = SettingsFragment.class;
-        Bundle bundle = null;
-        int layout = R.id.fcvFragment;
-        // Get a FragmentTransaction to begin some operations with the current FragmentManager
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setReorderingAllowed(true);
-        // Remove the required Fragment NOT USED YET
-        if (fragmentToRemove != null) {
-            transaction.remove(fragmentToRemove);
-        }
-        // Replace the Fragments in the required Layout by the selected one
-        if (fragmentToAdd != null) {
-            transaction.replace(layout, fragmentToAdd, bundle);
-        }
-        // Add the transaction to the BackStack, so it can be reversed by pressing the Back button
-        transaction.addToBackStack(null);
-        // Make changes effective
-        transaction.commit();
-        return super.onOptionsItemSelected(item);
-        */
         return super.onOptionsItemSelected(item);
     }
     }
