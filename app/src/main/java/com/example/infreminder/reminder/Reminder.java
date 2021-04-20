@@ -7,10 +7,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.json.JSONObject;
-
 import java.util.Calendar;
-import java.util.Date;
 
 @Entity(tableName = "reminder_table")
 public class Reminder {
@@ -35,9 +32,8 @@ public class Reminder {
 
 
 
-    public Reminder( String name, String features, String days, Calendar date)
+    public Reminder(String name, String features, String days, Calendar date)
     {
-        //this.id = id;
         this.name = name;
         this.features = features;
         this.days = days;
@@ -54,7 +50,7 @@ public class Reminder {
 
         millis = millis * 10;
 
-        // falta comprobar que no haya igual
+
         this.id = (int) millis;
     }
 

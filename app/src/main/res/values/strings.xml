@@ -31,5 +31,6 @@
     <string name="info">Información</string>
     <string name ="title_cancel">¿Está seguro de querer cancelar la operación?</string>
     <string name="alarmatorio" translatable="false">by Alarmatorio</string>
+    <string name="days_error">No hay días seleccionados</string>
 
 </resources>

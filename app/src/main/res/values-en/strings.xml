@@ -30,4 +30,5 @@
     <string name="info">Info</string>
     <string name="title_cancel">¿Are you sure you want to cancel the operation?</string>
     <string name="aceptar">Accept</string>
+    <string name="days_error">No days selected</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.infreminder.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -44,7 +46,10 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
     public CreateAlarmView() { }
 
-
+    @Override
+    public CreateAlarmView getCreateAlarmView() {
+        return this;
+    }
 
     @Nullable
     @Override
@@ -57,11 +62,10 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
             }
         };
-        //requireActivity().getOnBackPressedDispatcher().addCallback(this,callback);
 
         createAlarmLogic = new CreateAlarmLogic(this);
 
-        /*
+        /**
         * Keep a reference to views in the create alarm fragment
         * */
         tpTime = view.findViewById(R.id.tpHours);
@@ -113,16 +117,23 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
         } else if (rbEveryDay.isChecked()) {
             for(int i = 1; i <= 7; i++) days.add(i);
+
         } else if(rbSelectDays.isChecked()){
             days = daysSelected;
+            if(daysSelected == null || daysSelected.isEmpty()) {
+                Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
+            return;
         }
 
+
+        // Añadir alarma a BD (logica)
         createAlarmLogic.createAlarm(hour, min, name, desc, days); // falta meter otras características
 
-        // Añadir alarma a BD (lógica)
-
     }
-
 
 
 }
