@@ -32,6 +32,8 @@
     <string name="alarmatorio" translatable="false">by Alarmatorio</string>
     <!-- Preference Titles -->
     <string name="reminder">Recordatorio</string>
+    <string name="special">Especial</string>
+    <string name="alarm">Alarma</string>
 
 
 

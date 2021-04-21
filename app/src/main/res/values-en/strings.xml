@@ -31,4 +31,6 @@
     <string name="title_cancel">¿Are you sure you want to cancel the operation?</string>
     <string name="reminder">Reminder</string>
     <string name="days_error">No days selected</string>
+    <string name="special">Special</string>
+    <string name="alarm">Alarm</string>
 </resources>

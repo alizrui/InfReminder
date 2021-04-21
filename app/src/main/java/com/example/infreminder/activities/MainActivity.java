@@ -26,6 +26,8 @@ import com.example.infreminder.adapter.ViewPagerFragmentStateAdapter;
 import com.example.infreminder.fragmentsview.InfoFragment;
 //import com.example.infreminder.fragmentsview.SettingsFragment;
 import com.example.infreminder.fragmentsview.SettingsFragment;
+import com.example.infreminder.view.CreateAlarmView;
+import com.example.infreminder.view.CreateReminderView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,15 +37,12 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private ViewPager2 pager;
     private FragmentContainerView fcView;
     private TabLayout tabLayout;
-
-
     private I_MainActivityLogic logic;
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
     private TextView tAlarm,tSpecial,tReminder;
     private ImageView backgroundWhite;
     private boolean isOpen;
     private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward,enterLeftToRight;
-
     private boolean fragmentActive;
 
 
@@ -201,12 +200,19 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         tSpecial.setVisibility(View.INVISIBLE);
         tReminder.setVisibility(View.INVISIBLE);
 
-        //int id = item.getItemId();
-        //Class<? extends Fragment> fragmentToAdd = null;
-        //Fragment fragmentToRemove = null; // not used yet
-        Fragment settingsFragment = new SettingsFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.fcvFragment,settingsFragment);
+        int id = item.getItemId();
+            Fragment fragmentToAdd = null;
+        switch(id) {
+            case R.id.menu_item_settings:
+                fragmentToAdd = new SettingsFragment();
+                break;
+            case R.id.menu_item_info:
+                fragmentToAdd = new InfoFragment();
+                break;
+        }
+        //Fragment fragmentToAdd = new SettingsFragment();
+        ft.add(R.id.fcvFragment,fragmentToAdd);
         ft.commit();
         return super.onOptionsItemSelected(item);
     }

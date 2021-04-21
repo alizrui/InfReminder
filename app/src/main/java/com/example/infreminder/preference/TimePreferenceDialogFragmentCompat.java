@@ -1,4 +1,4 @@
-package com.example.infreminder;
+package com.example.infreminder.preference;
 
 import android.app.Dialog;
 import android.os.Build;
@@ -11,17 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-/**
- * The Dialog for the {@link TimePreference}.
- *
- * @author Jakob Ulbrich
- */
+import com.example.infreminder.R;
+
 public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
 
-    /**
-     * The TimePicker widget
-     */
-    private TimePicker mTimePicker;
+    private TimePicker timePicker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,13 +26,6 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
         super.onCreate(savedInstanceState);
     }
 
-    /**
-     * Creates a new Instance of the TimePreferenceDialogFragment and stores the key of the
-     * related Preference
-     *
-     * @param key The key of the related Preference
-     * @return A new Instance of the TimePreferenceDialogFragment
-     */
 
     public static TimePreferenceDialogFragmentCompat newInstance(String key) {
         final TimePreferenceDialogFragmentCompat
@@ -50,30 +37,22 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
         return fragment;
     }
 
-
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        mTimePicker = (TimePicker) view.findViewById(R.id.edit);
+        timePicker = (TimePicker) view.findViewById(R.id.edit);
 
-        // Exception: There is no TimePicker with the id 'edit' in the dialog.
-        if (mTimePicker == null) {
+        if (timePicker == null) {
             throw new IllegalStateException("Dialog view must contain a TimePicker with id 'edit'");
         }
 
-        // Get the time from the related Preference
         Integer minutesAfterMidnight = null;
         DialogPreference preference = getPreference();
 
@@ -81,47 +60,37 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
             minutesAfterMidnight = ((TimePreference) preference).getTime();
         }
 
-        // Set the time to the TimePicker
         if (minutesAfterMidnight != null) {
             int hours = minutesAfterMidnight / 60;
             int minutes = minutesAfterMidnight % 60;
             boolean is24hour = DateFormat.is24HourFormat(getContext());
 
-            mTimePicker.setIs24HourView(is24hour);
-            mTimePicker.setCurrentHour(hours);
-            mTimePicker.setCurrentMinute(minutes);
+            timePicker.setIs24HourView(is24hour);
+            timePicker.setHour(hours);
+            timePicker.setMinute(minutes);
         }
     }
 
-    /**
-     * Called when the Dialog is closed.
-     *
-     * @param positiveResult Whether the Dialog was accepted or canceled.
-     */
+
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            // Get the current values from the TimePicker
             int hours;
             int minutes;
             if (Build.VERSION.SDK_INT >= 23) {
-                hours = mTimePicker.getHour();
-                minutes = mTimePicker.getMinute();
+                hours = timePicker.getHour();
+                minutes = timePicker.getMinute();
             } else {
-                hours = mTimePicker.getCurrentHour();
-                minutes = mTimePicker.getCurrentMinute();
+                hours = timePicker.getCurrentHour();
+                minutes = timePicker.getCurrentMinute();
             }
 
-            // Generate value to save
             int minutesAfterMidnight = (hours * 60) + minutes;
-
-            // Save the value
             DialogPreference preference = getPreference();
+
             if (preference instanceof TimePreference) {
                 TimePreference timePreference = ((TimePreference) preference);
-                // This allows the client to ignore the user value.
                 if (timePreference.callChangeListener(minutesAfterMidnight)) {
-                    // Save the value
                     timePreference.setTime(minutesAfterMidnight);
                 }
             }

@@ -4,16 +4,20 @@
 
 
     <PreferenceCategory app:title="@string/reminder">
-
-
-        <com.example.infreminder.TimePreference
-            android:title="Time"
+        <com.example.infreminder.preference.TimePreference
+            android:title="@string/reminder"
             android:key="key1"
             android:icon="@drawable/ic_time"
             android:defaultValue="90">
-
-        </com.example.infreminder.TimePreference>
-
+        </com.example.infreminder.preference.TimePreference>
     </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/alarm">
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/special">
+    </PreferenceCategory>
+
+
 
 </PreferenceScreen>

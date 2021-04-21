@@ -1,16 +1,14 @@
 package com.example.infreminder.fragmentsview;
 
-import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.preference.DialogPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.example.infreminder.R;
-import com.example.infreminder.TimePreference;
-import com.example.infreminder.TimePreferenceDialogFragmentCompat;
+import com.example.infreminder.preference.TimePreference;
+import com.example.infreminder.preference.TimePreferenceDialogFragmentCompat;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
