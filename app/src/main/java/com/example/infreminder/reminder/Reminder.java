@@ -7,6 +7,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -24,8 +25,8 @@ public class Reminder {
     private String features;
 
     @NonNull
-    @ColumnInfo(name= "reminder_days")
-    private String days;
+    @ColumnInfo(name = "reminder_days")
+    private ArrayList<String> days;
 
     @NonNull
     @ColumnInfo(name= "reminder_date")
@@ -33,7 +34,7 @@ public class Reminder {
 
 
 
-    public Reminder(String name, String features, String days, Calendar date)
+    public Reminder(String name, String features, ArrayList<String> days, Calendar date)
     {
         this.name = name;
         this.features = features;
@@ -73,9 +74,9 @@ public class Reminder {
 
     public void setFeatures(String features) { this.features = features; }
 
-    public String getDays() { return days; }
+    public ArrayList<String> getDays() { return days; }
 
-    public void setDays(String days) { this.days = days; }
+    public void setDays(ArrayList<String> days) { this.days = days; }
 
     public Calendar getDate() { return date; }
 

@@ -30,7 +30,12 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
         // desc es un campo del json¡ hacer gson
-        Reminder reminder = new Reminder(name, desc,days.toString(), dateAlarm);
+
+        //Reminder reminder = new Reminder(name, desc,days.toString(), dateAlarm);
+        ArrayList<String> days2 = new ArrayList<>();
+        days2.add("Lunes");
+        Reminder reminder = new Reminder(name, desc,days2, dateAlarm);
+        
 
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().getReminders();

@@ -94,12 +94,14 @@ public class CreateReminderView extends Fragment {
             @Override
             public void onClick(View v) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+                ArrayList<String> days2 = new ArrayList<>();
+                days2.add("Lunes");
 
                 new Thread(() -> {
 
                     Reminder reminder = new Reminder(
                             tieName.getText().toString(),
-                            tieDescription.toString(),"",
+                            tieDescription.toString(),days2,
                             Calendar.getInstance());
                     ReminderDatabase.getInstance(getContext()).reminderDao().addReminder(reminder);
 
