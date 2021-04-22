@@ -10,22 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infreminder.R;
+import com.example.infreminder.reminder.Reminder;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapter.ViewHolder> {
     Context context;
-    List<String> listName;
-    List<String> listDate;
-    List<String> listHour;
+    private List<Reminder> reminders;
 
 
-    public ReminderListAdapter(Context c ,List<String> ln, List<String> ld,List<String> lh){
+    public ReminderListAdapter(Context c ,List<Reminder> reminders) {
         this.context =c;
-        this.listName = ln;
-        this.listDate = ld;
-        this.listHour = lh;
+        this.reminders = reminders;
+    }
 
+    public void updateReminders(List<Reminder> reminders) {
+        this.reminders = reminders;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -38,16 +41,20 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(listName.get(position));
-        holder.date.setText(listDate.get(position));
-        holder.hour.setText(listHour.get(position));
+        Reminder reminder = reminders.get(position);
+        Calendar calendar = reminder.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        holder.name.setText(reminder.getName());
+        holder.date.setText(sdf.format(calendar.getTime()));
+        holder.hour.setText("");
+
 
     }
 
 
     @Override
     public int getItemCount() {
-        return listName.size();
+        return reminders.size();
     }
 
 
