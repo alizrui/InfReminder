@@ -131,10 +131,10 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             return;
         }
 
-
         // Añadir alarma a BD (logica)
         createAlarmLogic.createAlarm(hour, min, name, desc, days); // falta meter otras características
-
+        Toast.makeText(getContext(), R.string.alarm_created, Toast.LENGTH_SHORT).show();
+        getActivity().onBackPressed();
     }
 
 

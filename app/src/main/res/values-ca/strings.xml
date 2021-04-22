@@ -33,4 +33,8 @@
     <string name="days_error">No hi ha dies seleccionats</string>
     <string name="special">Especial</string>
     <string name="alarm">Alarma</string>
+    <string name="alarm_created">Alarma creada</string>
+    <string name="confirm_clear_reminder">Estàs segur de que vols esborrar aquest recordatori</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
 </resources>

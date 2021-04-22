@@ -33,4 +33,8 @@
     <string name="days_error">No days selected</string>
     <string name="special">Special</string>
     <string name="alarm">Alarm</string>
+    <string name="alarm_created">Alarm created</string>
+    <string name="confirm_clear_reminder">Are you sure you want to delete the reminder?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

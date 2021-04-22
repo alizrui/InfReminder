@@ -19,11 +19,13 @@ import java.util.List;
 public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapter.ViewHolder> {
     Context context;
     private List<Reminder> reminders;
+    private final OnItemLongClickListener intLongListener;
 
 
-    public ReminderListAdapter(Context c ,List<Reminder> reminders) {
+    public ReminderListAdapter(Context c ,List<Reminder> reminders, OnItemLongClickListener intLongListener) {
         this.context =c;
         this.reminders = reminders;
+        this.intLongListener = intLongListener;
     }
 
     public void updateReminders(List<Reminder> reminders) {
@@ -47,14 +49,21 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         holder.name.setText(reminder.getName());
         holder.date.setText(sdf.format(calendar.getTime()));
         holder.hour.setText("");
+    }
 
-
+    public Reminder getPositionReminder(int pos){
+        return reminders.get(pos);
     }
 
 
     @Override
     public int getItemCount() {
         return reminders.size();
+    }
+
+    public void removeReminderPosition (int pos){
+        reminders.remove(pos);
+        notifyItemRemoved(pos);
     }
 
 
@@ -73,8 +82,16 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
             hour = view.findViewById(R.id.tvHour);
 
             //imageView = view.findViewById(R.id.ivIdReminder);
+
+            view.setOnLongClickListener(v -> {
+                intLongListener.onItemLongClickListener(getAdapterPosition());
+                return true;
+            });
         }
-
-
     }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClickListener(int position);
+    }
+
 }
