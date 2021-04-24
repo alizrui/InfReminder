@@ -49,5 +49,6 @@
     <string name="confirm_clear_reminder">¿Estás seguro de que quieres borrar este recordatorio?</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
+    <string name="name_error">La alarma debe tener un nombre</string>
 
 </resources>

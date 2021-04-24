@@ -37,4 +37,5 @@
     <string name="confirm_clear_reminder">Estàs segur de que vols esborrar aquest recordatori</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
+    <string name="name_error">L\'alarma ha de tenir un nom</string>
 </resources>

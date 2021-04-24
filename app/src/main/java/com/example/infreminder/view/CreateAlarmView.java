@@ -1,6 +1,8 @@
 package com.example.infreminder.view;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +72,8 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
         bNewAlarm = view.findViewById(R.id.bNewAlarm);
 
+
+        /* Listeners*/
         rbSelectDays.setOnClickListener(v -> {
             openSelectDaysDialog();
         });
@@ -93,6 +97,10 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     public void createAlarm() {
 
         String name = etName.getText().toString();
+        if(name.isEmpty()){
+            Toast.makeText(getContext(), R.string.name_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
         ArrayList<String> features = new ArrayList<>();
         features.add(etDes.getText().toString());
         int hour = tpTime.getHour();
