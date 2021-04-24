@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             fMain.setVisibility(View.VISIBLE);
         }
 
-
         super.onBackPressed();
     }
 
@@ -137,9 +136,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         final int clickedButton = view.getId();
         logic.updateFragments(clickedButton);
     }
-
-
-
 
 
     public void showMenu(View v){

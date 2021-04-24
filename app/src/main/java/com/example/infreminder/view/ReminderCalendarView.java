@@ -24,6 +24,5 @@ public class ReminderCalendarView extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 }

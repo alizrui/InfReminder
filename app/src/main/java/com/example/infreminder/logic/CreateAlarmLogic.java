@@ -1,10 +1,9 @@
 package com.example.infreminder.logic;
 
-import android.util.Log;
-
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.threads.AlarmManagerThread;
 import com.example.infreminder.view.interfaces.I_CreateAlarmView;
 
 import java.util.ArrayList;
@@ -26,16 +25,18 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         int daysToNext = daysToNext(days, rightNow, hour, min);
 
         /* GregorianCalendar(year,month,dayofmonth,hourofday,minute) */
-        Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min);
+        Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min,0);
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
         // desc es un campo del json¡ hacer gson
 
         //Reminder reminder = new Reminder(name, desc,days.toString(), dateAlarm);
-        ArrayList<String> days2 = new ArrayList<>();
-        days2.add("Lunes");
-        Reminder reminder = new Reminder(name, desc,days2, dateAlarm);
-        
+        ArrayList<String> daysString = new ArrayList<>();
+        for(int d:days){
+            daysString.add(d+"");
+        }
+
+        Reminder reminder = new Reminder(name, desc, daysString, dateAlarm);
 
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().getReminders();
@@ -57,9 +58,15 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
                     everythingOK = true;
                 }
             }
+            /* Crea AlarmManager para gestionar notificaciones*/
+            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(createAlarmView.getCreateAlarmView().requireActivity(),
+                    createAlarmView.getCreateAlarmView().getContext());
+            alarmManagerThread.throwAlarm(reminder);
+
             ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().addReminder(reminder);
         }).start();
     }
+
 
     /**
      *  Comprueba cuantos días faltan para el siguiente día de alarma y los devuelve

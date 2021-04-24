@@ -40,7 +40,9 @@ public class ReminderListView extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_list_reminder);
         DatabaseAccess access = new DatabaseAccess(this);
         access.loadReminders();
+
         reminderListAdapter = new ReminderListAdapter(getContext(), new ArrayList<Reminder>(), this::onItemLongClickListener);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(reminderListAdapter);

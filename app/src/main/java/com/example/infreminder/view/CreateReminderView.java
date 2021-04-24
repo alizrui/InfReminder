@@ -95,7 +95,7 @@ public class CreateReminderView extends Fragment {
             public void onClick(View v) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
                 ArrayList<String> days2 = new ArrayList<>();
-                days2.add("Lunes");
+
 
                 new Thread(() -> {
 

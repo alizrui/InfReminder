@@ -56,13 +56,6 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_alarm, container, false);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-
-            }
-        };
-
         createAlarmLogic = new CreateAlarmLogic(this);
 
         /**
@@ -90,7 +83,6 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
         return view;
     }
-
 
 
     private void openSelectDaysDialog(){
