@@ -36,6 +36,10 @@
     <string name="special">Especial</string>
     <string name="alarm">Alarma</string>
 
+    <string name="more_info"> Más información</string>
+    <string name="about_message">Esta aplicación ha sido realizada por: \n  Sammy Jonathan Claes\n  Nieves Codoñer Gil\n  Fernando Guillermo G Fiocca Paglia\n  Alejandro Iznardo Ruiz\ncomo proyecto final de Android Studio para la asignatura\n"Desarrollo de aplicaciones para dispositivos móviles"</string>
+
+
 
 
 
