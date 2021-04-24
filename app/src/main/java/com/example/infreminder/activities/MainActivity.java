@@ -1,6 +1,7 @@
 package com.example.infreminder.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
@@ -23,7 +24,7 @@ import com.example.infreminder.activities.interfaces.I_MainActivity;
 import com.example.infreminder.activitieslogic.MainActivityLogic;
 import com.example.infreminder.activitieslogic.interfaces.I_MainActivityLogic;
 import com.example.infreminder.adapter.ViewPagerFragmentStateAdapter;
-import com.example.infreminder.fragmentsview.InfoFragment;
+//import com.example.infreminder.fragmentsview.InfoFragment;
 //import com.example.infreminder.fragmentsview.SettingsFragment;
 import com.example.infreminder.fragmentsview.SettingsFragment;
 import com.example.infreminder.view.CreateAlarmView;
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             fMain.setVisibility(View.VISIBLE);
         }
 
+
         super.onBackPressed();
     }
 
@@ -138,9 +140,12 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     }
 
 
+
+
+
     public void showMenu(View v){
         if (isOpen) {
-            backgroundWhite.setVisibility(View.INVISIBLE);
+            //backgroundWhite.setVisibility(View.INVISIBLE);
             fAlarm.setAnimation(animFabClose);
             fSpecial.setAnimation(animFabClose);
             fReminder.setAnimation(animFabClose);
@@ -156,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
             isOpen = false;
         } else {
-            backgroundWhite.setVisibility(View.VISIBLE);
+            //backgroundWhite.setVisibility(View.VISIBLE);
             fAlarm.setAnimation(animFabOpen);
             fSpecial.setAnimation(animFabOpen);
             fReminder.setAnimation(animFabOpen);
@@ -183,33 +188,39 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        fragmentActive = true;
-        pager.setVisibility(View.INVISIBLE);
-        tabLayout.setVisibility(View.INVISIBLE);
-        fcView.setVisibility(View.VISIBLE);
-        fMain.setVisibility(View.INVISIBLE);
-
-        fAlarm.setVisibility(View.INVISIBLE);
-        fSpecial.setVisibility(View.INVISIBLE);
-        fReminder.setVisibility(View.INVISIBLE);
-        tAlarm.setVisibility(View.INVISIBLE);
-        tSpecial.setVisibility(View.INVISIBLE);
-        tReminder.setVisibility(View.INVISIBLE);
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         int id = item.getItemId();
+
+        if (id ==R.id.menu_item_settings ){
+            fragmentActive = true;
+            pager.setVisibility(View.INVISIBLE);
+            tabLayout.setVisibility(View.INVISIBLE);
+            fcView.setVisibility(View.VISIBLE);
+            fMain.setVisibility(View.INVISIBLE);
+            if (isOpen){
+               fReminder.setVisibility(View.INVISIBLE);
+               fSpecial.setVisibility(View.INVISIBLE);
+               fAlarm.setVisibility(View.INVISIBLE);
+               backgroundWhite.setVisibility(View.INVISIBLE);
+               tAlarm.setVisibility(View.INVISIBLE);
+               tSpecial.setVisibility(View.INVISIBLE);
+               tReminder.setVisibility(View.INVISIBLE);
+            }
+
             Fragment fragmentToAdd = null;
-        switch(id) {
-            case R.id.menu_item_settings:
-                fragmentToAdd = new SettingsFragment();
-                break;
-            case R.id.menu_item_info:
-                fragmentToAdd = new InfoFragment();
-                break;
-        }
-        //Fragment fragmentToAdd = new SettingsFragment();
-        ft.add(R.id.fcvFragment,fragmentToAdd);
-        ft.commit();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            fragmentToAdd = new SettingsFragment();
+            ft.add(R.id.fcvFragment,fragmentToAdd);
+            ft.commit();
+        }else if(id == R.id.menu_item_info ){ showAbout();}
         return super.onOptionsItemSelected(item);
     }
+        private void showAbout() {
+            new AlertDialog.Builder(this)
+                .setTitle(R.string.more_info)
+                .setMessage(R.string.about_message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+        }
+
+
     }

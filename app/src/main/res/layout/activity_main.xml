@@ -36,16 +36,7 @@
         app:layout_constraintStart_toStartOf="@id/tabLayout"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/img_background_white"
-        android:src="@drawable/img_white"
-        android:visibility="invisible"
-        android:alpha="0.7"
-        >
 
-    </ImageView>
 
         <TextView
             android:id="@+id/t_special"
