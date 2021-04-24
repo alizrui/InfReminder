@@ -1,15 +1,21 @@
 package com.example.infreminder.logic;
 
+import android.util.Log;
+
+import com.example.infreminder.Utils.Features;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.reminder.Reminder;
 import com.example.infreminder.threads.AlarmManagerThread;
 import com.example.infreminder.view.interfaces.I_CreateAlarmView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import static java.lang.Boolean.parseBoolean;
 
 public class CreateAlarmLogic implements I_CreateAlarmLogic {
 
@@ -20,7 +26,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
     }
 
     @Override
-    public void createAlarm(int hour, int min, String name, String desc, ArrayList<Integer> days) {
+    public void createAlarm(int hour, int min, String name, ArrayList<String> features, ArrayList<Integer> days) {
         Calendar rightNow = Calendar.getInstance();
         int daysToNext = daysToNext(days, rightNow, hour, min);
 
@@ -28,7 +34,8 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min,0);
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
-        // desc es un campo del json¡ hacer gson
+        /* Json con las características*/
+        String json = createJson(features);
 
         //Reminder reminder = new Reminder(name, desc,days.toString(), dateAlarm);
         ArrayList<String> daysString = new ArrayList<>();
@@ -36,7 +43,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
             daysString.add(d+"");
         }
 
-        Reminder reminder = new Reminder(name, desc, daysString, dateAlarm);
+        Reminder reminder = new Reminder(name, json, daysString, dateAlarm);
 
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().getReminders();
@@ -60,7 +67,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
             }
             /* Crea AlarmManager para gestionar notificaciones*/
             AlarmManagerThread alarmManagerThread = new AlarmManagerThread(createAlarmView.getCreateAlarmView().requireActivity(),
-                    createAlarmView.getCreateAlarmView().getContext());
+                    createAlarmView.getCreateAlarmView().getContext(),0);
             alarmManagerThread.throwAlarm(reminder);
 
             ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().addReminder(reminder);
@@ -91,34 +98,46 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         return daysToNext;
     }
 
-    private String dayTranslator(int day){
-        String res = "";
-        switch(day){
-            case Calendar.MONDAY: // 2
-                res ="Monday";
-                break;
-            case Calendar.TUESDAY: // 3
-                res = "Tuesday";
-                break;
-            case Calendar.WEDNESDAY: // 4
-                res = "Wednesday";
-                break;
-            case Calendar.THURSDAY: // 5
-                res = "Thursday";
-                break;
-            case Calendar.FRIDAY: // 6
-                res = "Friday";
-                break;
-            case Calendar.SATURDAY: // 7
-                res = "Saturday";
-                break;
-            case Calendar.SUNDAY: // 1
-                res = "Sunday";
-                break;
-            default:
-                res = "";
-                break;
-        }
-        return res;
+    private String createJson(ArrayList<String> feat){
+
+        Features features = new Features(feat.get(0), parseBoolean(feat.get(1)));
+        Gson gson = new Gson();
+        String json = gson.toJson(features);
+
+        Log.d("LOL", json);
+
+        return json;
     }
+
+
+//    private String dayTranslator(int day){
+//        String res = "";
+//        switch(day){
+//            case Calendar.MONDAY: // 2
+//                res ="Monday";
+//                break;
+//            case Calendar.TUESDAY: // 3
+//                res = "Tuesday";
+//                break;
+//            case Calendar.WEDNESDAY: // 4
+//                res = "Wednesday";
+//                break;
+//            case Calendar.THURSDAY: // 5
+//                res = "Thursday";
+//                break;
+//            case Calendar.FRIDAY: // 6
+//                res = "Friday";
+//                break;
+//            case Calendar.SATURDAY: // 7
+//                res = "Saturday";
+//                break;
+//            case Calendar.SUNDAY: // 1
+//                res = "Sunday";
+//                break;
+//            default:
+//                res = "";
+//                break;
+//        }
+//        return res;
+//    }
 }

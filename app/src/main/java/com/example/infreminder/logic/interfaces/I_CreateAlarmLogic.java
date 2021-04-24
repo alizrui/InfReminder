@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 public interface I_CreateAlarmLogic {
 
-    void createAlarm(int hour, int min, String name, String desc, ArrayList<Integer> days);
+    void createAlarm(int hour, int min, String name, ArrayList<String> features, ArrayList<Integer> days);
 
 }

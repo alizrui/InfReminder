@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.gson.Gson;
 import com.example.infreminder.database.ReminderDao;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.receivers.NotifyReceiver;
@@ -20,10 +21,12 @@ public class AlarmManagerThread extends Thread {
 
     private final Context context;
     private final FragmentActivity activity;
+    private final int id;
 
-    public AlarmManagerThread(FragmentActivity activity, Context context){
+    public AlarmManagerThread(FragmentActivity activity, Context context, int id){
         this.activity = activity;
         this.context = context;
+        this.id = id;
     }
 
 
@@ -45,17 +48,25 @@ public class AlarmManagerThread extends Thread {
 
     @Override
     public void run() {
-        /* Borra todos los reminders anteriores a la fecha actual */
-        List<Reminder> reminders = ReminderDatabase.getInstance(context).reminderDao().getReminders();
-        for (Reminder rem:reminders){
-            if(rem.getDate().compareTo(Calendar.getInstance()) <= 0){
-                /* Si es una alarma relanzar */
+        /* Borra todos los reminders anteriores a la hora actual*/
+        if(id == 0){
+            /* Borra todos los reminders anteriores a la fecha actual */
+            List<Reminder> reminders = ReminderDatabase.getInstance(context).reminderDao().getReminders();
+            for (Reminder rem:reminders){
+                if(rem.getDate().compareTo(Calendar.getInstance()) <= 0) {
+                    /* Si es una alarma con only_once = false relanzar */
 
 
-                /* Borrar si ya ha pasado */
+                    /* Borrar si ya ha pasado */
+                    ReminderDatabase.getInstance(context).reminderDao().deleteReminder(rem);
+                }
+            }
+        } else { /* Borra el reminder por el que has sido lanzado */
+            Reminder rem = ReminderDatabase.getInstance(context).reminderDao().getReminder(id);
+            if (rem != null) {
+                /* Elimina la alarma de la database */
                 ReminderDatabase.getInstance(context).reminderDao().deleteReminder(rem);
             }
         }
-
     }
 }

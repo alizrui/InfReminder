@@ -20,31 +20,36 @@ import com.example.infreminder.R;
 import com.example.infreminder.activities.IntroActivity;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.threads.AlarmManagerThread;
 
 public class NotifyReceiver extends BroadcastReceiver {
 
     private final String CHANNEL_ID = "notify_channel_id";
 
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
         int id = intent.getIntExtra("id", -1);
-        if (id == -1) {  Log.d("LOL", "no has borrado nada -1 ");
-                return; }
+        if (id == -1) { return; }
         String title = intent.getStringExtra("title");
 
-        /* ESTO HAY QUE QUITARLO DE AQUÍ */
-        new Thread(() -> {
-            /* Recupera el reminder de la database*/
-            Reminder rem = ReminderDatabase.getInstance(context).reminderDao().getReminder(id);
-            if (rem != null) {
+//        /* ESTO HAY QUE QUITARLO DE AQUÍ */
+//        new Thread(() -> {
+//            /* Recupera el reminder de la database*/
+//            Reminder rem = ReminderDatabase.getInstance(context).reminderDao().getReminder(id);
+//            if (rem != null) {
+//
+//                /* Elimina la alarma de la database */
+//                ReminderDatabase.getInstance(context).reminderDao().deleteReminder(rem);
+//            } else {
+//                Log.d("LOL", "no has borrado nada");
+//            }
+//        }).start();
 
-                /* Elimina la alarma de la database */
-                ReminderDatabase.getInstance(context).reminderDao().deleteReminder(rem);
-            } else {
-                Log.d("LOL", "no has borrado nada");
-            }
-        }).start();
+        AlarmManagerThread thread = new AlarmManagerThread(null, context, id);
+        thread.start();
+
 
         createNotificationChannel(context);
 

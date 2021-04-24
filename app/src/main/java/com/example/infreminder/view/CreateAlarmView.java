@@ -93,11 +93,12 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     public void createAlarm() {
 
         String name = etName.getText().toString();
-        String desc = etDes.getText().toString();
+        ArrayList<String> features = new ArrayList<>();
+        features.add(etDes.getText().toString());
         int hour = tpTime.getHour();
         int min = tpTime.getMinute();
         ArrayList<Integer> days = new ArrayList<>();
-        //boolean soundOnce = false;
+        boolean soundOnce = false;
 
         if (rbOnlyOnce.isChecked()) {
             Calendar rightNow = Calendar.getInstance();
@@ -107,10 +108,11 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             } else {
                 days.add(rightNow.get(Calendar.DAY_OF_WEEK));
             }
-//            soundOnce = true;
+            features.add(1,"true");
 
         } else if (rbEveryDay.isChecked()) {
             for(int i = 1; i <= 7; i++) days.add(i);
+            features.add(1,"false");
 
         } else if(rbSelectDays.isChecked()){
             days = daysSelected;
@@ -118,13 +120,14 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
                 Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
                 return;
             }
+            features.add(1,"false");
         } else {
             Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Añadir alarma a BD (logica)
-        createAlarmLogic.createAlarm(hour, min, name, desc, days); // falta meter otras características
+        createAlarmLogic.createAlarm(hour, min, name, features, days); // falta meter otras características
         Toast.makeText(getContext(), R.string.alarm_created, Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }
