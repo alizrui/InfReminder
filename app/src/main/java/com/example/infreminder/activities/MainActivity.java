@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             }
         }).attach();
 
-        Log.d("LIFECYCLE", "onCreate");
         if(savedInstanceState != null){
             fragmentActive = savedInstanceState.getBoolean("fragmentActive");
         }
@@ -121,10 +120,8 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     @Override
     public void onBackPressed() {
         overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_right_to_left);
-        if (fragmentActive) {
-            changeVisibility();
-            fragmentActive = false;
-        }
+        changeVisibility();
+        fragmentActive = false;
         super.onBackPressed();
     }
 
@@ -237,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     protected void onResume() {
 
         if (fragmentActive) {
-            fragmentActive = !fragmentActive;
+            fragmentActive = false;
             changeVisibility();
             fragmentActive = !fragmentActive;
         }

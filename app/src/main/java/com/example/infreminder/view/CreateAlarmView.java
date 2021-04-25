@@ -85,9 +85,18 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         getChildFragmentManager().setFragmentResultListener("requestDays", this,
                 (requestKey, result) -> daysSelected = result.getIntegerArrayList("days"));
 
+        if (savedInstanceState != null){
+            daysSelected = savedInstanceState.getIntegerArrayList("days");
+        }
+
         return view;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntegerArrayList("days", daysSelected);
+    }
 
     private void openSelectDaysDialog(){
         DialogAlarmDaysFragment dialog = new DialogAlarmDaysFragment();
@@ -135,7 +144,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         }
 
         // Añadir alarma a BD (logica)
-        createAlarmLogic.createAlarm(hour, min, name, features, days); // falta meter otras características
+        createAlarmLogic.createAlarm(hour, min, name, features, days);
         Toast.makeText(getContext(), R.string.alarm_created, Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }

@@ -104,40 +104,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         Gson gson = new Gson();
         String json = gson.toJson(features);
 
-        Log.d("LOL", json);
-
         return json;
     }
 
-
-//    private String dayTranslator(int day){
-//        String res = "";
-//        switch(day){
-//            case Calendar.MONDAY: // 2
-//                res ="Monday";
-//                break;
-//            case Calendar.TUESDAY: // 3
-//                res = "Tuesday";
-//                break;
-//            case Calendar.WEDNESDAY: // 4
-//                res = "Wednesday";
-//                break;
-//            case Calendar.THURSDAY: // 5
-//                res = "Thursday";
-//                break;
-//            case Calendar.FRIDAY: // 6
-//                res = "Friday";
-//                break;
-//            case Calendar.SATURDAY: // 7
-//                res = "Saturday";
-//                break;
-//            case Calendar.SUNDAY: // 1
-//                res = "Sunday";
-//                break;
-//            default:
-//                res = "";
-//                break;
-//        }
-//        return res;
-//    }
 }
