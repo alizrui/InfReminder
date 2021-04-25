@@ -13,6 +13,7 @@ import com.example.infreminder.database.DatabaseAccess;
 import com.example.infreminder.database.ReminderDao;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.view.interfaces.I_ReminderListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,10 +28,15 @@ import androidx.room.Database;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReminderListView extends Fragment {
+public class ReminderListView extends Fragment implements I_ReminderListView {
     private RecyclerView recyclerView;
     private ReminderListAdapter reminderListAdapter;
+    private List<Reminder> reminders;
 
+    @Override
+    public ReminderListView getReminderListView() {
+        return this;
+    }
 
     @Nullable
     @Override
@@ -38,11 +44,18 @@ public class ReminderListView extends Fragment {
         //super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_list,container,false);
         recyclerView = view.findViewById(R.id.recycler_list_reminder);
-        DatabaseAccess access = new DatabaseAccess(this);
-        access.loadReminders();
+        DatabaseAccess access = new DatabaseAccess(this,this);
+
+        //zona de pruebas
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                reminders = ReminderDatabase.getInstance(getContext()).reminderDao().getReminders();
+            }
+        }).start();
 
         reminderListAdapter = new ReminderListAdapter(getContext(), new ArrayList<Reminder>(), this::onItemLongClickListener);
-
+        access.loadReminders();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(reminderListAdapter);
@@ -77,6 +90,5 @@ public class ReminderListView extends Fragment {
     public void updateList(List<Reminder> reminderList) {
         reminderListAdapter.updateReminders(reminderList);
     }
-
 
 }

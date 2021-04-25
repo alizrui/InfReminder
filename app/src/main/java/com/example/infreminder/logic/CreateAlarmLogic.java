@@ -18,9 +18,7 @@ import java.util.List;
 import static java.lang.Boolean.parseBoolean;
 
 public class CreateAlarmLogic implements I_CreateAlarmLogic {
-
     private I_CreateAlarmView createAlarmView;
-
     public CreateAlarmLogic(I_CreateAlarmView fragment) {
         createAlarmView = fragment;
     }

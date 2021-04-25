@@ -1,10 +1,8 @@
 package com.example.infreminder.database;
 
-import android.app.ListActivity;
-
+import androidx.fragment.app.Fragment;
 import com.example.infreminder.reminder.Reminder;
 import com.example.infreminder.view.ReminderListView;
-
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -19,10 +17,12 @@ public class DatabaseAccess extends Thread {
     private int id;
     private boolean update;
 
-    private WeakReference<ReminderListView> weakReference;
+    private WeakReference<Fragment> weakReference;
+    private WeakReference<ReminderListView> weakReference2;
 
-    public DatabaseAccess(ReminderListView weakReference) {
+    public DatabaseAccess(Fragment weakReference, ReminderListView weakReference2) {
         this.weakReference = new WeakReference<>(weakReference);
+        this.weakReference2 = (weakReference2 == null)? null : new WeakReference<>(weakReference2);
         selection = -1;
         update = false;
     }
@@ -54,6 +54,7 @@ public class DatabaseAccess extends Thread {
         switch (selection) {
             case ADD_REMINDER :
                 ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().addReminder(reminder);
+                List<Reminder> r = ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().getReminders();
                 break;
             case DELETE_REMINDER :
                 ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().deleteReminder(reminder);
@@ -63,13 +64,13 @@ public class DatabaseAccess extends Thread {
                 break;
         }
 
-        if (update) {
+        if (update && weakReference2 != null) {
             if (weakReference.get() == null) return;
             List<Reminder> reminders = ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().getReminders();
             weakReference.get().getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    weakReference.get().updateList(reminders);
+                    weakReference2.get().updateList(reminders);
                 }
             });
         }

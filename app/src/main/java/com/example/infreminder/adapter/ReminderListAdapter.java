@@ -23,7 +23,7 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
 
 
     public ReminderListAdapter(Context c ,List<Reminder> reminders, OnItemLongClickListener intLongListener) {
-        this.context =c;
+        this.context = c;
         this.reminders = reminders;
         this.intLongListener = intLongListener;
     }
@@ -65,7 +65,6 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         reminders.remove(pos);
         notifyItemRemoved(pos);
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //ImageView imageView;
