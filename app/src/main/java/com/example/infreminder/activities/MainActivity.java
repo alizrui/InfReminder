@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentActive = false;
-        backgroundWhite = findViewById(R.id.img_background_white);
         //Floating Buttons
         fMain = findViewById(R.id.fab_principal);
         fAlarm = findViewById(R.id.fab_alarm);
@@ -145,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     public void showMenu(View v){
         if (isOpen) {
-            //backgroundWhite.setVisibility(View.INVISIBLE);
             fAlarm.setAnimation(animFabClose);
             fSpecial.setAnimation(animFabClose);
             fReminder.setAnimation(animFabClose);
@@ -161,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
             isOpen = false;
         } else {
-            //backgroundWhite.setVisibility(View.VISIBLE);
             fAlarm.setAnimation(animFabOpen);
             fSpecial.setAnimation(animFabOpen);
             fReminder.setAnimation(animFabOpen);
