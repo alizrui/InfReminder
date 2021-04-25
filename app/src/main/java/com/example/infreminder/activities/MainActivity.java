@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -95,6 +98,17 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             }
         }).attach();
 
+        Log.d("LIFECYCLE", "onCreate");
+        if(savedInstanceState != null){
+            fragmentActive = savedInstanceState.getBoolean("fragmentActive");
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean("fragmentActive", fragmentActive);
     }
 
     @Override
@@ -106,11 +120,16 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     @Override
     public void onBackPressed() {
-
         overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_right_to_left);
+        if (fragmentActive) {
+            changeVisibility();
+            fragmentActive = false;
+        }
+        super.onBackPressed();
+    }
 
+    private void changeVisibility(){
         if(fragmentActive){
-
             pager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
             pager.setAnimation(enterLeftToRight);
@@ -118,28 +137,24 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             fcView.setVisibility(View.INVISIBLE);
             enterLeftToRight.start();
             fMain.setVisibility(View.VISIBLE);
+        } else {
+            pager.setVisibility(View.INVISIBLE);
+            tabLayout.setVisibility(View.INVISIBLE);
+            fcView.setVisibility(View.VISIBLE);
+            fMain.setVisibility(View.INVISIBLE);
         }
-
-
-        super.onBackPressed();
     }
 
     public void updateFragments(View view) {
 
         /*  */
         showMenu(null);
+        changeVisibility();
         fragmentActive = true;
-        pager.setVisibility(View.INVISIBLE);
-        tabLayout.setVisibility(View.INVISIBLE);
-        fcView.setVisibility(View.VISIBLE);
-        fMain.setVisibility(View.INVISIBLE);
 
         final int clickedButton = view.getId();
         logic.updateFragments(clickedButton);
     }
-
-
-
 
 
     public void showMenu(View v){
@@ -177,7 +192,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         }
     }
 
-
     @Override
     public MainActivity getMainActivity() {
         return this;
@@ -188,11 +202,9 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         int id = item.getItemId();
 
         if (id ==R.id.menu_item_settings ){
+            changeVisibility();
             fragmentActive = true;
-            pager.setVisibility(View.INVISIBLE);
-            tabLayout.setVisibility(View.INVISIBLE);
-            fcView.setVisibility(View.VISIBLE);
-            fMain.setVisibility(View.INVISIBLE);
+
             if (isOpen){
                fReminder.setVisibility(View.INVISIBLE);
                fSpecial.setVisibility(View.INVISIBLE);
@@ -209,15 +221,29 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             ft.add(R.id.fcvFragment,fragmentToAdd);
             ft.commit();
         }else if(id == R.id.menu_item_info ){ showAbout();}
+
         return super.onOptionsItemSelected(item);
     }
-        private void showAbout() {
-            new AlertDialog.Builder(this)
+
+    private void showAbout() {
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.more_info)
                 .setMessage(R.string.about_message)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
-        }
-
-
     }
+
+    @Override
+    protected void onResume() {
+
+        if (fragmentActive) {
+            fragmentActive = !fragmentActive;
+            changeVisibility();
+            fragmentActive = !fragmentActive;
+        }
+        super.onResume();
+    }
+
+}
+
+
