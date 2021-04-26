@@ -18,6 +18,9 @@ public interface ReminderDao {
     @Query("DELETE FROM reminder_table")
     void deleteReminders();
 
+    @Query("SELECT * FROM reminder_table WHERE reminder_date BETWEEN :minTime AND :maxTime")
+    List<Reminder> loadBetweenDate(long minTime, long maxTime);
+
     @Insert
     void addReminder(Reminder reminder);
 
