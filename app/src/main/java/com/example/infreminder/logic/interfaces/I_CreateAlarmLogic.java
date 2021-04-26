@@ -1,9 +1,12 @@
 package com.example.infreminder.logic.interfaces;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public interface I_CreateAlarmLogic {
 
-    void createAlarm(int hour, int min, String name, ArrayList<String> features, ArrayList<Integer> days);
+    void createAlarm(int hour, int min, String name, JSONObject jsonObject, ArrayList<Integer> days) throws JSONException;
 
 }

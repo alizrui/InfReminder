@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.Reminder;
 
 @Database(entities = {Reminder.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})

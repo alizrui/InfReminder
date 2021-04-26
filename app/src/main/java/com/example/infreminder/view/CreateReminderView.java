@@ -1,11 +1,8 @@
 package com.example.infreminder.view;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,31 +10,16 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.room.Database;
 
 import com.example.infreminder.R;
-import com.example.infreminder.database.DatabaseAccess;
-import com.example.infreminder.database.ReminderDao;
-import com.example.infreminder.database.ReminderDatabase;
-import com.example.infreminder.logic.CreateAlarmLogic;
 import com.example.infreminder.logic.CreateReminderLogic;
-import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
-import com.example.infreminder.reminder.Reminder;
 import com.example.infreminder.view.interfaces.I_CreateReminderView;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class CreateReminderView extends Fragment implements I_CreateReminderView {
     private I_CreateReminderLogic createReminderLogic;

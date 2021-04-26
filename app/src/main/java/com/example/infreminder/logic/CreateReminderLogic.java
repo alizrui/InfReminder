@@ -6,9 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import com.example.infreminder.database.DatabaseAccess;
-import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.PojoInit;
+import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.view.interfaces.I_CreateReminderView;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -29,7 +29,7 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
 
     @Override
     public void createReminder(String name, String description, ArrayList<String> features, Calendar calendar) {
-        Reminder reminder = new Reminder(name,description,features,calendar);
+        Reminder reminder = PojoInit.reminder(name,description,features,calendar);
         dbAcces.addReminder(reminder, true);
     }
 

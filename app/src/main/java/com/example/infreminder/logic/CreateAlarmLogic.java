@@ -3,12 +3,17 @@ package com.example.infreminder.logic;
 import android.util.Log;
 
 import com.example.infreminder.Utils.Features;
+import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.PojoInit;
+import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.threads.AlarmManagerThread;
 import com.example.infreminder.view.interfaces.I_CreateAlarmView;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,7 +29,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
     }
 
     @Override
-    public void createAlarm(int hour, int min, String name, ArrayList<String> features, ArrayList<Integer> days) {
+    public void createAlarm(int hour, int min, String name, JSONObject jsonObject, ArrayList<Integer> days) throws JSONException {
         Calendar rightNow = Calendar.getInstance();
         int daysToNext = daysToNext(days, rightNow, hour, min);
 
@@ -33,7 +38,9 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
         /* Json con las características*/
-        String json = createJson(features);
+        //String json = createJson(features);
+        jsonObject.put("reply_text", "hola");
+        jsonObject.put("repeat_minute", 1);
 
         //Reminder reminder = new Reminder(name, desc,days.toString(), dateAlarm);
         ArrayList<String> daysString = new ArrayList<>();
@@ -41,7 +48,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
             daysString.add(d+"");
         }
 
-        Reminder reminder = new Reminder(name, json, daysString, dateAlarm);
+        Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(jsonObject), daysString, dateAlarm);
 
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().getReminders();
@@ -94,15 +101,6 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
             }
         }
         return daysToNext;
-    }
-
-    private String createJson(ArrayList<String> feat){
-
-        Features features = new Features(feat.get(0), parseBoolean(feat.get(1)));
-        Gson gson = new Gson();
-        String json = gson.toJson(features);
-
-        return json;
     }
 
 }

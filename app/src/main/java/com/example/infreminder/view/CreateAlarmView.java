@@ -24,6 +24,9 @@ import com.example.infreminder.logic.CreateAlarmLogic;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.view.interfaces.I_CreateAlarmView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -79,7 +82,11 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         });
 
         bNewAlarm.setOnClickListener(v -> {
-            createAlarm();
+            try {
+                createAlarm();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         });
 
         getChildFragmentManager().setFragmentResultListener("requestDays", this,
@@ -103,7 +110,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         dialog.show(getChildFragmentManager(),null);
     }
 
-    public void createAlarm() {
+    public void createAlarm() throws JSONException {
 
         String name = etName.getText().toString();
         if(name.isEmpty()){
@@ -116,6 +123,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         int min = tpTime.getMinute();
         ArrayList<Integer> days = new ArrayList<>();
         boolean soundOnce = false;
+        JSONObject jsonObject = new JSONObject();
 
         if (rbOnlyOnce.isChecked()) {
             Calendar rightNow = Calendar.getInstance();
@@ -125,11 +133,11 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             } else {
                 days.add(rightNow.get(Calendar.DAY_OF_WEEK));
             }
-            features.add(1,"true");
+            jsonObject.put("only_once", true);
 
         } else if (rbEveryDay.isChecked()) {
             for(int i = 1; i <= 7; i++) days.add(i);
-            features.add(1,"false");
+            jsonObject.put("only_once", false);;
 
         } else if(rbSelectDays.isChecked()){
             days = daysSelected;
@@ -137,14 +145,14 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
                 Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
                 return;
             }
-            features.add(1,"false");
+            jsonObject.put("only_once", false);
         } else {
             Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Añadir alarma a BD (logica)
-        createAlarmLogic.createAlarm(hour, min, name, features, days);
+        createAlarmLogic.createAlarm(hour, min, name, jsonObject, days);
         Toast.makeText(getContext(), R.string.alarm_created, Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }

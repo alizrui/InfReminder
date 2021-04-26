@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.Reminder;
 @Dao
 public interface ReminderDao {
     @Query("SELECT * FROM reminder_table")

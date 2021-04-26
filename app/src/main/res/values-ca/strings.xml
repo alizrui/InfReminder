@@ -40,4 +40,7 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="name_error">L\'alarma ha de tenir un nom</string>
+    <string name="open_wiki">Obri la Wiki</string>
+    <string name="reply_text">Respón text</string>
+    <string name="reply">Respón</string>
 </resources>

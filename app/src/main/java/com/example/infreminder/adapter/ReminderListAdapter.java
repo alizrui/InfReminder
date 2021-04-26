@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infreminder.R;
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.Reminder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

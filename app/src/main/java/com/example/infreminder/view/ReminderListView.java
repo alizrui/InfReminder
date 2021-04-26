@@ -1,6 +1,5 @@
 package com.example.infreminder.view;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import com.example.infreminder.adapter.ReminderListAdapter;
 import com.example.infreminder.database.DatabaseAccess;
 import com.example.infreminder.database.ReminderDao;
 import com.example.infreminder.database.ReminderDatabase;
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.view.interfaces.I_ReminderListView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Database;
 
 
 import java.util.ArrayList;

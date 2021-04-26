@@ -31,6 +31,9 @@
     <string name="title_cancel">¿Está seguro de querer cancelar la operación?</string>
     <string name="alarmatorio" translatable="false">by Alarmatorio</string>
 
+    <string name="notify_for_reminder" translatable="false">Notify for reminder</string>
+    <string name="notify_for_reminder_summary" translatable="false">Notify for remind user anything</string>
+
     <!-- Preference Titles -->
     <string name="reminder">Recordatorio</string>
     <string name="special">Especial</string>
@@ -54,5 +57,8 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="name_error">La alarma debe tener un nombre</string>
+    <string name="reply_text">Responder texto</string>
+    <string name="open_wiki">Abre la Wiki</string>
+    <string name="reply">Responde</string>
 
 </resources>

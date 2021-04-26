@@ -4,15 +4,12 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.gson.Gson;
-import com.example.infreminder.database.ReminderDao;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.receivers.NotifyReceiver;
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.Reminder;
 
 import java.util.Calendar;
 import java.util.List;
@@ -39,7 +36,9 @@ public class AlarmManagerThread extends Thread {
 
         Intent intent = new Intent(context, NotifyReceiver.class);
         intent.putExtra("id", rem.getId());
-        intent.putExtra("title", rem.getName());
+        intent.putExtra("name", rem.getName());
+
+        /* Extraer campos del json repeatMinutes y replyText */
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 

@@ -1,7 +1,7 @@
 package com.example.infreminder.database;
 
 import androidx.fragment.app.Fragment;
-import com.example.infreminder.reminder.Reminder;
+import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.view.ReminderListView;
 import java.lang.ref.WeakReference;
 import java.util.List;

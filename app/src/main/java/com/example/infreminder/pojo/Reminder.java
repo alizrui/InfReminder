@@ -1,6 +1,4 @@
-package com.example.infreminder.reminder;
-
-import android.util.Log;
+package com.example.infreminder.pojo;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -9,7 +7,6 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 @Entity(tableName = "reminder_table")
 public class Reminder {
@@ -34,24 +31,24 @@ public class Reminder {
 
 
 
-    public Reminder(String name, String features, ArrayList<String> days, Calendar date)
+    public Reminder(int id, String name, String features, ArrayList<String> days, Calendar date)
     {
         this.name = name;
         this.features = features;
         this.days = days;
         this.date = date;
 
-        Calendar calendarSchema = Calendar.getInstance();
-        calendarSchema.set(2021, 0, 0, 0, 0, 0);
+//        Calendar calendarSchema = Calendar.getInstance();
+//        calendarSchema.set(2021, 0, 0, 0, 0, 0);
+//
+//        long millis = date.getTimeInMillis() - calendarSchema.getTimeInMillis();
+//
+//        millis = millis / 1000;
+//        millis = millis / 60;
+//
+//        millis = millis * 10;
 
-        long millis = date.getTimeInMillis() - calendarSchema.getTimeInMillis();
-
-        millis = millis / 1000;
-        millis = millis / 60;
-
-        millis = millis * 10;
-
-        this.id = (int) millis;
+        this.id = id;
     }
 
     public int getId() {

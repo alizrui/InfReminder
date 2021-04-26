@@ -40,4 +40,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="name_error">The alarm must have a name</string>
+    <string name="reply_text">Reply text</string>
+    <string name="open_wiki">Open Wiki</string>
+    <string name="reply">Reply</string>
 </resources>
