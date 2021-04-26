@@ -31,7 +31,7 @@ public class NotifyReceiver extends BroadcastReceiver {
         int id = intent.getIntExtra("id", -1);
         if (id == -1) { return; }
         String name = intent.getStringExtra("name");
-        String desc = intent.getStringExtra("desc");
+        String desc = "";//intent.getStringExtra("desc");
         int repeatEvery = intent.getIntExtra("repeatEvery", 0);
         Wiki wiki = PojoInit.wiki(intent.getStringExtra("replyText"));
 
