@@ -80,16 +80,12 @@ public class ReminderCalendarView extends Fragment {
     public void load(){
         access = new DatabaseAccess(this,null,this);;
         access.loadReminders();
-        //calendarReminderListAdapter = new CalendarReminderListAdapter(getContext(), new ArrayList<>());
-        //recyclerView.setAdapter(calendarReminderListAdapter);
-
     }
 
     public void updateList(List<Reminder> reminderList) {
         this.reminders = reminderList;
         calendarReminderListAdapter = new CalendarReminderListAdapter(getContext(), reminders);
         recyclerView.setAdapter(calendarReminderListAdapter);
-        //calendarReminderListAdapter
     }
 
     @Override

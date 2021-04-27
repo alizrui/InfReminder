@@ -35,13 +35,6 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
         this.context = c;
         this.reminderList = reminderList;
     }
-/*
-    public void updateReminders(List<Reminder> reminders) {
-        this.reminderList = reminders;
-        notifyDataSetChanged();
-    }
-
- */
 
 
     @NonNull
@@ -59,27 +52,10 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Reminder reminder = reminderList.get(position);
         Calendar calendar = reminder.getDate();
-        /*
-        int currentYear = calendar.get(Calendar.YEAR);
-        int currentMonth = calendar.get(Calendar.MONTH) ;
-        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        ArrayList<String> days = reminder.getDays();
-        /*
-        boolean isEmpty = true;
-        for (int i = 0; i < days.size(); i++){
-            if (days.get(i) != "" || days.get(i) != null){
-                isEmpty =  false;
-            }
-        }
 
-         */
-        //if(ReminderCalendarView.day == currentDay && ReminderCalendarView.month == currentMonth && ReminderCalendarView.year == currentYear){
-           // if (isEmpty){
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                 holder.name.setText(reminder.getName());
                 holder.hour.setText(simpleDateFormat.format(calendar.getTime()));
-            //}
-        //}
     }
 
     @Override
