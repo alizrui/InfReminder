@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 
 import com.example.infreminder.R;
+import com.example.infreminder.adapter.CalendarReminderListAdapter;
 import com.example.infreminder.adapter.ReminderListAdapter;
 import com.example.infreminder.database.DatabaseAccess;
 import com.example.infreminder.database.ReminderDao;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     private RecyclerView recyclerView;
     private ReminderListAdapter reminderListAdapter;
     private List<Reminder> reminders;
+    private WeakReference<ReminderCalendarView> weakReference3;
+    private ReminderCalendarView reminderCalendarView;
 
     @Override
     public ReminderListView getReminderListView() {
@@ -42,7 +46,8 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
         //super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_list,container,false);
         recyclerView = view.findViewById(R.id.recycler_list_reminder);
-        DatabaseAccess access = new DatabaseAccess(this,this);
+
+        DatabaseAccess access = new DatabaseAccess(this,this,null);
 
         //zona de pruebas
         new Thread(new Runnable() {
@@ -66,6 +71,8 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
         super.onCreate(savedInstanceState);
     }
 
+
+
     public boolean onItemLongClickListener(int position ) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         dialogBuilder.setMessage(R.string.confirm_clear_reminder);
@@ -86,7 +93,10 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     public ReminderListView(){}
 
     public void updateList(List<Reminder> reminderList) {
+
         reminderListAdapter.updateReminders(reminderList);
+
+
     }
 
 }

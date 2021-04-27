@@ -1,9 +1,15 @@
 package com.example.infreminder.database;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.example.infreminder.pojo.Reminder;
+import com.example.infreminder.view.ReminderCalendarView;
 import com.example.infreminder.view.ReminderListView;
 import java.lang.ref.WeakReference;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.List;
 
 public class DatabaseAccess extends Thread {
@@ -16,13 +22,16 @@ public class DatabaseAccess extends Thread {
     private Reminder reminder;
     private int id;
     private boolean update;
+    public static boolean isUpdated = false;
 
     private WeakReference<Fragment> weakReference;
     private WeakReference<ReminderListView> weakReference2;
+    private WeakReference<ReminderCalendarView> weakReference3;
 
-    public DatabaseAccess(Fragment weakReference, ReminderListView weakReference2) {
+    public DatabaseAccess(Fragment weakReference, ReminderListView weakReference2,ReminderCalendarView weakReference3) {
         this.weakReference = new WeakReference<>(weakReference);
         this.weakReference2 = (weakReference2 == null)? null : new WeakReference<>(weakReference2);
+        this.weakReference3 = (weakReference3 == null)? null : new WeakReference<>(weakReference3);
         selection = -1;
         update = false;
     }
@@ -47,6 +56,7 @@ public class DatabaseAccess extends Thread {
         start();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void run() {
 
@@ -74,5 +84,21 @@ public class DatabaseAccess extends Thread {
                 }
             });
         }
+
+        if (update && weakReference3 != null) {
+            if (weakReference.get() == null) return;
+            long start = ReminderCalendarView.date.toEpochMilli();
+            long end   = ReminderCalendarView.date.plus(1, ChronoUnit.DAYS).toEpochMilli();
+
+            List<Reminder> reminders = ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().loadBetweenDate(start, end);
+            weakReference.get().getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    weakReference3.get().updateList(reminders);
+                }
+            });
+        }
+
+
     }
 }

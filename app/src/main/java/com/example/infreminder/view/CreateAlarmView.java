@@ -72,7 +72,6 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         rbOnlyOnce = view.findViewById(R.id.rbOnlyOnce);
         rbEveryDay = view.findViewById(R.id.rbEveryDay);
         rbSelectDays = view.findViewById(R.id.rbSelectDays);
-
         bNewAlarm = view.findViewById(R.id.bNewAlarm);
 
 

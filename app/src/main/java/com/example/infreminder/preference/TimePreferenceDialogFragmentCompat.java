@@ -20,13 +20,18 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         DialogPreference preference = getPreference();
-
-        preference.setNegativeButtonText("Cancelar");
-        preference.setPositiveButtonText("Aceptar");
+        preference.setNegativeButtonText(R.string.cancel);
+        preference.setPositiveButtonText(R.string.accept);
         super.onCreate(savedInstanceState);
     }
 
-
+    /**
+     * Se crea una nueva instancia de la clase y en ella se almacena
+     * la clave referente a la preferencia relacionada
+     *
+     * @param key La clave referente a la preferencia relacionada
+     * @return nueva instancia de la clase
+     */
     public static TimePreferenceDialogFragmentCompat newInstance(String key) {
         final TimePreferenceDialogFragmentCompat
                 fragment = new TimePreferenceDialogFragmentCompat();
@@ -72,6 +77,10 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
     }
 
 
+    /**
+     * Se llama cuando el dialogo se cierra
+     * @param positiveResult si se cancela o se acepta el dialogo
+     */
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {

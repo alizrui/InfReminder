@@ -22,6 +22,11 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
     private final OnItemLongClickListener intLongListener;
 
 
+    /**
+     * @param c
+     * @param reminders
+     * @param intLongListener
+     */
     public ReminderListAdapter(Context c ,List<Reminder> reminders, OnItemLongClickListener intLongListener) {
         this.context = c;
         this.reminders = reminders;
@@ -61,13 +66,12 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         return reminders.size();
     }
 
-    public void removeReminderPosition (int pos){
+        public void removeReminderPosition (int pos){
         reminders.remove(pos);
         notifyItemRemoved(pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        //ImageView imageView;
         TextView name;
         TextView date;
         TextView hour;
@@ -80,7 +84,6 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
             date = view.findViewById(R.id.tvDate);
             hour = view.findViewById(R.id.tvHour);
 
-            //imageView = view.findViewById(R.id.ivIdReminder);
 
             view.setOnLongClickListener(v -> {
                 intLongListener.onItemLongClickListener(getAdapterPosition());

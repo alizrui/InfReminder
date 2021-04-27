@@ -24,7 +24,7 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
 
     public CreateReminderLogic(I_CreateReminderView fragment) {
         createReminderView = fragment;
-        dbAcces = new DatabaseAccess(createReminderView.getCreateReminderView(),null);
+        dbAcces = new DatabaseAccess(createReminderView.getCreateReminderView(),null,null);
     }
 
     @Override

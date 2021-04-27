@@ -10,6 +10,9 @@ import androidx.preference.DialogPreference;
 
 import com.example.infreminder.R;
 
+/**
+ *
+ */
 public class TimePreference extends DialogPreference {
 
     private int mTime;
@@ -49,8 +52,8 @@ public class TimePreference extends DialogPreference {
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-        // The type of this preference is Int, so we read the default value from the attributes
-        // as Int. Fallback value is set to 0.
+        // El tipo de esta preferencia es Int, por lo que leemos el valor predeterminado de los atributos como Int.
+        // El valor de reserva se establece en 0.
         return a.getInt(index, 0);
     }
 
@@ -62,18 +65,9 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onSetInitialValue(@Nullable Object defaultValue) {
         super.onSetInitialValue(defaultValue);
+        //valor inicial de la fecha
         setTime(mTime);
     }
 
-    /*
-    @Override
-        protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-            // If the value can be restored, do it. If not, use the default value.
-            setTime(restorePersistedValue ?
-                    getPersistedInt(mTime) : (int) defaultValue);
-        }
-
-
-   */
 }
 
