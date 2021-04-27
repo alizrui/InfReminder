@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface I_CreateAlarmLogic {
 
-    void createAlarm(int hour, int min, String name, JSONObject jsonObject, ArrayList<Integer> days) throws JSONException;
+    void createAlarm(int hour, int min, String name, JSONObject jsonObject, ArrayList<String> days) throws JSONException;
 
 }

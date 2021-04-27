@@ -60,5 +60,8 @@
     <string name="reply_text">Responder texto</string>
     <string name="open_wiki">Abre la Wiki</string>
     <string name="reply">Responde</string>
+    <string name="_30" translatable="false">30s</string>
+    <string name="_15" translatable="false">15s</string>
+    <string name="_60" translatable="false">60s</string>
 
 </resources>

@@ -46,7 +46,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     private Button bNewAlarm;
 
     /* */
-    private ArrayList<Integer> daysSelected;
+    private ArrayList<String> daysSelected;
 
 
     public CreateAlarmView() { }
@@ -90,10 +90,10 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         });
 
         getChildFragmentManager().setFragmentResultListener("requestDays", this,
-                (requestKey, result) -> daysSelected = result.getIntegerArrayList("days"));
+                (requestKey, result) -> daysSelected = result.getStringArrayList("days"));
 
         if (savedInstanceState != null){
-            daysSelected = savedInstanceState.getIntegerArrayList("days");
+            daysSelected = savedInstanceState.getStringArrayList("days");
         }
 
         return view;
@@ -102,7 +102,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putIntegerArrayList("days", daysSelected);
+        outState.putStringArrayList("days", daysSelected);
     }
 
     private void openSelectDaysDialog(){
@@ -117,26 +117,24 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             Toast.makeText(getContext(), R.string.name_error, Toast.LENGTH_SHORT).show();
             return;
         }
-        ArrayList<String> features = new ArrayList<>();
-        features.add(etDes.getText().toString());
         int hour = tpTime.getHour();
         int min = tpTime.getMinute();
-        ArrayList<Integer> days = new ArrayList<>();
-        boolean soundOnce = false;
+        ArrayList<String> days = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("desc", etDes.getText());
 
         if (rbOnlyOnce.isChecked()) {
             Calendar rightNow = Calendar.getInstance();
             if (rightNow.get(Calendar.HOUR_OF_DAY) > hour ||
                     (rightNow.get(Calendar.HOUR_OF_DAY) == hour && rightNow.get(Calendar.MINUTE) >= min)) {
-                days.add(rightNow.get(Calendar.DAY_OF_WEEK) + 1);
+                days.add((rightNow.get(Calendar.DAY_OF_WEEK) + 1) +"");
             } else {
-                days.add(rightNow.get(Calendar.DAY_OF_WEEK));
+                days.add(rightNow.get(Calendar.DAY_OF_WEEK) + "");
             }
             jsonObject.put("only_once", true);
 
         } else if (rbEveryDay.isChecked()) {
-            for(int i = 1; i <= 7; i++) days.add(i);
+            for(int i = 1; i <= 7; i++) days.add(i + "");
             jsonObject.put("only_once", false);;
 
         } else if(rbSelectDays.isChecked()){

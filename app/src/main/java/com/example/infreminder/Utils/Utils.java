@@ -12,8 +12,8 @@ public class Utils {
             return null;
         }
         else {
-            JSONObject json = new JSONObject();
-            return json.getJSONObject(value);
+            JSONObject json = new JSONObject(value);
+            return json;
         }
     }
 

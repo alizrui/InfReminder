@@ -20,6 +20,7 @@ import com.example.infreminder.R;
 import com.example.infreminder.activities.IntroActivity;
 import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Wiki;
+import com.example.infreminder.threads.AlarmManagerThread;
 
 public class NotifyReceiver extends BroadcastReceiver {
 
@@ -31,9 +32,14 @@ public class NotifyReceiver extends BroadcastReceiver {
         int id = intent.getIntExtra("id", -1);
         if (id == -1) { return; }
         String name = intent.getStringExtra("name");
-        String desc = "";//intent.getStringExtra("desc");
+        String desc = intent.getStringExtra("desc");
+
         int repeatEvery = intent.getIntExtra("repeatEvery", 0);
-        Wiki wiki = PojoInit.wiki(intent.getStringExtra("replyText"));
+
+        /* Gestión de notificaciones con wiki */
+        String replyText = intent.getStringExtra("replyText");
+        Wiki wiki = null;
+        if(replyText != null && !replyText.isEmpty()){ wiki = PojoInit.wiki(replyText); }
 
         createNotificationChannel(context);
 
@@ -57,8 +63,8 @@ public class NotifyReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(id, notification);
 
-        //AlarmManagerThread thread = new AlarmManagerThread(null, context, id);
-        //thread.start();
+        AlarmManagerThread thread = new AlarmManagerThread(context, id);
+        thread.start();
 
     }
 
@@ -77,7 +83,8 @@ public class NotifyReceiver extends BroadcastReceiver {
      * @return el objeto Notification
      */
 
-    private Notification createNotification(Context context, @NonNull NotificationCompat.Builder builder, @NonNull PendingIntent pendingIntent, NotificationCompat.Action replyAction, Wiki wiki, int repeatEvery) {
+    private Notification createNotification(Context context, @NonNull NotificationCompat.Builder builder,
+                                            @NonNull PendingIntent pendingIntent, NotificationCompat.Action replyAction, Wiki wiki, int repeatEvery) {
 
         builder.setContentIntent(pendingIntent);
 
@@ -116,7 +123,7 @@ public class NotifyReceiver extends BroadcastReceiver {
                 .setContentTitle(title)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        if (desc.trim().length() != 0) {
+        if (desc != null && !desc.isEmpty()) {
             builder.setContentText(desc);
         }
 

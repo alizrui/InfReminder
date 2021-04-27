@@ -31,7 +31,7 @@ public class IntroActivity extends AppCompatActivity {
             }
         });
 
-        AlarmManagerThread thread = new AlarmManagerThread(this, this.getApplicationContext(), 0);
+        AlarmManagerThread thread = new AlarmManagerThread( this, 0);
         thread.start();
 
     }

@@ -29,7 +29,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
     }
 
     @Override
-    public void createAlarm(int hour, int min, String name, JSONObject jsonObject, ArrayList<Integer> days) throws JSONException {
+    public void createAlarm(int hour, int min, String name, JSONObject jsonObject, ArrayList<String> days) throws JSONException {
         Calendar rightNow = Calendar.getInstance();
         int daysToNext = daysToNext(days, rightNow, hour, min);
 
@@ -39,16 +39,10 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
 
         /* Json con las características*/
         //String json = createJson(features);
-        jsonObject.put("reply_text", "hola");
-        jsonObject.put("repeat_minute", 1);
+        jsonObject.put("reply_text", "");
+        jsonObject.put("repeat_every", 0);
 
-        //Reminder reminder = new Reminder(name, desc,days.toString(), dateAlarm);
-        ArrayList<String> daysString = new ArrayList<>();
-        for(int d:days){
-            daysString.add(d+"");
-        }
-
-        Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(jsonObject), daysString, dateAlarm);
+        Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(jsonObject), days, dateAlarm);
 
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().getReminders();
@@ -70,11 +64,14 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
                     everythingOK = true;
                 }
             }
-            /* Crea AlarmManager para gestionar notificaciones*/
-            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(createAlarmView.getCreateAlarmView().requireActivity(),
-                    createAlarmView.getCreateAlarmView().getContext(),0);
-            alarmManagerThread.throwAlarm(reminder);
 
+            /* Crea AlarmManager para gestionar notificaciones*/
+            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(createAlarmView.getCreateAlarmView().getContext(),0);
+            try {
+                alarmManagerThread.throwAlarm(reminder);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().addReminder(reminder);
         }).start();
     }
@@ -83,7 +80,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
     /**
      *  Comprueba cuantos días faltan para el siguiente día de alarma y los devuelve
      *  */
-    private int daysToNext(ArrayList<Integer> days, Calendar rightNow, int hour, int min){
+    private int daysToNext(ArrayList<String> days, Calendar rightNow, int hour, int min){
         int today = rightNow.get(Calendar.DAY_OF_WEEK);
         int aux, daysToNext = 9;
         boolean jumpToday = false;
@@ -93,8 +90,9 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
                 (rightNow.get(Calendar.HOUR_OF_DAY) == hour && rightNow.get(Calendar.MINUTE) >= min)) {
             jumpToday = true;
         }
-        for(Integer day:days){
-            aux = (day - today < 0) ? day - today + 7: day - today;
+        for(String day:days){
+            int int_day = Integer.parseInt(day);
+            aux = (int_day - today < 0) ? int_day - today + 7: int_day - today;
             if(aux == 0 && jumpToday) aux = 7; // comprueba si hay que saltar el día de hoy
             if (aux < daysToNext) {
                 daysToNext = aux; // daysToNext son los días que falta hasta que suene la alarma
