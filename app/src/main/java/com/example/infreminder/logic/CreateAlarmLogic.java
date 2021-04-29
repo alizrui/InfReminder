@@ -39,8 +39,6 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
 
         /* Json con las características*/
         //String json = createJson(features);
-        jsonObject.put("reply_text", "");
-        jsonObject.put("repeat_every", 0);
 
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(jsonObject), days, dateAlarm);
 

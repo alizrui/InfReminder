@@ -148,6 +148,11 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             return;
         }
 
+        /* De momento aquí a falta de tener un sitio */
+        jsonObject.put("reply_text", "");
+        jsonObject.put("repeat_every", 0);
+
+
         // Añadir alarma a BD (logica)
         createAlarmLogic.createAlarm(hour, min, name, jsonObject, days);
         Toast.makeText(getContext(), R.string.alarm_created, Toast.LENGTH_SHORT).show();
