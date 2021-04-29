@@ -11,15 +11,21 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infreminder.R;
+import com.example.infreminder.adapter.ReminderListAdapter;
+import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.CreateReminderLogic;
 import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
+import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.view.interfaces.I_CreateReminderView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CreateReminderView extends Fragment implements I_CreateReminderView {
     private I_CreateReminderLogic createReminderLogic;
@@ -85,14 +91,21 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
             Calendar cal = createReminderLogic.setDate(tieDate.getText().toString());
             createReminderLogic.createReminder(tieName.getText().toString(),
                     tieDescription.toString(), new ArrayList<>(),cal);
-            getActivity().onBackPressed();
         });
         bCancel.setOnClickListener(v -> {
             int title = R.string.cancel;
             int message = R.string.title_cancel;
             int positiveButton = R.string.accept;
             int negativeButton = R.string.cancel;
-            createReminderLogic.createAlertDialog(title,message,positiveButton,negativeButton);
+            //createReminderLogic.createAlertDialog(title,message,positiveButton,negativeButton);
+            int a = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+            getActivity().getSupportFragmentManager().popBackStackImmediate();
+             a = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+          // FragmentManager manager = getActivity().getSupportFragmentManager();
+          // FragmentTransaction transaction = manager.beginTransaction();
+          // transaction.setReorderingAllowed(true);
+          // transaction.add(R.id.fcvFragment, ReminderListView.class, null);
+          // transaction.commit();
         });
 
         return view;

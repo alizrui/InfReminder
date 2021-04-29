@@ -1,9 +1,14 @@
 package com.example.infreminder.view;
 
+import android.animation.Animator;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.widget.Toast;
 
 
 import com.example.infreminder.R;
@@ -39,6 +44,11 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     public ReminderListView getReminderListView() {
         return this;
     }
+    @Override
+    public void onResume() {
+        Toast.makeText(getContext(),"hohohohoho",Toast.LENGTH_LONG).show();
+        super.onResume();
+    }
 
     @Nullable
     @Override
@@ -46,8 +56,8 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
         //super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_list,container,false);
         recyclerView = view.findViewById(R.id.recycler_list_reminder);
-
         DatabaseAccess access = new DatabaseAccess(this,this,null);
+        Toast.makeText(getContext(),"hihihi",Toast.LENGTH_LONG).show();
 
         //zona de pruebas
         new Thread(new Runnable() {
@@ -64,13 +74,6 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
         recyclerView.setAdapter(reminderListAdapter);
         return view;
     }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
 
 
     public boolean onItemLongClickListener(int position ) {

@@ -66,7 +66,7 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         return reminders.size();
     }
 
-        public void removeReminderPosition (int pos){
+    public void removeReminderPosition (int pos){
         reminders.remove(pos);
         notifyItemRemoved(pos);
     }

@@ -64,7 +64,6 @@ public class DatabaseAccess extends Thread {
         switch (selection) {
             case ADD_REMINDER :
                 ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().addReminder(reminder);
-                List<Reminder> r = ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().getReminders();
                 break;
             case DELETE_REMINDER :
                 ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().deleteReminder(reminder);

@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             tabLayout.setVisibility(View.VISIBLE);
             pager.setAnimation(enterLeftToRight);
             tabLayout.setAnimation(enterLeftToRight);
-            fcView.setVisibility(View.INVISIBLE);
+            fcView.setVisibility(View.VISIBLE);
             enterLeftToRight.start();
             fMain.setVisibility(View.VISIBLE);
         } else {

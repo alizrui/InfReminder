@@ -47,7 +47,7 @@ public class MainActivityLogic implements I_MainActivityLogic {
         }
         // Replace the Fragments in the required Layout by the selected one
         if (fragmentToAdd != null) {
-            transaction.replace(layout, fragmentToAdd, bundle);
+            transaction.add(layout, fragmentToAdd, bundle);
         }
         // Add the transaction to the BackStack, so it can be reversed by pressing the Back button
         transaction.addToBackStack(null);
