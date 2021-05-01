@@ -130,12 +130,14 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             Toast.makeText(getContext(), R.string.name_error, Toast.LENGTH_SHORT).show();
             return;
         }
+
         int hour = tpTime.getHour();
         int min = tpTime.getMinute();
         ArrayList<String> days = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("desc", etDes.getText());
 
+        /* Cambiar por radio group selection */
         if (rbOnlyOnce.isChecked()) {
 
             createAlarmLogic.repeatOnlyOnce(hour, min, days);

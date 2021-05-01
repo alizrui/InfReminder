@@ -63,5 +63,8 @@
     <string name="_30" translatable="false">30s</string>
     <string name="_15" translatable="false">15s</string>
     <string name="_60" translatable="false">60s</string>
+    <string name="simple">Simple</string>
+    <string name="fixed">Fijo</string>
+    <string name="reply_notify">Responder</string>
 
 </resources>

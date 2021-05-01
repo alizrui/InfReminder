@@ -43,4 +43,7 @@
     <string name="reply_text">Reply text</string>
     <string name="open_wiki">Open Wiki</string>
     <string name="reply">Reply</string>
+    <string name="simple">Simple</string>
+    <string name="fixed">Fixed</string>
+    <string name="reply_notify">Answer</string>
 </resources>

@@ -137,7 +137,6 @@ public class AlarmManagerThread extends Thread {
             ReminderDatabase.getInstance(context).reminderDao().deleteReminder(rem);
             if (!only_once) {
                 try {
-                    Log.d("LOL", "que hiciste");
                     createAlarm(rem.getDate().get(Calendar.HOUR_OF_DAY), rem.getDate().get(Calendar.MINUTE),
                             rem.getName(), rem.getFeatures(), rem.getDays());
                 } catch (JSONException e) {
