@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -47,6 +48,8 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     private RadioButton rbFixed;
     private RadioButton rbReply;
 
+    private RadioGroup rgType;
+
     private Button bNewAlarm;
 
     /* */
@@ -82,6 +85,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         rbSimple = view.findViewById(R.id.rbSimple);
         rbFixed = view.findViewById(R.id.rbFixed);
         rbReply = view.findViewById(R.id.rbReply);
+        rgType = view.findViewById(R.id.rgType);
 
 
 
@@ -133,17 +137,13 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         jsonObject.put("desc", etDes.getText());
 
         if (rbOnlyOnce.isChecked()) {
-            Calendar rightNow = Calendar.getInstance();
-            if (rightNow.get(Calendar.HOUR_OF_DAY) > hour ||
-                    (rightNow.get(Calendar.HOUR_OF_DAY) == hour && rightNow.get(Calendar.MINUTE) >= min)) {
-                days.add((rightNow.get(Calendar.DAY_OF_WEEK) + 1) +"");
-            } else {
-                days.add(rightNow.get(Calendar.DAY_OF_WEEK) + "");
-            }
+
+            createAlarmLogic.repeatOnlyOnce(hour, min, days);
             jsonObject.put("only_once", true);
 
         } else if (rbEveryDay.isChecked()) {
-            for(int i = 1; i <= 7; i++) days.add(i + "");
+
+            createAlarmLogic.repeatEveryDay(days);
             jsonObject.put("only_once", false);;
 
         } else if(rbSelectDays.isChecked()){
@@ -162,14 +162,15 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         int repeatEvery = 0;
         String replyText = "";
 
-        if (rbSimple.isChecked()) {
+        switch (rgType.getCheckedRadioButtonId()) {
+            case R.id.rbSimple : break;
+            case R.id.rbFixed :  repeatEvery = -1; break;
+            case R.id.rbReply :
+                repeatEvery = -1;
+                replyText = "";
+                Toast.makeText(getContext(), "Esto no fundiona", Toast.LENGTH_LONG).show();
+                break;
 
-        } else if (rbFixed.isChecked()) {
-            repeatEvery = -1;
-        } else if (rbReply.isChecked()) {
-            repeatEvery = -1;
-            replyText = "";
-            Toast.makeText(getContext(), "Esto no fundiona", Toast.LENGTH_LONG).show();
         }
 
         jsonObject.put("repeat_every", repeatEvery);

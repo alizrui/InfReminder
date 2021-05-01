@@ -74,6 +74,30 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         }).start();
     }
 
+    @Override
+    public void repeatOnlyOnce(int hour, int min, List<String> days) {
+        Calendar rightNow = Calendar.getInstance();
+        Calendar selectedTime = Calendar.getInstance();
+        selectedTime.set(Calendar.HOUR_OF_DAY, hour);
+        selectedTime.set(Calendar.MINUTE, min);
+
+        if (rightNow.compareTo(selectedTime) >= 0) {
+            days.add((rightNow.get(Calendar.DAY_OF_WEEK) + 1) +"");
+        } else {
+            days.add(rightNow.get(Calendar.DAY_OF_WEEK) + "");
+        }
+    }
+
+    @Override
+    public void repeatEveryDay(List<String> days) {
+        for(int i = 1; i <= 7; i++) days.add(i + "");
+    }
+
+    @Override
+    public void repeatSelectDays(List<String> days) {
+
+    }
+
 
     /**
      *  Comprueba cuantos días faltan para el siguiente día de alarma y los devuelve
