@@ -93,11 +93,6 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         for(int i = 1; i <= 7; i++) days.add(i + "");
     }
 
-    @Override
-    public void repeatSelectDays(List<String> days) {
-
-    }
-
 
     /**
      *  Comprueba cuantos días faltan para el siguiente día de alarma y los devuelve

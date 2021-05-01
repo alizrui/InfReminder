@@ -1,5 +1,6 @@
 package com.example.infreminder.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,14 +41,10 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     private TimePicker tpTime;
     private EditText etName;
     private EditText etDes;
-    private RadioButton rbOnlyOnce;
-    private RadioButton rbEveryDay;
+
     private RadioButton rbSelectDays;
 
-    private RadioButton rbSimple;
-    private RadioButton rbFixed;
-    private RadioButton rbReply;
-
+    private RadioGroup rgDays;
     private RadioGroup rgType;
 
     private Button bNewAlarm;
@@ -76,18 +73,13 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         tpTime = view.findViewById(R.id.tpHours);
         etName = view.findViewById(R.id.etName);
         etDes = view.findViewById(R.id.etDescription);
-        rbOnlyOnce = view.findViewById(R.id.rbOnlyOnce);
-        rbEveryDay = view.findViewById(R.id.rbEveryDay);
+
         rbSelectDays = view.findViewById(R.id.rbSelectDays);
-        bNewAlarm = view.findViewById(R.id.bNewAlarm);
 
-
-        rbSimple = view.findViewById(R.id.rbSimple);
-        rbFixed = view.findViewById(R.id.rbFixed);
-        rbReply = view.findViewById(R.id.rbReply);
+        rgDays = view.findViewById(R.id.rgRepeatEvery);
         rgType = view.findViewById(R.id.rgType);
 
-
+        bNewAlarm = view.findViewById(R.id.bNewAlarm);
 
         /* Listeners*/
         rbSelectDays.setOnClickListener(v -> {
@@ -123,8 +115,8 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         dialog.show(getChildFragmentManager(),null);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void createAlarm() throws JSONException {
-
         String name = etName.getText().toString();
         if(name.isEmpty()){
             Toast.makeText(getContext(), R.string.name_error, Toast.LENGTH_SHORT).show();
@@ -137,29 +129,31 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("desc", etDes.getText());
 
-        /* Cambiar por radio group selection */
-        if (rbOnlyOnce.isChecked()) {
+        switch(rgDays.getCheckedRadioButtonId()){
+            case R.id.rbOnlyOnce:
+                createAlarmLogic.repeatOnlyOnce(hour, min, days);
+                jsonObject.put("only_once", true);
+                break;
 
-            createAlarmLogic.repeatOnlyOnce(hour, min, days);
-            jsonObject.put("only_once", true);
+            case R.id.rbEveryDay:
+                createAlarmLogic.repeatEveryDay(days);
+                jsonObject.put("only_once", false);
+                break;
 
-        } else if (rbEveryDay.isChecked()) {
+            case R.id.rbSelectDays:
+                days = daysSelected;
+                if(daysSelected == null || daysSelected.isEmpty()) {
+                    Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                jsonObject.put("only_once", false);
+                break;
 
-            createAlarmLogic.repeatEveryDay(days);
-            jsonObject.put("only_once", false);;
-
-        } else if(rbSelectDays.isChecked()){
-            days = daysSelected;
-            if(daysSelected == null || daysSelected.isEmpty()) {
+            default:
                 Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
                 return;
-            }
-            jsonObject.put("only_once", false);
-        } else {
-            Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
 
+        }
 
         int repeatEvery = 0;
         String replyText = "";
@@ -181,6 +175,6 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         // Añadir alarma a BD (logica)
         createAlarmLogic.createAlarm(hour, min, name, jsonObject, days);
         Toast.makeText(getContext(), R.string.alarm_created, Toast.LENGTH_SHORT).show();
-        getActivity().onBackPressed();
+        getActivity().onBackPressed(); // puede que haya que quitarlo
     }
 }

@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_weight="1"
+
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -96,7 +96,7 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="simple" />
+                android:text="@string/simple" />
 
             <RadioButton
                 android:id="@+id/rbFixed"
@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_margin="8dp"
-                android:text="fijo" />
+                android:text="@string/fixed" />
 
             <RadioButton
                 android:id="@+id/rbReply"
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_margin="8dp"
-                android:text="responder" />
+                android:text="@string/reply_notify" />
         </RadioGroup>
         <Button
             android:id="@+id/bNewAlarm"

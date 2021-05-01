@@ -12,6 +12,5 @@ public interface I_CreateAlarmLogic {
 
     void repeatOnlyOnce(int hour, int min, List<String> days);
     void repeatEveryDay(List<String> days);
-    void repeatSelectDays(List<String> days);
 
 }
