@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
         final int clickedButton = view.getId();
         /**/
-        logic.updateFragments(clickedButton);
+        logic.startActivityFragment(clickedButton);
     }
 
 

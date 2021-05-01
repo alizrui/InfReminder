@@ -47,7 +47,7 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     }
     @Override
     public void onResume() {
-        Toast.makeText(getContext(),"hohohohoho",Toast.LENGTH_LONG).show();
+
         super.onResume();
     }
 
@@ -58,7 +58,7 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
         View view = inflater.inflate(R.layout.fragment_list,container,false);
         recyclerView = view.findViewById(R.id.recycler_list_reminder);
         DatabaseAccess access = new DatabaseAccess(this,this,null);
-        Toast.makeText(getContext(),"hihihi",Toast.LENGTH_LONG).show();
+
 
         //zona de pruebas
         new Thread(new Runnable() {
