@@ -61,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:checked="true"
                 android:text="@string/only_once" />
 
             <RadioButton
@@ -78,51 +79,40 @@
                 android:text="@string/select_days" />
         </RadioGroup>
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/rbRepeatEvery"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch3"
-                android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/rbSimple"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Switch" />
-
-            <RadioGroup
-                android:id="@+id/rbRepeatEvery"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:checked="true"
+                android:text="simple" />
 
-                <RadioButton
-                    android:id="@+id/rb15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/_15" />
+            <RadioButton
+                android:id="@+id/rbFixed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:text="fijo" />
 
-                <RadioButton
-                    android:id="@+id/rb30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/_30" />
-
-                <RadioButton
-                    android:id="@+id/rb60"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/_60" />
-            </RadioGroup>
-        </LinearLayout>
-
+            <RadioButton
+                android:id="@+id/rbReply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:text="responder" />
+        </RadioGroup>
         <Button
             android:id="@+id/bNewAlarm"
             android:layout_width="match_parent"

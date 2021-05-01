@@ -39,7 +39,12 @@ public class MainActivityLogic implements I_MainActivityLogic {
         }
 
         // Get a FragmentTransaction to begin some operations with the current FragmentManager
-        FragmentTransaction transaction = i_MainActivity.getMainActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_right_to_left,R.anim.exit_right_to_left,R.anim.enter_left_to_right,R.anim.exit_left_to_right);
+        FragmentTransaction transaction = i_MainActivity.getMainActivity().getSupportFragmentManager()
+                .beginTransaction().setCustomAnimations(
+                        R.anim.enter_right_to_left,
+                        R.anim.exit_right_to_left,
+                        R.anim.enter_left_to_right,
+                        R.anim.exit_left_to_right);
         transaction.setReorderingAllowed(true);
         // Remove the required Fragment NOT USED YET
         if (fragmentToRemove != null) {
@@ -54,7 +59,4 @@ public class MainActivityLogic implements I_MainActivityLogic {
         // Make changes effective
         transaction.commit();
     }
-
-
-
 }

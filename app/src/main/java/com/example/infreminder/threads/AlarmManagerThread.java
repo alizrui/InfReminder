@@ -47,7 +47,7 @@ public class AlarmManagerThread extends Thread {
 
         /* Extraer campos del json repeatMinutes y replyText */
         JSONObject jsonObject = Utils.stringToJson(rem.getFeatures());
-        Log.d("LOL", jsonObject.toString());
+        intent.putExtra("desc", (String) jsonObject.get("desc"));
         intent.putExtra("replyText", (String) jsonObject.get("reply_text"));
         intent.putExtra("repeatEvery", (Integer) jsonObject.get("repeat_every"));
 
