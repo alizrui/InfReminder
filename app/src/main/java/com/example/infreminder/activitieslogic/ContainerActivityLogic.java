@@ -11,6 +11,7 @@ import com.example.infreminder.activities.interfaces.I_MainActivity;
 import com.example.infreminder.activitieslogic.interfaces.I_ContainerActivityLogic;
 import com.example.infreminder.view.CreateAlarmView;
 import com.example.infreminder.view.CreateReminderView;
+import com.example.infreminder.view.CreateSpecialView;
 
 public class ContainerActivityLogic implements I_ContainerActivityLogic {
 
@@ -35,6 +36,9 @@ public class ContainerActivityLogic implements I_ContainerActivityLogic {
                 break;
             case R.id.fab_reminder:
                 fragmentToAdd = CreateReminderView.class;
+                break;
+            case R.id.fab_special:
+                fragmentToAdd = CreateSpecialView.class;
                 break;
         }
 

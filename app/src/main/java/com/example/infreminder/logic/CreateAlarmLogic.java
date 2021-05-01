@@ -1,8 +1,5 @@
 package com.example.infreminder.logic;
 
-import android.util.Log;
-
-import com.example.infreminder.Utils.Features;
 import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
@@ -10,7 +7,6 @@ import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.threads.AlarmManagerThread;
 import com.example.infreminder.view.interfaces.I_CreateAlarmView;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,10 +16,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static java.lang.Boolean.parseBoolean;
-
 public class CreateAlarmLogic implements I_CreateAlarmLogic {
+
     private I_CreateAlarmView createAlarmView;
+
     public CreateAlarmLogic(I_CreateAlarmView fragment) {
         createAlarmView = fragment;
     }

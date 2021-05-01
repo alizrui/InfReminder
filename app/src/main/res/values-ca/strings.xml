@@ -46,4 +46,5 @@
     <string name="simple">Simple</string>
     <string name="fixed">Fixe</string>
     <string name="reply_notify">Respondre</string>
+    <string name="create_special">Crear Especial</string>
 </resources>

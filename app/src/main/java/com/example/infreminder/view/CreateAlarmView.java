@@ -2,9 +2,6 @@ package com.example.infreminder.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
@@ -100,6 +95,8 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         if (savedInstanceState != null){
             daysSelected = savedInstanceState.getStringArrayList("days");
         }
+
+        tpTime.setMinute(tpTime.getMinute() + 1);
 
         return view;
     }

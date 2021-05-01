@@ -5,10 +5,14 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -95,10 +99,7 @@ public class NotifyReceiver extends BroadcastReceiver {
             Intent openUrlAction = new Intent(context, NotifyUrl.class).putExtra("url", wiki.getHref());
             PendingIntent openUrlActionPendingIntent = PendingIntent.getBroadcast(context, 0, openUrlAction, 0);
             builder.addAction(R.drawable.ic_alarm, context.getString(R.string.open_wiki), openUrlActionPendingIntent);
-        }    /* Cositas */
-            // else {
-        //    builder.addAction(R.drawable.ic_alarm, context.getString(R.string.alarmatorio),);
-        //}
+        }
 
         Notification notification = builder.build();
 
@@ -129,6 +130,13 @@ public class NotifyReceiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
+        //** METER FOTOS **//
+        //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
+        //builder.setStyle(new NotificationCompat.BigPictureStyle().setBigContentTitle("QUE PASA").bigPicture(bitmap)); //linea de pruebas
+
+
+
+        //builder.setSound(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getApplicationContext().getPackageName() + "/" +);
 
         if (desc != null && !desc.isEmpty()) {
             builder.setContentText(desc);
@@ -205,6 +213,7 @@ public class NotifyReceiver extends BroadcastReceiver {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
+            channel.enableVibration(true); // mirar como hacer la vibración @alejandro
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
