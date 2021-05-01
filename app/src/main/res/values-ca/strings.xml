@@ -43,4 +43,7 @@
     <string name="open_wiki">Obri la Wiki</string>
     <string name="reply_text">Respón text</string>
     <string name="reply">Respón</string>
+    <string name="simple">Simple</string>
+    <string name="fixed">Fixe</string>
+    <string name="reply_notify">Respondre</string>
 </resources>
