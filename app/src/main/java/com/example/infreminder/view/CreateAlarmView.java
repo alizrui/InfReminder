@@ -43,6 +43,10 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     private RadioButton rbEveryDay;
     private RadioButton rbSelectDays;
 
+    private RadioButton rbSimple;
+    private RadioButton rbFixed;
+    private RadioButton rbReply;
+
     private Button bNewAlarm;
 
     /* */
@@ -73,6 +77,12 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         rbEveryDay = view.findViewById(R.id.rbEveryDay);
         rbSelectDays = view.findViewById(R.id.rbSelectDays);
         bNewAlarm = view.findViewById(R.id.bNewAlarm);
+
+
+        rbSimple = view.findViewById(R.id.rbSimple);
+        rbFixed = view.findViewById(R.id.rbFixed);
+        rbReply = view.findViewById(R.id.rbReply);
+
 
 
         /* Listeners*/
@@ -150,16 +160,26 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
             return;
         }
 
-        /* De momento aquí a falta de tener un sitio */
-        jsonObject.put("reply_text", "");
-        jsonObject.put("repeat_every", 0);
 
+        int repeatEvery = 0;
+        String replyText = "";
+
+        if (rbSimple.isChecked()) {
+
+        } else if (rbFixed.isChecked()) {
+            repeatEvery = -1;
+        } else if (rbReply.isChecked()) {
+            repeatEvery = -1;
+            replyText = "";
+            Toast.makeText(getContext(), "Esto no fundiona", Toast.LENGTH_LONG).show();
+        }
+
+        jsonObject.put("repeat_every", repeatEvery);
+        jsonObject.put("reply_text", replyText);
 
         // Añadir alarma a BD (logica)
         createAlarmLogic.createAlarm(hour, min, name, jsonObject, days);
         Toast.makeText(getContext(), R.string.alarm_created, Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }
-
-
 }
