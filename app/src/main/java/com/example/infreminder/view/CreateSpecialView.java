@@ -1,6 +1,8 @@
 package com.example.infreminder.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +25,11 @@ import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.logic.interfaces.I_CreateSpecialLogic;
 import com.example.infreminder.view.interfaces.I_CreateSpecialView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
 
@@ -41,6 +48,8 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
 
     private ArrayList<String> daysSelected;
 
+    private Calendar date = Calendar.getInstance();
+
     public CreateSpecialView() { }
 
 
@@ -51,9 +60,12 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
 
         logic = new CreateSpecialLogic(this);
 
+
         /* Get the views */
         tpTime = view.findViewById(R.id.tpSpecial);
         etName = view.findViewById(R.id.etNameSpecial);
+
+        rgDays = view.findViewById(R.id.rgSpecial);
 
         rbOnlyDay = view.findViewById(R.id.rbOnlyOnceSpecial);
         rbSelectDays = view.findViewById(R.id.rbSelectDaysSpecial);
@@ -62,7 +74,7 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
 
         /* Listeners */
         rbOnlyDay.setOnClickListener(v -> {
-
+            logic.showDatePickerDialog(date);
         });
 
         rbSelectDays.setOnClickListener(v ->{
@@ -70,9 +82,12 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         });
 
         bNewSpecial.setOnClickListener(v-> {
-            createSpecial();
-        }
-        );
+            try {
+                createSpecial();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
 
         getChildFragmentManager().setFragmentResultListener("requestDays", this,
                 (requestKey, result) -> daysSelected = result.getStringArrayList("days"));
@@ -97,7 +112,37 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         dialog.show(getChildFragmentManager(),null);
     }
 
-    private void createSpecial(){
+    @SuppressLint("NonConstantResourceId")
+    private void createSpecial() throws JSONException {
+        String name = etName.getText().toString();
+        if(name.isEmpty()){
+            Toast.makeText(getContext(), R.string.name_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        ArrayList<String> days = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+
+        switch(rgDays.getCheckedRadioButtonId()){
+            case R.id.rbOnlyOnceSpecial:
+                jsonObject.put("only_once", true);
+                //logic.createReminder(name,reminder);
+                Toast.makeText(getContext(), R.string.special_created, Toast.LENGTH_SHORT).show();
+                getActivity().onBackPressed();
+                break;
+            case R.id.rbSelectDaysSpecial:
+                jsonObject.put("only_once", false);
+                //logic.createAlarm(name,days);
+                Toast.makeText(getContext(), R.string.special_created, Toast.LENGTH_SHORT).show();
+                getActivity().onBackPressed();
+                break;
+            default:
+                Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public CreateSpecialView getCreateSpecialView() {
+        return this;
     }
 }

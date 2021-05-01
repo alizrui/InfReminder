@@ -64,5 +64,6 @@
     <string name="fixed">Fijo</string>
     <string name="reply_notify">Responder</string>
     <string name="create_special">Crear Especial</string>
+    <string name="special_created">Especial creado</string>
 
 </resources>
