@@ -58,9 +58,11 @@ public class NotifyReceiver extends BroadcastReceiver {
         }
         PendingIntent resultPendingIntent = createResultPendingIntent(context, resultIntent);
 
+
         Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+
         notificationManagerCompat.notify(id, notification);
 
         AlarmManagerThread thread = new AlarmManagerThread(context, id);
@@ -91,9 +93,12 @@ public class NotifyReceiver extends BroadcastReceiver {
         if (replyAction != null) {
             builder.addAction(replyAction);
             Intent openUrlAction = new Intent(context, NotifyUrl.class).putExtra("url", wiki.getHref());
-            PendingIntent openUrlActionPendingIntent = PendingIntent.getBroadcast(context, 0 , openUrlAction, 0);
+            PendingIntent openUrlActionPendingIntent = PendingIntent.getBroadcast(context, 0, openUrlAction, 0);
             builder.addAction(R.drawable.ic_alarm, context.getString(R.string.open_wiki), openUrlActionPendingIntent);
-        }
+        }    /* Cositas */
+            // else {
+        //    builder.addAction(R.drawable.ic_alarm, context.getString(R.string.alarmatorio),);
+        //}
 
         Notification notification = builder.build();
 
@@ -121,7 +126,9 @@ public class NotifyReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_alarm)
                 .setContentTitle(title)
+                .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
 
         if (desc != null && !desc.isEmpty()) {
             builder.setContentText(desc);

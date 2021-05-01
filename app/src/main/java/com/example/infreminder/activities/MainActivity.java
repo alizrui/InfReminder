@@ -39,7 +39,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     private ViewPager2 pager;
-    private FragmentContainerView fcView;
     private TabLayout tabLayout;
     private I_MainActivityLogic logic;
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
@@ -47,14 +46,13 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private ImageView backgroundWhite;
     private boolean isOpen;
     private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward,enterLeftToRight;
-    private boolean fragmentActive;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragmentActive = false;
+
         //Floating Buttons
         fMain = findViewById(R.id.fab_principal);
         fAlarm = findViewById(R.id.fab_alarm);
@@ -80,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         logic = new MainActivityLogic(this);
 
         pager = findViewById(R.id.viewPager);
-        fcView = findViewById(R.id.fcvFragment);
         tabLayout = findViewById(R.id.tabLayout);
 
         pager.setAdapter(new ViewPagerFragmentStateAdapter(this));
@@ -98,16 +95,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             }
         }).attach();
 
-        if(savedInstanceState != null){
-            fragmentActive = savedInstanceState.getBoolean("fragmentActive");
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putBoolean("fragmentActive", fragmentActive);
     }
 
     @Override
@@ -121,35 +108,31 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     public void onBackPressed() {
         overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_right_to_left);
         changeVisibility();
-        fragmentActive = false;
+
         super.onBackPressed();
     }
 
     private void changeVisibility(){
-        if(fragmentActive){
-            pager.setVisibility(View.VISIBLE);
-            tabLayout.setVisibility(View.VISIBLE);
-            pager.setAnimation(enterLeftToRight);
-            tabLayout.setAnimation(enterLeftToRight);
-            fcView.setVisibility(View.VISIBLE);
-            enterLeftToRight.start();
-            fMain.setVisibility(View.VISIBLE);
-        } else {
-            pager.setVisibility(View.INVISIBLE);
-            tabLayout.setVisibility(View.INVISIBLE);
-            fcView.setVisibility(View.VISIBLE);
-            fMain.setVisibility(View.INVISIBLE);
-        }
+//        if(fragmentActive){
+//            pager.setVisibility(View.VISIBLE);
+//            tabLayout.setVisibility(View.VISIBLE);
+//            pager.setAnimation(enterLeftToRight);
+//            tabLayout.setAnimation(enterLeftToRight);
+//
+//            enterLeftToRight.start();
+//            fMain.setVisibility(View.VISIBLE);
+//        } else {
+//            pager.setVisibility(View.INVISIBLE);
+//            tabLayout.setVisibility(View.INVISIBLE);
+//
+//            fMain.setVisibility(View.INVISIBLE);
+//        }
     }
 
     public void updateFragments(View view) {
 
-        /*  */
-        showMenu(null);
-        changeVisibility();
-        fragmentActive = true;
-
         final int clickedButton = view.getId();
+        /**/
         logic.updateFragments(clickedButton);
     }
 
@@ -199,8 +182,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         int id = item.getItemId();
 
         if (id ==R.id.menu_item_settings ){
-            changeVisibility();
-            fragmentActive = true;
 
             if (isOpen){
                fReminder.setVisibility(View.INVISIBLE);
@@ -215,7 +196,9 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             Fragment fragmentToAdd = null;
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             fragmentToAdd = new SettingsFragment();
-            ft.add(R.id.fcvFragment,fragmentToAdd);
+
+            // AÑADIR AL ACTIVITY
+
             ft.commit();
         }else if(id == R.id.menu_item_info ){ showAbout();}
 
@@ -230,16 +213,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                 .show();
     }
 
-    @Override
-    protected void onResume() {
-
-        if (fragmentActive) {
-            fragmentActive = false;
-            changeVisibility();
-            fragmentActive = !fragmentActive;
-        }
-        super.onResume();
-    }
 
 }
 
