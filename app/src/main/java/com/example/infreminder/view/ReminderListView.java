@@ -47,8 +47,10 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     }
     @Override
     public void onResume() {
-
         super.onResume();
+        Toast.makeText(getContext(),"HIHIHOHO",Toast.LENGTH_LONG).show();
+        DatabaseAccess access = new DatabaseAccess(this,this,null);
+        access.loadReminders();
     }
 
     @Nullable
