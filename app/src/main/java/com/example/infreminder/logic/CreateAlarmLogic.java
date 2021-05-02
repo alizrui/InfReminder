@@ -1,5 +1,7 @@
 package com.example.infreminder.logic;
 
+import android.util.Log;
+
 import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;

@@ -120,24 +120,35 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
             return;
         }
 
+        int hour = tpTime.getHour();
+        int min = tpTime.getMinute();
+
         ArrayList<String> days = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
+
+        /* Metiendo campos */ jsonObject.put("desc", "");
+        jsonObject.put("reply_text", "");
+        jsonObject.put("repeat_every", 0);
 
         switch(rgDays.getCheckedRadioButtonId()){
             case R.id.rbOnlyOnceSpecial:
                 jsonObject.put("only_once", true);
-                //logic.createReminder(name,reminder);
+                date.set(Calendar.HOUR_OF_DAY, hour);
+                date.set(Calendar.MINUTE, min);
+                logic.createSpecialReminder(name, date,jsonObject);
                 Toast.makeText(getContext(), R.string.special_created, Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
                 break;
             case R.id.rbSelectDaysSpecial:
                 jsonObject.put("only_once", false);
-                //logic.createAlarm(name,days);
+                days = daysSelected;
+                logic.createSpecialAlarm(hour, min, name,days,jsonObject);
                 Toast.makeText(getContext(), R.string.special_created, Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
                 break;
             default:
                 Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
