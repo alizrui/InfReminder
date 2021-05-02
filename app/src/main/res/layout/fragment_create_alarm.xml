@@ -22,13 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
-            app:startIconDrawable="@drawable/ic_add_alarm"
-            app:endIconMode="clear_text">
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_add_alarm">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:hint="@string/name" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -80,34 +81,17 @@
         </RadioGroup>
 
         <RadioGroup
-            android:id="@+id/rgType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rbSimple"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:checked="true"
-                android:text="@string/simple" />
-
-            <RadioButton
-                android:id="@+id/rbFixed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/fixed" />
-
-            <RadioButton
-                android:id="@+id/rbReply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/reply_notify" />
-        </RadioGroup>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/scFijo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/fixed" />
 
         <Button
             android:id="@+id/bNewAlarm"
@@ -115,6 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/create_alarm" />
+
+        </RadioGroup>
 
     </LinearLayout>
 

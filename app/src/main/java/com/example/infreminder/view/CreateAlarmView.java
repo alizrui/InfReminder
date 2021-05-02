@@ -2,6 +2,7 @@ package com.example.infreminder.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.infreminder.R;
@@ -37,10 +39,12 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     private EditText etName;
     private EditText etDes;
 
+    private SwitchCompat scFijo;
+
     private RadioButton rbSelectDays;
 
     private RadioGroup rgDays;
-    private RadioGroup rgType;
+
 
     private Button bNewAlarm;
 
@@ -69,10 +73,12 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         etName = view.findViewById(R.id.etName);
         etDes = view.findViewById(R.id.etDescription);
 
+        scFijo = view.findViewById(R.id.scFijo);
+
         rbSelectDays = view.findViewById(R.id.rbSelectDays);
 
         rgDays = view.findViewById(R.id.rgRepeatEvery);
-        rgType = view.findViewById(R.id.rgType);
+
 
         bNewAlarm = view.findViewById(R.id.bNewAlarm);
 
@@ -115,6 +121,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     @SuppressLint("NonConstantResourceId")
     public void createAlarm() throws JSONException {
         String name = etName.getText().toString();
+
         if(name.isEmpty()){
             Toast.makeText(getContext(), R.string.name_error, Toast.LENGTH_SHORT).show();
             return;
@@ -155,15 +162,8 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         int repeatEvery = 0;
         String replyText = "";
 
-        switch (rgType.getCheckedRadioButtonId()) {
-            case R.id.rbSimple : break;
-            case R.id.rbFixed :  repeatEvery = -1; break;
-            case R.id.rbReply :
-                repeatEvery = -1;
-                replyText = "";
-                Toast.makeText(getContext(), "Esto no fundiona", Toast.LENGTH_LONG).show();
-                break;
-
+        if(scFijo.isChecked()){
+            repeatEvery = -1;
         }
 
         jsonObject.put("repeat_every", repeatEvery);
