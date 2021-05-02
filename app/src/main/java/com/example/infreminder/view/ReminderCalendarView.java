@@ -55,7 +55,6 @@ public class ReminderCalendarView extends Fragment {
 
         // date = fecha sin horas
         date = Instant.now().truncatedTo(ChronoUnit.DAYS);
-        access = new DatabaseAccess(this,null,this);
         load();
         calendarReminderListAdapter = new CalendarReminderListAdapter(getContext(),new ArrayList<>() );
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
