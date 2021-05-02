@@ -107,32 +107,11 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     @Override
     public void onBackPressed() {
         overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_right_to_left);
-        changeVisibility();
-
         super.onBackPressed();
     }
 
-    private void changeVisibility(){
-//        if(fragmentActive){
-//            pager.setVisibility(View.VISIBLE);
-//            tabLayout.setVisibility(View.VISIBLE);
-//            pager.setAnimation(enterLeftToRight);
-//            tabLayout.setAnimation(enterLeftToRight);
-//
-//            enterLeftToRight.start();
-//            fMain.setVisibility(View.VISIBLE);
-//        } else {
-//            pager.setVisibility(View.INVISIBLE);
-//            tabLayout.setVisibility(View.INVISIBLE);
-//
-//            fMain.setVisibility(View.INVISIBLE);
-//        }
-    }
-
     public void updateFragments(View view) {
-
         final int clickedButton = view.getId();
-        /**/
         logic.startActivityFragment(clickedButton);
     }
 
@@ -212,8 +191,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
     }
-
-
 }
 
 
