@@ -28,6 +28,11 @@ public class ContainerActivity extends AppCompatActivity implements I_ContainerA
         logic.updateFragments(idButton);
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     public ContainerActivity getContainerActivity() {
