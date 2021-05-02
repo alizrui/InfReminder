@@ -18,6 +18,9 @@ import com.example.infreminder.adapter.ReminderListAdapter;
 import com.example.infreminder.database.DatabaseAccess;
 import com.example.infreminder.database.ReminderDao;
 import com.example.infreminder.database.ReminderDatabase;
+import com.example.infreminder.logic.ReminderListLogic;
+import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
+import com.example.infreminder.logic.interfaces.I_ReminderListLogic;
 import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.view.interfaces.I_ReminderListView;
 
@@ -35,9 +38,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReminderListView extends Fragment implements I_ReminderListView {
+    private I_ReminderListLogic reminderListLogic;
     private RecyclerView recyclerView;
     private ReminderListAdapter reminderListAdapter;
-    private List<Reminder> reminders;
     private WeakReference<ReminderCalendarView> weakReference3;
     private ReminderCalendarView reminderCalendarView;
 
@@ -45,37 +48,26 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     public ReminderListView getReminderListView() {
         return this;
     }
+
     @Override
     public void onResume() {
-
         super.onResume();
+        //reminderListLogic.updateReminders();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_list,container,false);
+        reminderListLogic = new ReminderListLogic(this);
         recyclerView = view.findViewById(R.id.recycler_list_reminder);
-        DatabaseAccess access = new DatabaseAccess(this,this,null);
-
-
-        //zona de pruebas
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                reminders = ReminderDatabase.getInstance(getContext()).reminderDao().getReminders();
-            }
-        }).start();
-
+        reminderListLogic.updateReminders();
         reminderListAdapter = new ReminderListAdapter(getContext(), new ArrayList<Reminder>(), this::onItemLongClickListener);
-        access.loadReminders();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(reminderListAdapter);
         return view;
     }
-
 
     public boolean onItemLongClickListener(int position ) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
@@ -97,12 +89,6 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     public ReminderListView(){}
 
     public void updateList(List<Reminder> reminderList) {
-
-        Log.d("tags", "updateList");
-
         reminderListAdapter.updateReminders(reminderList);
-
-
     }
-
 }

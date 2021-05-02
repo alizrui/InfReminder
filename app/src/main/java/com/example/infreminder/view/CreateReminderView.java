@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,15 +98,7 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
             int message = R.string.title_cancel;
             int positiveButton = R.string.accept;
             int negativeButton = R.string.cancel;
-            //createReminderLogic.createAlertDialog(title,message,positiveButton,negativeButton);
-            int a = getActivity().getSupportFragmentManager().getBackStackEntryCount();
-            getActivity().getSupportFragmentManager().popBackStackImmediate();
-             a = getActivity().getSupportFragmentManager().getBackStackEntryCount();
-          // FragmentManager manager = getActivity().getSupportFragmentManager();
-          // FragmentTransaction transaction = manager.beginTransaction();
-          // transaction.setReorderingAllowed(true);
-          // transaction.add(R.id.fcvFragment, ReminderListView.class, null);
-          // transaction.commit();
+            createReminderLogic.createAlertDialog(title,message,positiveButton,negativeButton);
         });
 
         return view;

@@ -31,6 +31,7 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
     public void createReminder(String name, String description, ArrayList<String> features, Calendar calendar) {
         Reminder reminder = PojoInit.reminder(name,description,features,calendar);
         dbAcces.addReminder(reminder, true);
+        createReminderView.getCreateReminderView().getActivity().onBackPressed();
     }
 
     @Override

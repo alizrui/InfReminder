@@ -137,14 +137,16 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
                 date.set(Calendar.MINUTE, min);
                 logic.createSpecialReminder(name, date,jsonObject);
                 Toast.makeText(getContext(), R.string.special_created, Toast.LENGTH_SHORT).show();
-                getActivity().onBackPressed();
+                //getActivity().onBackPressed();
+                getActivity().finish();
                 break;
             case R.id.rbSelectDaysSpecial:
                 jsonObject.put("only_once", false);
                 days = daysSelected;
                 logic.createSpecialAlarm(hour, min, name,days,jsonObject);
                 Toast.makeText(getContext(), R.string.special_created, Toast.LENGTH_SHORT).show();
-                getActivity().onBackPressed();
+                getActivity().finish();
+                //getActivity().onBackPressed();
                 break;
             default:
                 Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();

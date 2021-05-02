@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private I_MainActivityLogic logic;
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
     private TextView tAlarm,tSpecial,tReminder;
-    private ImageView backgroundWhite;
     private boolean isOpen;
     private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward,enterLeftToRight;
 
@@ -166,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                fReminder.setVisibility(View.INVISIBLE);
                fSpecial.setVisibility(View.INVISIBLE);
                fAlarm.setVisibility(View.INVISIBLE);
-               backgroundWhite.setVisibility(View.INVISIBLE);
                tAlarm.setVisibility(View.INVISIBLE);
                tSpecial.setVisibility(View.INVISIBLE);
                tReminder.setVisibility(View.INVISIBLE);

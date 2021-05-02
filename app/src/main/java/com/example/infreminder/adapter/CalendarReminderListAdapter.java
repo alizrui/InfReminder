@@ -15,6 +15,8 @@ import com.example.infreminder.R;
 import com.example.infreminder.view.ReminderCalendarView;
 import com.example.infreminder.pojo.Reminder;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,6 +58,7 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
                 holder.name.setText(reminder.getName());
                 holder.hour.setText(simpleDateFormat.format(calendar.getTime()));
+                //holder.description.setText(reminder.getFeatures());
     }
 
     @Override
@@ -66,11 +69,13 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView hour;
+        TextView description;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             name = view.findViewById(R.id.tvNameCalendarReminder);
             hour = view.findViewById(R.id.tvCalendarDate);
+            //description = view.findViewById(R.id.tvCalendarDescription);
 
         }
     }
