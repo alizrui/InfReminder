@@ -1,5 +1,7 @@
 package com.example.infreminder.view;
 
+import android.content.Intent;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -166,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         if (id ==R.id.menu_item_settings ){
 
             if (isOpen){
@@ -177,14 +177,9 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                tSpecial.setVisibility(View.INVISIBLE);
                tReminder.setVisibility(View.INVISIBLE);
             }
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivityForResult(intent, 0);
 
-            Fragment fragmentToAdd = null;
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            fragmentToAdd = new SettingsFragment();
-
-            // AÑADIR AL ACTIVITY
-
-            ft.commit();
         }else if(id == R.id.menu_item_info ){ showAbout();}
 
         return super.onOptionsItemSelected(item);

@@ -52,7 +52,9 @@ public class ReminderListView extends Fragment implements I_ReminderListView {
     @Override
     public void onResume() {
         super.onResume();
-        //reminderListLogic.updateReminders();
+        DatabaseAccess dbAccess = new DatabaseAccess(getReminderListView(),
+               getReminderListView(), null);
+        dbAccess.loadReminders();
     }
 
     @Nullable

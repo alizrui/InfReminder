@@ -6,10 +6,25 @@
     <PreferenceCategory app:title="@string/reminder">
         <com.example.infreminder.preference.TimePreference
             android:title="@string/reminder"
+            android:summary="@string/picker_description"
             android:key="key1"
             android:icon="@drawable/ic_time"
             android:defaultValue="90">
         </com.example.infreminder.preference.TimePreference>
+
+        <Preference
+            android:key="ringtone"
+            android:title="@string/ringtone"
+            android:icon="@drawable/ic_time"
+            android:summary="@string/ringtone_description"
+            />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="vibration"
+            android:title="@string/vibration"
+            android:icon="@drawable/ic_time"
+            android:summary="@string/vibration_description"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/alarm">
@@ -17,7 +32,6 @@
 
     <PreferenceCategory app:title="@string/special">
     </PreferenceCategory>
-
 
 
 </PreferenceScreen>

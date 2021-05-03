@@ -48,4 +48,9 @@
     <string name="reply_notify">Answer</string>
     <string name="create_special">Create Special</string>
     <string name="special_created">Special created</string>
+    <string name="vibration">Enable Vibration</string>
+    <string name="ringtone">Select ringtone</string>
+    <string name="ringtone_description">Select the alarm tone to use</string>
+    <string name="vibration_description">Enable / Disable vibration for alarms</string>
+    <string name="picker_description">Select the time you want the alarms to sound</string>
 </resources>
