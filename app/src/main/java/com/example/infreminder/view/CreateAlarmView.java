@@ -2,7 +2,6 @@ package com.example.infreminder.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
@@ -50,7 +50,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
     /* */
     private ArrayList<String> daysSelected;
-
+    
 
     public CreateAlarmView() { }
 
@@ -65,6 +65,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         View view = inflater.inflate(R.layout.fragment_create_alarm, container, false);
 
         createAlarmLogic = new CreateAlarmLogic(this);
+//        listeners.add((FragmentListener) savedInstanceState.getSerializable("listener"));
 
         /**
         * Keep a reference to views in the create alarm fragment

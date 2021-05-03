@@ -17,12 +17,14 @@ import com.example.infreminder.view.CreateReminderView;
 public class ContainerActivity extends AppCompatActivity implements I_ContainerActivity {
 
     private I_ContainerActivityLogic logic;
+    public static boolean aContainerOut = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
         int idButton = getIntent().getIntExtra("id",0);
+        aContainerOut=false;
 
         logic = new ContainerActivityLogic(this);
         logic.updateFragments(idButton);
@@ -30,8 +32,10 @@ public class ContainerActivity extends AppCompatActivity implements I_ContainerA
 
     @Override
     public void onBackPressed() {
+        aContainerOut=true;
         finish();
         super.onBackPressed();
+
     }
 
     @Override

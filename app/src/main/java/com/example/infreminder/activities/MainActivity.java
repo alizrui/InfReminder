@@ -97,6 +97,14 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     }
 
     @Override
+    protected void onResume() {
+        if(ContainerActivity.aContainerOut){
+            showMenu(null);
+        }
+        super.onResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settings, menu);
@@ -189,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
     }
+
+
 }
 
 
