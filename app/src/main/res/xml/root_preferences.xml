@@ -2,16 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
-    <PreferenceCategory app:title="@string/reminder">
-        <com.example.infreminder.preference.TimePreference
-            android:title="@string/reminder"
-            android:summary="@string/picker_description"
-            android:key="key1"
-            android:icon="@drawable/ic_time"
-            android:defaultValue="90">
-        </com.example.infreminder.preference.TimePreference>
-
+    <PreferenceCategory app:title="@string/general">
         <Preference
             android:key="ringtone"
             android:title="@string/ringtone"
@@ -27,11 +18,15 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/alarm">
-    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/reminder">
+        <com.example.infreminder.preference.TimePreference
+            android:title="@string/reminder"
+            android:summary="@string/picker_description"
+            android:key="key1"
+            android:icon="@drawable/ic_time"
+            android:defaultValue="90">
+        </com.example.infreminder.preference.TimePreference>
 
-    <PreferenceCategory app:title="@string/special">
     </PreferenceCategory>
-
 
 </PreferenceScreen>

@@ -1,10 +1,12 @@
 package com.example.infreminder.fragmentsview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.Settings;
 
 import androidx.annotation.Nullable;
@@ -21,6 +23,7 @@ import com.example.infreminder.preference.TimePreferenceDialogFragmentCompat;
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private static final String KEY_RINGTONE_PREFERENCE = "ringtone";
+    private static final String KEY_VIBRATION_PREFERENCE = "vibration";
     private int REQUEST_CODE_ALERT_RINGTONE;
     private SharedPreferences prefs;
 
@@ -72,6 +75,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Settings.System.DEFAULT_NOTIFICATION_URI);
             }
             startActivityForResult(intent,REQUEST_CODE_ALERT_RINGTONE);
+        }
+
+        else if(preference.getKey().equals(KEY_VIBRATION_PREFERENCE))
+        {
+
+            if(prefs.getBoolean("vibration",false)) {
+                Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(300);
+            }
         }
         return super.onPreferenceTreeClick(preference);
     }
