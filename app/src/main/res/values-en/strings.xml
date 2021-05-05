@@ -53,4 +53,6 @@
     <string name="ringtone_description">Select the alarm tone to use</string>
     <string name="vibration_description">Enable / Disable vibration for alarms</string>
     <string name="picker_description">Select the time you want the alarms to sound</string>
+    <string name="reminder_of_day">"Reminders for the day: "</string>
+    <string name="no_reminder">There are no reminders for this day</string>
 </resources>

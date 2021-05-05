@@ -43,6 +43,7 @@ public class ReminderCalendarView extends Fragment {
     private CalendarReminderListAdapter calendarReminderListAdapter;
     public static Instant date ;
     private DatabaseAccess access;
+    private TextView  textVReminder,areReminders;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
@@ -51,10 +52,21 @@ public class ReminderCalendarView extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         calendar = view.findViewById(R.id.cvMainCalendar);
         recyclerView = view.findViewById(R.id.rvEventesOfDay);
+        textVReminder = view.findViewById(R.id.textVReminder);
+        areReminders= view.findViewById(R.id.areThereReminders);
+
+        // El usuario no pueda escoger en el calendario días anteriores al actual
         calendar.setMinDate(System.currentTimeMillis() - 1000);
+
+        //Cogemos el día actual y lo mostramos por pantalla
+        Calendar dte= Calendar.getInstance();
+        SimpleDateFormat sdf =  new SimpleDateFormat("dd/M/yyyy");
+        String curDate = sdf.format(dte.getTime());
+        textVReminder.setText( getString(R.string.reminder_of_day) + curDate);
 
         // date = fecha sin horas
         date = Instant.now().truncatedTo(ChronoUnit.DAYS);
+
         load();
         calendarReminderListAdapter = new CalendarReminderListAdapter(getContext(),new ArrayList<>() );
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -66,6 +78,7 @@ public class ReminderCalendarView extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int day) {
                 try {
                     date = new SimpleDateFormat("dd/M/yyyy").parse(day + "/" + (month + 1) + "/" + year).toInstant();
+                    textVReminder.setText(getString(R.string.reminder_of_day) + day + "/" + (month + 1) + "/" + year);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -84,7 +97,14 @@ public class ReminderCalendarView extends Fragment {
     public void updateList(List<Reminder> reminderList) {
         this.reminders = reminderList;
         calendarReminderListAdapter = new CalendarReminderListAdapter(getContext(), reminders);
-        recyclerView.setAdapter(calendarReminderListAdapter);
+        // si no existen recordatorios para esa fecha entonces escribimos que no hay recordatorios en la pantalla
+        if (reminderList.isEmpty()){
+            areReminders.setVisibility(View.VISIBLE);
+            areReminders.setText(getString(R.string.no_reminder));
+        }else {
+         // si no, invisibilizamos el texto y pasamos la lista al adapter
+            areReminders.setVisibility(View.INVISIBLE);}
+            recyclerView.setAdapter(calendarReminderListAdapter);
     }
 
     @Override

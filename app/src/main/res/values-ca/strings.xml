@@ -53,4 +53,6 @@
     <string name="ringtone_description">Seleccioneu el to d\'alarma a utilitzar</string>
     <string name="vibration_description">Habiliteu / Deshabliteu la vibració de les alarmes</string>
     <string name="picker_description">Seleccioneu l\'hora en què desitja que sonin les alarmes</string>
+    <string name="reminder_of_day">"Recordatoris per al dia: "</string>
+    <string name="no_reminder">No hi ha recordatoris per a aquest dia</string>
 </resources>

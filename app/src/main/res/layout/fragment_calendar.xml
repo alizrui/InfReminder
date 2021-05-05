@@ -16,6 +16,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/darker_gray"/>
+    <TextView
+        android:id="@+id/textVReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/blue_3"
+        >
+    </TextView>
+
+   <TextView
+       android:id="@+id/areThereReminders"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="15sp"
+       android:layout_marginStart="4dp"
+       android:layout_marginTop="4dp"
+       android:layout_gravity="center"
+       >
+
+   </TextView>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
