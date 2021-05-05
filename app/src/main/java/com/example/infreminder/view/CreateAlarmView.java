@@ -142,7 +142,7 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
 
             case R.id.rbEveryDay:
                 createAlarmLogic.repeatEveryDay(days);
-                jsonObject.put("only_once", false);
+                jsonObject.put("only_zonce", false);
                 break;
 
             case R.id.rbSelectDays:

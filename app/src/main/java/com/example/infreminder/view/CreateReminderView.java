@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.infreminder.R;
+import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.adapter.ReminderListAdapter;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.CreateReminderLogic;
@@ -25,6 +26,9 @@ import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
 import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.view.interfaces.I_CreateReminderView;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -92,8 +96,14 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
          */
         bAccept.setOnClickListener(v -> {
             Calendar cal = createReminderLogic.setDate(tieDate.getText().toString());
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("desc", tieDescription.getText());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             createReminderLogic.createReminder(tieName.getText().toString(),
-                    tieDescription.toString(), new ArrayList<>(),cal);
+                    Utils.jsonToString(jsonObject), new ArrayList<>(),cal);
         });
         bCancel.setOnClickListener(v -> {
             int title = R.string.cancel;
