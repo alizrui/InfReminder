@@ -27,11 +27,12 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
     private List<Reminder> reminders;
     private final OnItemLongClickListener intLongListener;
 
-
     /**
-     * @param c
-     * @param reminders
-     * @param intLongListener
+     * Constructor del adapter de la lista principal de todos los reminders de la aplicación.
+     *
+     * @param c contexto del fragment
+     * @param reminders lista de reminders
+     * @param intLongListener interfaz para la acción de borrar reminder
      */
     public ReminderListAdapter(Context c ,List<Reminder> reminders, OnItemLongClickListener intLongListener) {
         this.context = c;
@@ -39,11 +40,23 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         this.intLongListener = intLongListener;
     }
 
+    /**
+     * Cambia la lista del adapter por la que recibe.
+     *
+     * @param reminders lista de reminders
+     */
     public void updateReminders(List<Reminder> reminders) {
         this.reminders = reminders;
         notifyDataSetChanged();
     }
 
+    /**
+     * Define el xml de la fila que se va a mostrar.
+     *
+     * @param parent
+     * @param viewType
+     * @return viewHolder con la fila asociada
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,6 +65,12 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         return holder;
     }
 
+    /**
+     * Bindeo de la información con los conponentes de la fila que se muestra.
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -69,27 +88,49 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         }
     }
 
+    /**
+     * Devulve el reminder de la posición de la lista.
+     *
+     * @param pos de la lista
+     * @return reminder de la posición dada
+     */
     public Reminder getPositionReminder(int pos){
         return reminders.get(pos);
     }
 
-
+    /**
+     * Longitud de la lista.
+     *
+     * @return int del size de la lista
+     */
     @Override
     public int getItemCount() {
         return reminders.size();
     }
 
+    /**
+     * Borra la posición de la lista.
+     *
+     * @param pos posición que se quiere borrar
+     */
     public void removeReminderPosition (int pos){
         reminders.remove(pos);
         notifyItemRemoved(pos);
     }
 
+    /**
+     * Clase para mostrar en el adapter
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView date;
         TextView description;
 
-
+        /**
+         * Constructor del ViewHolder de este adapter donde también se define la acción de mantener pulsado.
+         *
+         * @param view
+         */
         public ViewHolder(@NonNull View view) {
             super(view);
 
@@ -105,6 +146,9 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
         }
     }
 
+    /**
+     * Interfaz para la acción de mantener pulsado.
+     */
     public interface OnItemLongClickListener {
         void onItemLongClickListener(int position);
     }

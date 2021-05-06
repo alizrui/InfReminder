@@ -30,15 +30,23 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
     public CalendarView calendarView;
 
     /**
-     * @param c
-     * @param reminderList
+     * Constructor para mostrar la lista de reminders filtrado por el calendario.
+     *
+     * @param c contexto fragments
+     * @param reminderList lista de reminders
      */
     public CalendarReminderListAdapter(Context c , List<Reminder> reminderList){
         this.context = c;
         this.reminderList = reminderList;
     }
 
-
+    /**
+     * Definición del xml de la fila de la lista.
+     *
+     * @param parent
+     * @param viewType
+     * @return el viewHolder con el view de la fila asociado
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,8 +56,12 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
         return holder;
     }
 
-
-
+    /**
+     * Bindeo de los componentes de la lista con los atributos que se quieren mostrar.
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Reminder reminder = reminderList.get(position);
@@ -61,16 +73,28 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
                 //holder.description.setText(reminder.getFeatures());
     }
 
+    /**
+     * Longitud de la lista.
+     *
+     * @return size de la lista
+     */
     @Override
     public int getItemCount() {
         return reminderList.size();
     }
 
+    /**
+     * Clase que extiende del ViewHolder para mostar el reminder en las filas.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView hour;
         TextView description;
 
+        /**
+         * Constructor del ViewHolder personalizado para este adapter
+         * @param view
+         */
         public ViewHolder(@NonNull View view) {
             super(view);
             name = view.findViewById(R.id.tvNameCalendarReminder);
