@@ -25,6 +25,7 @@ import com.example.infreminder.logic.CreateAlarmLogic;
 import com.example.infreminder.logic.CreateSpecialLogic;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.logic.interfaces.I_CreateSpecialLogic;
+import com.example.infreminder.threads.GetHTML;
 import com.example.infreminder.view.interfaces.I_CreateSpecialView;
 
 import org.json.JSONException;
@@ -46,6 +47,8 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
     private RadioButton rbOnlyDay;
 
     private SwitchCompat scDesc;
+    private SwitchCompat scPhoto;
+    private SwitchCompat scWiki;
 
     private SwitchCompat scFixed;
 
@@ -55,6 +58,9 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
     private ArrayList<String> daysSelected;
 
     private Calendar date = Calendar.getInstance();
+
+    private String wiki;
+    GetHTML getHTML;
 
     public CreateSpecialView() { }
 
@@ -75,6 +81,8 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         rgDays = view.findViewById(R.id.rgSpecial);
 
         scDesc = view.findViewById(R.id.scDesc);
+        scPhoto = view.findViewById(R.id.scFoto);
+        scWiki = view.findViewById(R.id.scWiki);
 
         scFixed = view.findViewById(R.id.scFijoSpecial);
 
@@ -86,6 +94,32 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         /* Listeners */
         scDesc.setOnCheckedChangeListener((buttonView, isChecked) -> {
             etDesc.setEnabled(isChecked);
+            if(isChecked) {
+                scPhoto.setChecked(false);
+                scWiki.setChecked(false);
+            }
+        });
+
+        scPhoto.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+                scDesc.setChecked(false);
+                scWiki.setChecked(false);
+            }
+        });
+
+        scWiki.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (getHTML != null && getHTML.isAlive()) {
+                getHTML.cancel();
+            }
+
+            if(isChecked) {
+                scDesc.setChecked(false);
+                scPhoto.setChecked(false);
+                getHTML = new GetHTML(this);
+                getHTML.start();
+            } else {
+                getHTML = null;
+            }
         });
 
         rbOnlyDay.setOnClickListener(v -> {
@@ -148,12 +182,21 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
 
         String desc = "";
         boolean big_desc = false;
+        String replyText = "";
+
         if(scDesc.isChecked()){
             desc = etDesc.getText().toString();
             big_desc = true;
+        } else if (scPhoto.isChecked()){
+
+        } else if (scWiki.isChecked()){
+            if(wiki == null) return;
+            replyText = wiki;
         }
+
         jsonObject.put("big_desc", big_desc);
         jsonObject.put("desc",desc);
+        jsonObject.put("reply_text", replyText);
 
 
         switch(rgDays.getCheckedRadioButtonId()){
@@ -182,6 +225,9 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         }
     }
 
+    public void setReplyText(String replyText){
+        wiki = replyText;
+    }
 
     @Override
     public CreateSpecialView getCreateSpecialView() {

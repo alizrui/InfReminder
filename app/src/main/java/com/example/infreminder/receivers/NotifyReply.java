@@ -4,8 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.RemoteInput;
+import androidx.media.app.NotificationCompat;
 
 import com.example.infreminder.activities.IntroActivity;
 
@@ -30,9 +33,10 @@ public class NotifyReply extends BroadcastReceiver {
         String text = getMessageText(intent, title + id);
 
         if (replyText.equals(text)) {
-            Intent resultIntent = new Intent(context, IntroActivity.class).putExtra("notify_id", id);
-            resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(resultIntent);
+            Log.d("LOL", replyText + "   " + text);
+
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+            notificationManagerCompat.cancel(id);
         }
     }
 

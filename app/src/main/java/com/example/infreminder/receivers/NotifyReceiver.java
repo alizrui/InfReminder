@@ -45,7 +45,7 @@ public class NotifyReceiver extends BroadcastReceiver {
         String replyText = intent.getStringExtra("replyText");
         Wiki wiki = null;
 
-        if(replyText != null && !replyText.isEmpty()){ wiki = PojoInit.wiki(replyText); }
+        wiki = PojoInit.wiki(replyText);
 
         createNotificationChannel(context);
 
@@ -146,7 +146,6 @@ public class NotifyReceiver extends BroadcastReceiver {
         //builder.setStyle(new NotificationCompat.BigPictureStyle().setBigContentTitle("QUE PASA").bigPicture(bitmap)); //linea de pruebas
 
         if(big_desc){
-            Log.d("LOL", "hAS entrado");
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(desc));
         }
         else if (desc != null && !desc.isEmpty()) {

@@ -15,6 +15,7 @@ import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateSpecialLogic;
 import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Reminder;
+import com.example.infreminder.pojo.Wiki;
 import com.example.infreminder.threads.AlarmManagerThread;
 import com.example.infreminder.view.interfaces.I_CreateSpecialView;
 
@@ -30,6 +31,8 @@ import java.util.List;
 public class CreateSpecialLogic implements I_CreateSpecialLogic {
 
     private I_CreateSpecialView view;
+
+    private String wiki;
 
     public CreateSpecialLogic(I_CreateSpecialView view){
         this.view = view;
@@ -64,7 +67,6 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
 
         /* Json con las características*/
         try {
-            features.put("reply_text","");
             features.put("fullscreen",false);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -103,6 +105,8 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
             ReminderDatabase.getInstance(view.getCreateSpecialView().getContext()).reminderDao().addReminder(reminder);
         }).start();
     }
+
+
 
     /**
      *  Comprueba cuantos días faltan para el siguiente día de alarma y los devuelve

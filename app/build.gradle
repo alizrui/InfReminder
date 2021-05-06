@@ -29,6 +29,8 @@ android {
 }
 
 dependencies {
+    // jsoup HTML parser library @ https://jsoup.org/
+    implementation 'org.jsoup:jsoup:1.13.1'
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
