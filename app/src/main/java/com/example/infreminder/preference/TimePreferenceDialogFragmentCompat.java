@@ -1,7 +1,6 @@
 package com.example.infreminder.preference;
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -11,7 +10,6 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceDialogFragmentCompat;
-import androidx.preference.PreferenceManager;
 
 import com.example.infreminder.R;
 
@@ -95,8 +93,6 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
                 hours = timePicker.getCurrentHour();
                 minutes = timePicker.getCurrentMinute();
             }
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            prefs.edit().putString(hours + ":" + minutes,"00:00");
 
             int minutesAfterMidnight = (hours * 60) + minutes;
             DialogPreference preference = getPreference();
