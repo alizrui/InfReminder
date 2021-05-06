@@ -55,5 +55,4 @@
     <string name="picker_description">Seleccioneu l\'hora en què desitja que sonin les alarmes</string>
     <string name="reminder_of_day">"Recordatoris per al dia: "</string>
     <string name="no_reminder">No hi ha recordatoris per a aquest dia</string>
-    <string name="general">General</string>
 </resources>

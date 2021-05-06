@@ -35,19 +35,18 @@
     <string name="notify_for_reminder_summary" translatable="false">Notify for remind user anything</string>
 
     <!-- Preference Titles -->
-    <string name="reminder">Seleccionar hora de activación</string>
+    <string name="reminder">Recordatorio</string>
     <string name="special">Especial</string>
     <string name="alarm">Alarma</string>
     <string name="vibration">Habilitar vibración</string>
     <string name="more_info"> Más información</string>
     <string name="about_message">Esta aplicación ha sido realizada por: \n  Sammy Jonathan Claes\n  Nieves Codoñer Gil\n  Fernando Guillermo G Fiocca Paglia\n  Alejandro Iznardo Ruiz\ncomo proyecto final de Android Studio para la asignatura\n"Desarrollo de aplicaciones para dispositivos móviles"</string>
     <string name="ringtone">Seleccionar tono de alarma</string>
-    <string name="general">General</string>
 
     <!-- Messages Preferences -->
-    <string name="ringtone_description">Seleccione el tono de notificación a utilizar</string>
-    <string name="vibration_description">Habilite/Deshablite la vibración de las alarmas/recordatorioS</string>
-    <string name="picker_description">Seleccione la hora en la que desea que suenen los recordatorios</string>
+    <string name="ringtone_description">Seleccione el tono de alarma a utilizar</string>
+    <string name="vibration_description">Habilite/Deshablite la vibración de las alarmas</string>
+    <string name="picker_description">Seleccione la hora en la que desea que suenen las alarmas</string>
 
 
     <!-- Sync Preferences -->
