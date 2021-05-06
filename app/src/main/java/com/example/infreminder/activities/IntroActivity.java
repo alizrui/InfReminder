@@ -15,6 +15,13 @@ import com.example.infreminder.threads.AlarmManagerThread;
 public class IntroActivity extends AppCompatActivity {
     private LottieAnimationView lottieAnimationView;
 
+    /**
+     * onCreate de IntroActivity.
+     * Inicia una animación y borra alarmas y recordatorios con fecha anterior al momento actual
+     *
+     * @param savedInstanceState
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

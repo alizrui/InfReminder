@@ -18,10 +18,20 @@ public class MainActivityLogic implements I_MainActivityLogic {
 
     private I_MainActivity i_MainActivity;
 
+    /**
+     * Crear una instancia de la capa lógica del MainActivity.
+     *
+     * @param activity instancia del view.
+     */
     public MainActivityLogic(I_MainActivity activity) {
         i_MainActivity = activity;
     }
 
+    /**
+     * Lanza un activity nuevo con el fragment que deberá aparecer en ella.
+     *
+     * @param idButton fragment seleccionado por el usuario.
+     */
     @Override
     public void startActivityFragment(int idButton) {
         Intent intent_a = new Intent(i_MainActivity.getMainActivity(), ContainerActivity.class);

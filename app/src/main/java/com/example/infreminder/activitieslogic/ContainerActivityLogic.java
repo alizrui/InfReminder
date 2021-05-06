@@ -19,14 +19,23 @@ public class ContainerActivityLogic implements I_ContainerActivityLogic {
 
     private I_ContainerActivity view;
 
+    /**
+     * Crear una instancia de la capa lógica del ContainerActivity.
+     *
+     * @param activity instancia del view
+     */
     public ContainerActivityLogic(I_ContainerActivity activity) {
         view = activity;
     }
 
+    /**
+     * Lanza a ejecución el fragment seleccionado.
+     *
+     * @param idButton botón pulsado
+     */
     @Override
     public void updateFragments(int idButton) {
         Class<? extends Fragment> fragmentToAdd = null;
-        Fragment fragmentToRemove = null; // not used yet
 
         Bundle bundle = null;
 
@@ -52,10 +61,7 @@ public class ContainerActivityLogic implements I_ContainerActivityLogic {
                         R.anim.enter_left_to_right,
                         R.anim.exit_left_to_right);
         transaction.setReorderingAllowed(true);
-        // Remove the required Fragment NOT USED YET
-        if (fragmentToRemove != null) {
-            transaction.remove(fragmentToRemove);
-        }
+
         // Replace the Fragments in the required Layout by the selected one
         if (fragmentToAdd != null) {
             transaction.add(layout, fragmentToAdd, bundle);

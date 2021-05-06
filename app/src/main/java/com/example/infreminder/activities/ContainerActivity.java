@@ -19,6 +19,11 @@ public class ContainerActivity extends AppCompatActivity implements I_ContainerA
     private I_ContainerActivityLogic logic;
     public static boolean aContainerOut = false;
 
+    /**
+     * Obtiene views de la interfaz y crea una instancia de la capa lógica.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,9 @@ public class ContainerActivity extends AppCompatActivity implements I_ContainerA
         logic.updateFragments(idButton);
     }
 
+    /**
+     * Realiza el onBackPressed y finaliza la actividad para volver la anterior.
+     */
     @Override
     public void onBackPressed() {
         aContainerOut=true;
@@ -38,6 +46,11 @@ public class ContainerActivity extends AppCompatActivity implements I_ContainerA
 
     }
 
+    /**
+     * Devuelve el this de esta actividad.
+     *
+     * @return
+     */
     @Override
     public ContainerActivity getContainerActivity() {
         return this;

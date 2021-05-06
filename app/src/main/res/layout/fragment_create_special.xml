@@ -79,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:hint="@string/desc_larga"/>
+                android:hint="@string/lista"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

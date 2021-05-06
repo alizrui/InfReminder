@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward,enterLeftToRight;
 
 
+    /**
+     * onCreate de MainActivity.
+     * Obtiene referencias de los views de la interfaz activity_main.xml e inicializa el tablayout del viewpager.
+     * Crea una instancia de la capa lógica MainActivityLogic.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         fAlarm = findViewById(R.id.fab_alarm);
         fReminder = findViewById(R.id.fab_reminder);
         fSpecial = findViewById(R.id.fab_special);
+
         //Texts between floating buttons
         tAlarm = findViewById(R.id.t_alarm);
         tSpecial = findViewById(R.id.t_special);
@@ -67,10 +75,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         enterLeftToRight = AnimationUtils.loadAnimation(MainActivity.this,R.anim.enter_left_to_right);
         animFabOpen = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_open);
         animFabClose = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_close);
-
-        // {Nieves} no consigo que funcione sin que al pasar de fragment desaparezca, seguiré intentandolo
-       // animFabRotateForward= AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_rotate_forward);
-       // animFabRotateBackward = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fab_rotate_backward);
 
         isOpen = true;
         showMenu(null);
@@ -97,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
 
     }
 
+    /**
+     * Resume la actividad.
+     * Cierra el menu al volver a la actividad
+     */
     @Override
     protected void onResume() {
         if(ContainerActivity.aContainerOut){
@@ -105,6 +113,12 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         super.onResume();
     }
 
+    /**
+     * Crea el menu.
+     *
+     * @param menu
+     * @return true porque siempre se crea el menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -112,18 +126,28 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         return true;
     }
 
+    /**
+     * Realiza onBackPressed y añade una animación.
+     */
     @Override
     public void onBackPressed() {
         overridePendingTransition(R.anim.enter_left_to_right,R.anim.exit_right_to_left);
         super.onBackPressed();
     }
 
+    /**
+     * Llama a la capa lógica para mostrar el fragment seleccionado.
+     * @param
+     */
     public void updateFragments(View view) {
         final int clickedButton = view.getId();
         logic.startActivityFragment(clickedButton);
     }
 
-
+    /**
+     * Modifica la visibilidad del menu de los floatingButton.
+     * @param v
+     */
     public void showMenu(View v){
         if (isOpen) {
             fAlarm.setAnimation(animFabClose);
@@ -159,11 +183,22 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         }
     }
 
+    /**
+     * Devuelve la actividad de esta pantalla.
+     *
+     * @return la actividad this
+     */
     @Override
     public MainActivity getMainActivity() {
         return this;
     }
 
+    /**
+     * Lanza el fragment del settings.
+     *
+     * @param item
+     * @return devuelve si la acción se ha completado correctamente.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -178,13 +213,16 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                tReminder.setVisibility(View.INVISIBLE);
             }
             Intent intent = new Intent(this, SettingActivity.class);
-            startActivityForResult(intent, 0);
+            startActivity(intent);
 
         }else if(id == R.id.menu_item_info ){ showAbout();}
 
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Crea un diálogo con información de los creadores de la aplicación.
+     */
     private void showAbout() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.more_info)
@@ -192,8 +230,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
     }
-
-
 }
 
 
