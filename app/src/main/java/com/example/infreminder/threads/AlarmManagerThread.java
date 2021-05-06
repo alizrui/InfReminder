@@ -50,6 +50,8 @@ public class AlarmManagerThread extends Thread {
         intent.putExtra("desc", (String) jsonObject.get("desc"));
         intent.putExtra("replyText", (String) jsonObject.get("reply_text"));
         intent.putExtra("repeatEvery", (Integer) jsonObject.get("repeat_every"));
+        intent.putExtra("fullscreen", (boolean) jsonObject.get("fullscreen"));
+        intent.putExtra("big_desc", (boolean) jsonObject.get("big_desc"));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 

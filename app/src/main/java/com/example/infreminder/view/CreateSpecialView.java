@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.infreminder.R;
@@ -38,12 +40,16 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
     /* Views */
     private TimePicker tpTime;
     private EditText etName;
+    private EditText etDesc;
 
     private RadioButton rbSelectDays;
     private RadioButton rbOnlyDay;
 
-    private RadioGroup rgDays;
+    private SwitchCompat scDesc;
 
+    private SwitchCompat scFixed;
+
+    private RadioGroup rgDays;
     private Button bNewSpecial;
 
     private ArrayList<String> daysSelected;
@@ -64,8 +70,13 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         /* Get the views */
         tpTime = view.findViewById(R.id.tpSpecial);
         etName = view.findViewById(R.id.etNameSpecial);
+        etDesc = view.findViewById(R.id.etDescSpecial);
 
         rgDays = view.findViewById(R.id.rgSpecial);
+
+        scDesc = view.findViewById(R.id.scDesc);
+
+        scFixed = view.findViewById(R.id.scFijoSpecial);
 
         rbOnlyDay = view.findViewById(R.id.rbOnlyOnceSpecial);
         rbSelectDays = view.findViewById(R.id.rbSelectDaysSpecial);
@@ -73,6 +84,10 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         bNewSpecial = view.findViewById(R.id.bNewSpecial);
 
         /* Listeners */
+        scDesc.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            etDesc.setEnabled(isChecked);
+        });
+
         rbOnlyDay.setOnClickListener(v -> {
             logic.showDatePickerDialog(date);
         });
@@ -126,9 +141,20 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         ArrayList<String> days = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
 
-        /* Metiendo campos */ jsonObject.put("desc", "");
-        jsonObject.put("reply_text", "");
-        jsonObject.put("repeat_every", 0);
+        /* Metiendo campos */
+        int repeatEvery = 0;
+        if(scFixed.isChecked()) repeatEvery = -1;
+        jsonObject.put("repeat_every", repeatEvery);
+
+        String desc = "";
+        boolean big_desc = false;
+        if(scDesc.isChecked()){
+            desc = etDesc.getText().toString();
+            big_desc = true;
+        }
+        jsonObject.put("big_desc", big_desc);
+        jsonObject.put("desc",desc);
+
 
         switch(rgDays.getCheckedRadioButtonId()){
             case R.id.rbOnlyOnceSpecial:
@@ -146,7 +172,7 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
                     Toast.makeText(getContext(), R.string.days_error, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                logic.createSpecialAlarm(hour, min, name,days,jsonObject);
+                logic.createSpecialAlarm(hour, min, name, days, jsonObject);
                 Toast.makeText(getContext(), R.string.special_created, Toast.LENGTH_SHORT).show();
                 getActivity().onBackPressed();
                 break;

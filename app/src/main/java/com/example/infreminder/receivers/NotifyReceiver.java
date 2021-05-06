@@ -37,33 +37,34 @@ public class NotifyReceiver extends BroadcastReceiver {
         if (id == -1) { return; }
         String name = intent.getStringExtra("name");
         String desc = intent.getStringExtra("desc");
-
+        boolean fullscreen = intent.getBooleanExtra("fullscreen", false); // NO FUNCIONA RN
+        boolean big_desc = intent.getBooleanExtra("big_desc", false);
         int repeatEvery = intent.getIntExtra("repeatEvery", 0);
 
         /* Gestión de notificaciones con wiki */
         String replyText = intent.getStringExtra("replyText");
         Wiki wiki = null;
+
         if(replyText != null && !replyText.isEmpty()){ wiki = PojoInit.wiki(replyText); }
 
         createNotificationChannel(context);
 
-        NotificationCompat.Builder builder = initNotificationBuilder(context, name, desc, wiki);
+        NotificationCompat.Builder builder = initNotificationBuilder(context, name, desc, wiki, big_desc);
 
         NotificationCompat.Action replyAction = null;
 
         Intent resultIntent;
+
         if (wiki != null) {
-
             replyAction = createReplyPendingIntent(context, id, name, wiki.getTitle());
-
             resultIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(wiki.getHref()));
-        } else {
+        }
+        else {
             resultIntent = new Intent(context, IntroActivity.class).putExtra("notify_id", id);
         }
         PendingIntent resultPendingIntent = createResultPendingIntent(context, resultIntent);
 
-
-        Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery);
+        Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery, fullscreen);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
@@ -73,6 +74,9 @@ public class NotifyReceiver extends BroadcastReceiver {
         thread.start();
 
     }
+
+
+
 
     /**
      * Crea el objeto de la notificación.
@@ -90,9 +94,16 @@ public class NotifyReceiver extends BroadcastReceiver {
      */
 
     private Notification createNotification(Context context, @NonNull NotificationCompat.Builder builder,
-                                            @NonNull PendingIntent pendingIntent, NotificationCompat.Action replyAction, Wiki wiki, int repeatEvery) {
+                                            @NonNull PendingIntent pendingIntent, NotificationCompat.Action replyAction, Wiki wiki, int repeatEvery, boolean fullscreen) {
+        if(fullscreen) {
+            builder.setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_CALL)
+                    .setFullScreenIntent(pendingIntent, true);
+        }
+        else {
+            builder.setContentIntent(pendingIntent);
+        }
 
-        builder.setContentIntent(pendingIntent);
 
         if (replyAction != null) {
             builder.addAction(replyAction);
@@ -122,7 +133,7 @@ public class NotifyReceiver extends BroadcastReceiver {
      * @return la notificación en construccion
      */
 
-    private NotificationCompat.Builder initNotificationBuilder(@NonNull Context context, @NonNull String title, String desc, Wiki wiki) {
+    private NotificationCompat.Builder initNotificationBuilder(@NonNull Context context, @NonNull String title, String desc, Wiki wiki, boolean big_desc) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_alarm)
@@ -134,11 +145,11 @@ public class NotifyReceiver extends BroadcastReceiver {
         //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         //builder.setStyle(new NotificationCompat.BigPictureStyle().setBigContentTitle("QUE PASA").bigPicture(bitmap)); //linea de pruebas
 
-
-
-        //builder.setSound(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getApplicationContext().getPackageName() + "/" +);
-
-        if (desc != null && !desc.isEmpty()) {
+        if(big_desc){
+            Log.d("LOL", "hAS entrado");
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(desc));
+        }
+        else if (desc != null && !desc.isEmpty()) {
             builder.setContentText(desc);
         }
 

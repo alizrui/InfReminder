@@ -48,4 +48,5 @@
     <string name="reply_notify">Respondre</string>
     <string name="create_special">Crear Especial</string>
     <string name="special_created">Especial creat</string>
+    <string name="desc_larga">Notificació amb text llarg</string>
 </resources>

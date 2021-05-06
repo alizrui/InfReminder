@@ -35,8 +35,10 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min,0);
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
-        /* Json con las características*/
-        //String json = createJson(features);
+        /* Añadir campos vacíos */
+        jsonObject.put("reply_text", "");
+        jsonObject.put("fullscreen", false); // NO FUNCIONA RN
+        jsonObject.put("big_desc", false);
 
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(jsonObject), days, dateAlarm);
 

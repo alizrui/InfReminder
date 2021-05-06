@@ -63,6 +63,13 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
         /* Json con las características*/
+        try {
+            features.put("reply_text","");
+            features.put("fullscreen",false);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features), days, dateAlarm);
 
         new Thread(() -> {

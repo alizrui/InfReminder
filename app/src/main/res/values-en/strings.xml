@@ -48,4 +48,5 @@
     <string name="reply_notify">Answer</string>
     <string name="create_special">Create Special</string>
     <string name="special_created">Special created</string>
+    <string name="desc_larga">Long text notification</string>
 </resources>

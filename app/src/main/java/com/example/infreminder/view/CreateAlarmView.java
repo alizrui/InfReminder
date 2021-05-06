@@ -160,14 +160,12 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         }
 
         int repeatEvery = 0;
-        String replyText = "";
 
         if(scFijo.isChecked()){
             repeatEvery = -1;
         }
 
         jsonObject.put("repeat_every", repeatEvery);
-        jsonObject.put("reply_text", replyText);
 
         // Añadir alarma a BD (logica)
         createAlarmLogic.createAlarm(hour, min, name, jsonObject, days);
