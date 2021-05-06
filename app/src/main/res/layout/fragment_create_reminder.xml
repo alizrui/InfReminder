@@ -32,10 +32,10 @@
                 android:textSize="24sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/prueba"
+                android:id="@+id/TextInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="55dp"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:startIconDrawable="@drawable/ic_add_reminder">
@@ -70,12 +70,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:endIconMode="clear_text"
-                app:startIconDrawable="@drawable/ic_add_alarm">
+                app:startIconDrawable="@drawable/ic_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tIDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="114dp"
                     android:hint="@string/description" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,26 +83,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/bCancel"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/scFijoReminder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/cancel"
-                    app:layout_constraintEnd_toStartOf="@+id/bAccept"
+                    android:layout_margin="8dp"
+                    android:text="@string/fixed"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/bAccept"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="263dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:enabled="false"
                     android:text="@string/accept"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/scFijoReminder"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

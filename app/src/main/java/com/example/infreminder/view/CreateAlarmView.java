@@ -2,6 +2,8 @@ package com.example.infreminder.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,15 +74,22 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         tpTime = view.findViewById(R.id.tpHours);
         etName = view.findViewById(R.id.etName);
         etDes = view.findViewById(R.id.etDescription);
-
         scFijo = view.findViewById(R.id.scFijo);
-
         rbSelectDays = view.findViewById(R.id.rbSelectDays);
-
         rgDays = view.findViewById(R.id.rgRepeatEvery);
-
-
         bNewAlarm = view.findViewById(R.id.bNewAlarm);
+
+        etName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                bNewAlarm.setEnabled(!etName.getText().toString().isEmpty());
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
         /* Listeners*/
         rbSelectDays.setOnClickListener(v -> {
