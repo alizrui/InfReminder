@@ -72,5 +72,6 @@
     <string name="no_reminder">No hay recordatorios para este día</string>
     <string name="desc_long">Texto largo</string>
     <string name="reply_desc">Activa la opción responder a notificación</string>
+    <string name="general">General</string>
 
 </resources>
