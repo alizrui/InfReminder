@@ -71,7 +71,9 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
                 e.printStackTrace();
             }
             ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().addReminder(reminder);
+
         }).start();
+
     }
 
     @Override

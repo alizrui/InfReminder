@@ -48,5 +48,12 @@
     <string name="reply_notify">Answer</string>
     <string name="create_special">Create Special</string>
     <string name="special_created">Special created</string>
-    <string name="desc_larga">Long text notification</string>
+    <string name="vibration">Enable Vibration</string>
+    <string name="ringtone">Select ringtone</string>
+    <string name="ringtone_description">Select the alarm tone to use</string>
+    <string name="vibration_description">Enable / Disable vibration for alarms</string>
+    <string name="picker_description">Select the time you want the alarms to sound</string>
+    <string name="reminder_of_day">"Reminders for the day: "</string>
+    <string name="no_reminder">There are no reminders for this day</string>
+    <string name="general">General</string>
 </resources>

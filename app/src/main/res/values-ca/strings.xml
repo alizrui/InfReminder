@@ -48,5 +48,12 @@
     <string name="reply_notify">Respondre</string>
     <string name="create_special">Crear Especial</string>
     <string name="special_created">Especial creat</string>
-    <string name="desc_larga">Notificació amb text llarg</string>
+    <string name="vibration">Habilitar vibració</string>
+    <string name="ringtone">Seleccionar to d\'alarma</string>
+    <string name="ringtone_description">Seleccioneu el to d\'alarma a utilitzar</string>
+    <string name="vibration_description">Habiliteu / Deshabliteu la vibració de les alarmes</string>
+    <string name="picker_description">Seleccioneu l\'hora en què desitja que sonin les alarmes</string>
+    <string name="reminder_of_day">"Recordatoris per al dia: "</string>
+    <string name="no_reminder">No hi ha recordatoris per a aquest dia</string>
+    <string name="general">General</string>
 </resources>

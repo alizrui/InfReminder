@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private TabLayout tabLayout;
     private I_MainActivityLogic logic;
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
-    private TextView tAlarm,tSpecial,tReminder;
+    private TextView tAlarm,tSpecial,tReminder, textVReminder;
     private boolean isOpen;
     private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward,enterLeftToRight;
 
@@ -94,6 +95,14 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
             }
         }).attach();
 
+    }
+
+    @Override
+    protected void onResume() {
+        if(ContainerActivity.aContainerOut){
+            showMenu(null);
+        }
+        super.onResume();
     }
 
     @Override
@@ -158,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         if (id ==R.id.menu_item_settings ){
 
             if (isOpen){
@@ -169,14 +177,9 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                tSpecial.setVisibility(View.INVISIBLE);
                tReminder.setVisibility(View.INVISIBLE);
             }
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivityForResult(intent, 0);
 
-            Fragment fragmentToAdd = null;
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            fragmentToAdd = new SettingsFragment();
-
-            // AÑADIR AL ACTIVITY
-
-            ft.commit();
         }else if(id == R.id.menu_item_info ){ showAbout();}
 
         return super.onOptionsItemSelected(item);
@@ -189,6 +192,8 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
     }
+
+
 }
 
 

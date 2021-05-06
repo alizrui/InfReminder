@@ -1,6 +1,7 @@
 package com.example.infreminder.adapter;
 
 import android.content.Context;
+import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infreminder.R;
+import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.pojo.Reminder;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,12 +54,19 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Reminder reminder = reminders.get(position);
-        Calendar calendar = reminder.getDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        holder.name.setText(reminder.getName());
-        holder.date.setText(sdf.format(calendar.getTime()));
-        holder.hour.setText("");
+        try {
+            JSONObject jsonObject = Utils.stringToJson(reminder.getFeatures());
+            Calendar calendar = reminder.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            holder.name.setText(reminder.getName());
+            holder.date.setText(sdf.format(calendar.getTime()));
+            holder.description.setText(jsonObject.get("desc").toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public Reminder getPositionReminder(int pos){
@@ -74,7 +87,7 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView date;
-        TextView hour;
+        TextView description;
 
 
         public ViewHolder(@NonNull View view) {
@@ -82,7 +95,7 @@ public class ReminderListAdapter extends RecyclerView.Adapter<ReminderListAdapte
 
             name = view.findViewById(R.id.tvNameReminder);
             date = view.findViewById(R.id.tvDate);
-            hour = view.findViewById(R.id.tvHour);
+            description = view.findViewById(R.id.tvDescription);
 
 
             view.setOnLongClickListener(v -> {

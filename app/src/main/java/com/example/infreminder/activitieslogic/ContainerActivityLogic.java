@@ -13,6 +13,8 @@ import com.example.infreminder.view.CreateAlarmView;
 import com.example.infreminder.view.CreateReminderView;
 import com.example.infreminder.view.CreateSpecialView;
 
+import java.io.Serializable;
+
 public class ContainerActivityLogic implements I_ContainerActivityLogic {
 
     private I_ContainerActivity view;
@@ -63,4 +65,5 @@ public class ContainerActivityLogic implements I_ContainerActivityLogic {
         // Make changes effective
         transaction.commit();
     }
+
 }

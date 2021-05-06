@@ -9,6 +9,7 @@ import com.example.infreminder.view.ReminderCalendarView;
 import com.example.infreminder.view.ReminderListView;
 import java.lang.ref.WeakReference;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -89,7 +90,13 @@ public class DatabaseAccess extends Thread {
             long start = ReminderCalendarView.date.toEpochMilli();
             long end   = ReminderCalendarView.date.plus(1, ChronoUnit.DAYS).toEpochMilli();
 
-            List<Reminder> reminders = ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().loadBetweenDate(start, end);
+            List<Reminder> aux = ReminderDatabase.getInstance(weakReference.get().getContext()).reminderDao().loadBetweenDate(start, end);
+            List<Reminder> reminders = new ArrayList<>();
+            for(int i= 0; i<aux.size();i++){
+                if (aux.get(i).getDays().isEmpty()){
+                    reminders.add(aux.get(i));
+                }
+            }
             weakReference.get().getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
