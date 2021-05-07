@@ -66,11 +66,11 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Reminder reminder = reminderList.get(position);
         Calendar calendar = reminder.getDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                holder.name.setText(reminder.getName());
-                holder.hour.setText(simpleDateFormat.format(calendar.getTime()));
-                //holder.description.setText(reminder.getFeatures());
+        holder.name.setText(reminder.getName());
+        holder.hour.setText(simpleDateFormat.format(calendar.getTime()));
+
     }
 
     /**
@@ -89,8 +89,6 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView hour;
-        TextView description;
-
         /**
          * Constructor del ViewHolder personalizado para este adapter
          * @param view
@@ -99,7 +97,6 @@ public class CalendarReminderListAdapter extends RecyclerView.Adapter<CalendarRe
             super(view);
             name = view.findViewById(R.id.tvNameCalendarReminder);
             hour = view.findViewById(R.id.tvCalendarDate);
-            //description = view.findViewById(R.id.tvCalendarDescription);
 
         }
     }

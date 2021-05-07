@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     private TabLayout tabLayout;
     private I_MainActivityLogic logic;
     private FloatingActionButton fMain, fReminder, fAlarm, fSpecial;
-    private TextView tAlarm,tSpecial,tReminder, textVReminder;
+    private TextView tAlarm,tSpecial,tReminder;
     private boolean isOpen;
-    private Animation animFabOpen, animFabClose,animFabRotateForward, animFabRotateBackward,enterLeftToRight;
+    private Animation animFabOpen, animFabClose,enterLeftToRight;
 
 
     /**

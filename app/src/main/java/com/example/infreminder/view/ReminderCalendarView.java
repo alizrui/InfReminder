@@ -45,6 +45,13 @@ public class ReminderCalendarView extends Fragment {
     private DatabaseAccess access;
     private TextView  textVReminder,areReminders;
 
+    /**
+     * Se cargan los diferentes elementos de la UI y se añade un listener al calendar.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
@@ -89,11 +96,19 @@ public class ReminderCalendarView extends Fragment {
 
     }
 
+    /**
+     * Accede a la base de datos.
+     */
+
     public void load(){
-        access = new DatabaseAccess(this,null,this);;
+        access = new DatabaseAccess(this,null,this);
         access.loadReminders();
     }
 
+    /**
+     * Actualiza la lista y se lo pasa al adapter de calendar.
+     * @param reminderList lista obtenida de la base de datos
+     */
     public void updateList(List<Reminder> reminderList) {
         this.reminders = reminderList;
         calendarReminderListAdapter = new CalendarReminderListAdapter(getContext(), reminders);
@@ -107,9 +122,4 @@ public class ReminderCalendarView extends Fragment {
             recyclerView.setAdapter(calendarReminderListAdapter);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 }
