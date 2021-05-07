@@ -7,7 +7,10 @@ import com.example.infreminder.R;
 import com.example.infreminder.fragmentsview.SettingsFragment;
 
 public class SettingActivity extends AppCompatActivity {
-
+    /**
+     * Crea un activity donde estarán los ajustes de la aplicación
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

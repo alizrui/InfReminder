@@ -53,7 +53,7 @@ public class ContainerActivityLogic implements I_ContainerActivityLogic {
                 break;
         }
 
-        // Get a FragmentTransaction to begin some operations with the current FragmentManager
+        // Obteniene un FragmentTransaction para comenzar algunas operaciones con el FragmentManager actual
         FragmentTransaction transaction = view.getContainerActivity().getSupportFragmentManager()
                 .beginTransaction().setCustomAnimations(
                         R.anim.enter_right_to_left,
@@ -62,13 +62,13 @@ public class ContainerActivityLogic implements I_ContainerActivityLogic {
                         R.anim.exit_left_to_right);
         transaction.setReorderingAllowed(true);
 
-        // Replace the Fragments in the required Layout by the selected one
+        // Reemplaza los fragmentos en el layout por el seleccionado
         if (fragmentToAdd != null) {
             transaction.add(layout, fragmentToAdd, bundle);
         }
-        // Add the transaction to the BackStack, so it can be reversed by pressing the Back button
+        // Agrega la transacción al BackStack, para que pueda revertirse mientras se presiona el botón Atrás
         transaction.addToBackStack(null);
-        // Make changes effective
+        // Hacemos los cambios efectivos
         transaction.commit();
     }
 
