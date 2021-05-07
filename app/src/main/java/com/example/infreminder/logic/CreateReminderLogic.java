@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import com.example.infreminder.database.DatabaseAccess;
+import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
 import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Reminder;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CreateReminderLogic implements I_CreateReminderLogic {
     private I_CreateReminderView createReminderView;
@@ -30,9 +32,33 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
     @Override
     public void createReminder(String name, String description, ArrayList<String> features, Calendar calendar) {
         Reminder reminder = PojoInit.reminder(name,description,features,calendar);
+        new Thread(() -> {
+            List<Reminder> listRem = ReminderDatabase.getInstance(createReminderView.getCreateReminderView()
+                    .getContext()).reminderDao().getReminders();
+
+            /* Comprueba que no existen otros recordatorios con ese id */
+            boolean everythingOK = false;
+            while(!everythingOK){
+                boolean exists = false;
+                int myid = reminder.getId();
+                for(Reminder rem:listRem){
+                    if (rem.getId() == myid) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if(exists){
+                    reminder.setId(myid + 1);
+                } else {
+                    everythingOK = true;
+                }
+            }
+        }).start();
+
         dbAcces.addReminder(reminder, true);
         createReminderView.getCreateReminderView().getActivity().onBackPressed();
     }
+
 
     @Override
     public void createAlertDialog(int title, int message, int botonYes, int botonNo) {

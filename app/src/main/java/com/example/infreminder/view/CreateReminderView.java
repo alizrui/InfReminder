@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,7 +41,7 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
     private TextInputEditText tieName;
     private TextInputEditText tieDescription;
     private Button bAccept;
-    private Button bCancel;
+    private SwitchCompat scFijoReminder;
 
     @Override
     public CreateReminderView getCreateReminderView() {
@@ -56,7 +57,7 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
         tieName = (TextInputEditText) view.findViewById(R.id.tIName);
         tieDescription = (TextInputEditText) view.findViewById(R.id.tIDescription);
         bAccept = (Button) view.findViewById(R.id.bAccept);
-        bCancel = (Button) view.findViewById(R.id.bCancel);
+        scFijoReminder = (SwitchCompat) view.findViewById(R.id.scFijoReminder);
 
         /**
          * Apartado listeners para desactivar el botón de aceptar si los datos obligatorios no
@@ -95,24 +96,24 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
          * Apartado botones
          */
         bAccept.setOnClickListener(v -> {
+            int repeatEvery = 0;
+            if(scFijoReminder.isChecked()){
+                repeatEvery = -1;
+            }
             Calendar cal = createReminderLogic.setDate(tieDate.getText().toString());
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("desc", tieDescription.getText());
+                jsonObject.put("repeat_every", repeatEvery);
+                jsonObject.put("reply_text", "");
+                jsonObject.put("big_desc", false);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             createReminderLogic.createReminder(tieName.getText().toString(),
                     Utils.jsonToString(jsonObject), new ArrayList<>(),cal);
         });
-        bCancel.setOnClickListener(v -> {
-            int title = R.string.cancel;
-            int message = R.string.title_cancel;
-            int positiveButton = R.string.accept;
-            int negativeButton = R.string.cancel;
-            createReminderLogic.createAlertDialog(title,message,positiveButton,negativeButton);
-        });
-
         return view;
     }
 }

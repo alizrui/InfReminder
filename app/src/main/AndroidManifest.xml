@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.infreminder">
+    <uses-permission android:name="Android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +26,14 @@
 
         <receiver
             android:name=".receivers.NotifyReceiver"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".receivers.NotifyReply"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".receivers.NotifyUrl"
             android:enabled="true"
             android:exported="true" />
     </application>
