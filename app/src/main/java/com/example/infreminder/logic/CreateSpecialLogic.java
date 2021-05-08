@@ -52,6 +52,7 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
 
     @Override
     public void createSpecialReminder(String name, Calendar date, JSONObject features) {
+        date.set(Calendar.SECOND, 0);
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features), new ArrayList<>(), date);
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(view.getCreateSpecialView()

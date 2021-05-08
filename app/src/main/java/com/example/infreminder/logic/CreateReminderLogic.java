@@ -114,7 +114,6 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
         cal.setTime(d);
         cal.set(Calendar.HOUR,Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
         cal.set(Calendar.MINUTE,Calendar.getInstance().get(Calendar.MINUTE));
-        cal.set(Calendar.SECOND,Calendar.getInstance().get(Calendar.SECOND));
         return cal;
     }
 
