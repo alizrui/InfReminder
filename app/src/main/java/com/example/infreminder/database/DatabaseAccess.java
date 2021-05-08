@@ -29,6 +29,14 @@ public class DatabaseAccess extends Thread {
     private WeakReference<ReminderListView> weakReference2;
     private WeakReference<ReminderCalendarView> weakReference3;
 
+    /**
+     * Clase utilizada para gestionar el acceso a la bd de forma estandarizada y tener tdo el control
+     * desde un hilo
+     *
+     * @param weakReference (Cualquier fragment)
+     * @param weakReference2 (ListViewFragment)
+     * @param weakReference3 (CalendarViewFragment)
+     */
     public DatabaseAccess(Fragment weakReference, ReminderListView weakReference2,ReminderCalendarView weakReference3) {
         this.weakReference = new WeakReference<>(weakReference);
         this.weakReference2 = (weakReference2 == null)? null : new WeakReference<>(weakReference2);
@@ -37,6 +45,12 @@ public class DatabaseAccess extends Thread {
         update = false;
     }
 
+    /**
+     * Añade un reminder a la BD y actualiza el adaptedList si procede
+     *
+     * @param reminder
+     * @param update
+     */
     public void addReminder(Reminder reminder, boolean update) {
         this.reminder = reminder;
         this.update = update;
@@ -44,6 +58,11 @@ public class DatabaseAccess extends Thread {
         start();
     }
 
+    /**
+     * Borra un reminder de la BD y actualiza el adapterList si procede
+     * @param Reminder
+     * @param update
+     */
     public void deleteReminder(Reminder Reminder, boolean update) {
         this.reminder = reminder;
         this.update = update;
@@ -51,11 +70,15 @@ public class DatabaseAccess extends Thread {
         start();
     }
 
-
+    /**
+     * Carga los reminder de la BD y actualiza el adapterList
+     *
+     */
     public void loadReminders() {
         selection = LOAD_ALL_REMINDERS;
         start();
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

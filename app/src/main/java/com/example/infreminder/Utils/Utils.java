@@ -6,8 +6,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Utils {
+    /**
+     * Pasar objeto string a JSONObject
+     * Este método coge un string en formato Json y lo convierte en un JSONObject
+     *
+     * @param value
+     * @return El objeto json si está bien formado o null en caso contrario
+     * @throws JSONException
+     */
     public static JSONObject stringToJson(String value) throws JSONException {
-        //Esto coge un string y lo convierte en json
         if(value == null) {
             return null;
         }
@@ -17,13 +24,14 @@ public class Utils {
         }
     }
 
+    /**
+     * Pasar objeto Json a String
+     * Este método coge un objeto JSNObject y lo convierte en un String
+     *
+     * @param json
+     * @return EL String bien formado o null en caso contrario
+     */
     public static String jsonToString(JSONObject json)  {
-        //esto coge un json y lo convierte en un string
         return json == null ? null : json.toString();
     }
 }
-//Ejemplo de uso json:
-//JSONObject myObject = new JSONObject();
-//myObject.put("id", "00");
-//myObject.put("action", "register");
-// -> MyObject: {id:00, action:register}
