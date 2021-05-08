@@ -42,12 +42,21 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
         return fragment;
     }
 
+    /**
+     * Crea el dialogo.
+     * @param savedInstanceState
+     * @return
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
     }
 
+    /**
+     * Enlaza el dialogo a la vista.
+     * @param view
+     */
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
@@ -78,7 +87,7 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
 
 
     /**
-     * Se llama cuando el dialogo se cierra
+     * Se llama cuando el dialogo se cierra.
      * @param positiveResult si se cancela o se acepta el dialogo
      */
     @Override

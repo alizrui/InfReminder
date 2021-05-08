@@ -9,11 +9,20 @@ import com.example.infreminder.view.ReminderCalendarView;
 import com.example.infreminder.view.ReminderListView;
 
 public class ViewPagerFragmentStateAdapter extends FragmentStateAdapter {
+    /**
+     * Constructor del adapter del viewpager principal.
+     * @param fragmentActivity
+     */
 
     public ViewPagerFragmentStateAdapter(FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
+    /**
+     * Crea los frgaments que irán en el viewpager y los coloca.
+     * @param position
+     * @return
+     */
     @NonNull
     @Override
     public Fragment createFragment(int position) {
@@ -27,6 +36,11 @@ public class ViewPagerFragmentStateAdapter extends FragmentStateAdapter {
 
         return result;
     }
+
+    /**
+     * Longitud de la lista.
+     * @return
+     */
 
     @Override
     public int getItemCount() {

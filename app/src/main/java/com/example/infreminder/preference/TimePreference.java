@@ -10,9 +10,7 @@ import androidx.preference.DialogPreference;
 
 import com.example.infreminder.R;
 
-/**
- *
- */
+
 public class TimePreference extends DialogPreference {
 
     private int mTime;
@@ -38,10 +36,18 @@ public class TimePreference extends DialogPreference {
         // read attributes etc.
     }
 
-
+    /**
+     * Coge el tiempo de las Shared Preferences.
+     * @return
+     */
     public int getTime() {
         return mTime;
     }
+
+    /**
+     * Pone el tiempo de las Shared Preferences.
+     * @param time
+     */
 
     public void setTime(int time) {
         mTime = time;
@@ -50,6 +56,13 @@ public class TimePreference extends DialogPreference {
         persistInt(time);
     }
 
+    /**
+     * Se llama cuando se está añadiendo una preferencia y es necesario leer el atributo.
+     * @param a
+     * @param index
+     * @return
+     */
+
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
         // El tipo de esta preferencia es Int, por lo que leemos el valor predeterminado de los atributos como Int.
@@ -57,11 +70,19 @@ public class TimePreference extends DialogPreference {
         return a.getInt(index, 0);
     }
 
+    /**
+     * Retorna el layout que está usando como el contenido del view del dialogo.
+     * @return
+     */
     @Override
     public int getDialogLayoutResource() {
         return mDialogLayoutResId;
     }
 
+    /**
+     * Pone el valor inicial en la Preference.
+     * @param defaultValue
+     */
     @Override
     protected void onSetInitialValue(@Nullable Object defaultValue) {
         super.onSetInitialValue(defaultValue);

@@ -9,6 +9,9 @@ import androidx.room.TypeConverters;
 
 import com.example.infreminder.pojo.Reminder;
 
+/**
+ * Crea instancia de la base de datos.
+ */
 @Database(entities = {Reminder.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ReminderDatabase extends RoomDatabase {
@@ -22,6 +25,10 @@ public abstract class ReminderDatabase extends RoomDatabase {
         return reminderDatabase;
     }
 
+    /**
+     *
+     * @return
+     */
     public abstract ReminderDao reminderDao();
 
 }
