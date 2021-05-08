@@ -133,8 +133,14 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
 
 
     /**
-     *  Comprueba cuantos días faltan para el siguiente día de alarma y los devuelve
-     *  */
+     * Comprueba cuantos días faltan para la siguiente alarma y los devuelve.
+     *
+     * @param days lista con días de la alarma
+     * @param rightNow calendar del momento actual
+     * @param hour hora de la alarma
+     * @param min minuto de la alarma
+     * @return días que faltan para la siguiente alarma
+     */
     private int daysToNext(ArrayList<String> days, Calendar rightNow, int hour, int min){
         int today = rightNow.get(Calendar.DAY_OF_WEEK);
         int aux, daysToNext = 9;

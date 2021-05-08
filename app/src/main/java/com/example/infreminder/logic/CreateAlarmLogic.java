@@ -22,6 +22,11 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
 
     private I_CreateAlarmView createAlarmView;
 
+    /**
+     * Crea una instancia de la capa lógica.
+     *
+     * @param fragment
+     */
     public CreateAlarmLogic(I_CreateAlarmView fragment) {
         createAlarmView = fragment;
     }
@@ -96,8 +101,14 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
     }
 
     /**
-     *  Comprueba cuantos días faltan para el siguiente día de alarma y los devuelve
-     *  */
+     * Comprueba cuantos días faltan para la siguiente alarma y los devuelve.
+     *
+     * @param days lista con días de la alarma
+     * @param rightNow calendar del momento actual
+     * @param hour hora de la alarma
+     * @param min minuto de la alarma
+     * @return días que faltan para la siguiente alarma
+     */
     private int daysToNext(ArrayList<String> days, Calendar rightNow, int hour, int min){
         int today = rightNow.get(Calendar.DAY_OF_WEEK);
         int aux, daysToNext = 9;
