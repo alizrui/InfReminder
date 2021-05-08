@@ -60,6 +60,11 @@ public class DialogAlarmDaysFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Listener que añade los días seleccionados a un arraylist.
+     *
+     * El arraylist se pasa entre fragments.
+     */
     private void buttonListener(){
         bOkDays.setOnClickListener(v -> {
             ArrayList<String> daysSelected = new ArrayList<>();
