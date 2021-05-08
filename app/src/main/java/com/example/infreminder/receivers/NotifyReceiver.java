@@ -8,18 +8,23 @@ import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.RemoteInput;
 import androidx.core.app.TaskStackBuilder;
+import androidx.preference.PreferenceManager;
 
 import com.example.infreminder.R;
 import com.example.infreminder.activities.IntroActivity;
@@ -28,9 +33,12 @@ import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Wiki;
 import com.example.infreminder.threads.AlarmManagerThread;
 
+import java.io.IOException;
+
 public class NotifyReceiver extends BroadcastReceiver {
 
     private final String CHANNEL_ID = "notify_channel_id";
+    private SharedPreferences prefs;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -68,6 +76,22 @@ public class NotifyReceiver extends BroadcastReceiver {
         Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery, id);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+
+        MediaPlayer mPlayer = new MediaPlayer();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String uri = prefs.getString("ringtone","");
+        if(!uri.equals("")) {
+            Uri myUri = Uri.parse(uri);
+            mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            try {
+                mPlayer.setDataSource(context, myUri);
+                mPlayer.prepare();
+                mPlayer.start();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
         if(vibrationMode==1){
@@ -145,6 +169,7 @@ public class NotifyReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_alarm)
                 .setContentTitle(title)
+                .setNotificationSilent()
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         if(big_desc){

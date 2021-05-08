@@ -2,6 +2,8 @@ package com.example.infreminder.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +92,16 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         bNewSpecial = view.findViewById(R.id.bNewSpecial);
 
         /* Listeners */
+        etName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                bNewSpecial.setEnabled(!etName.getText().toString().isEmpty());
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
         scDesc.setOnCheckedChangeListener((buttonView, isChecked) -> {
             etDesc.setEnabled(isChecked);
             if(isChecked) {
