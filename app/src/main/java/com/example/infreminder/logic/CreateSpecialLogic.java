@@ -164,6 +164,9 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
     }
 
 
+    /**
+     * DialogFragment encargado de que el usuario elija el día que corresponde
+     */
     public static class DatePickerFragment extends DialogFragment {
 
         private DatePickerDialog.OnDateSetListener listener;

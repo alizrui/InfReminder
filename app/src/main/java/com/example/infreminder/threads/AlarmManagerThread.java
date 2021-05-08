@@ -33,11 +33,12 @@ public class AlarmManagerThread extends Thread {
         this.id = id;
     }
 
-
-    //public static void deleteAlarms(){
-    //
-    // }
-
+    /**
+     * Establece una notificación para el reminder recibido.
+     *
+     * @param rem reminder que sonará por la notificación
+     * @throws JSONException
+     */
     public void throwAlarm(Reminder rem) throws JSONException {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -57,6 +58,16 @@ public class AlarmManagerThread extends Thread {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, rem.getDate().getTimeInMillis(), pendingIntent);
     }
 
+    /**
+     * Lanza una alarma que ya había sonado en la BD.
+     *
+     * @param hour
+     * @param min
+     * @param name
+     * @param features
+     * @param days
+     * @throws JSONException
+     */
     private void createAlarm(int hour, int min, String name, String features, ArrayList<String> days) throws JSONException {
         Calendar rightNow = Calendar.getInstance();
         int daysToNext = daysToNext(days, rightNow, hour, min);
@@ -120,6 +131,14 @@ public class AlarmManagerThread extends Thread {
         return daysToNext;
     }
 
+
+    /**
+     * Gestiona el reminder que acaba de sonar.
+     *
+     * Un reminder que acaba de sonar debe ser borrado o no dependiendo de su atributo only_once
+     *
+     * @param rem
+     */
     private void manageReminder(Reminder rem){
         if(rem.getDate().compareTo(Calendar.getInstance()) <= 0) {
             /* Si es una alarma con only_once = false relanzar */
