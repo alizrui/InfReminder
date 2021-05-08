@@ -189,20 +189,18 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id ==R.id.menu_item_settings ){
-
-            if (isOpen){
-               fReminder.setVisibility(View.INVISIBLE);
-               fSpecial.setVisibility(View.INVISIBLE);
-               fAlarm.setVisibility(View.INVISIBLE);
-               tAlarm.setVisibility(View.INVISIBLE);
-               tSpecial.setVisibility(View.INVISIBLE);
-               tReminder.setVisibility(View.INVISIBLE);
+        if (id == R.id.menu_item_settings ){
+            if(isOpen){
+                showMenu(null);
             }
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
 
-        }else if(id == R.id.menu_item_info ){ showAbout();}
+        }else if(id == R.id.menu_item_info ){
+            if(isOpen){
+                showMenu(null);
+            }
+            showAbout();}
 
         return super.onOptionsItemSelected(item);
     }
