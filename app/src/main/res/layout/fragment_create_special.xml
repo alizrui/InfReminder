@@ -125,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@string/create_alarm" />
+                android:text="@string/create_special" />
 
         </RadioGroup>
     </LinearLayout>

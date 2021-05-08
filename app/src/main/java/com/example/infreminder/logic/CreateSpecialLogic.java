@@ -52,6 +52,7 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
 
     @Override
     public void createSpecialReminder(String name, Calendar date, JSONObject features) {
+        date.set(Calendar.SECOND, 0);
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features), new ArrayList<>(), date);
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(view.getCreateSpecialView()
@@ -163,6 +164,9 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
     }
 
 
+    /**
+     * DialogFragment encargado de que el usuario elija el día que corresponde
+     */
     public static class DatePickerFragment extends DialogFragment {
 
         private DatePickerDialog.OnDateSetListener listener;
