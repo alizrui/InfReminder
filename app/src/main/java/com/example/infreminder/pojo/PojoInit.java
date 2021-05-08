@@ -13,13 +13,15 @@ public class PojoInit {
      * por tanto, se usa este método lanzadera el cual es más como de llamar y donde se definen
      * todos los atributos del objeto Reminder.
      *
-     * 
-     * @return el objeto Reminder
+     * @param name de la alamra
+     * @param desc de la alarma
+     * @param days días en los que sonará la alarma
+     * @param calendar fecha en la que se lanzará la alarma
+     *
+     * @return el objeto pojo Reminder
      */
     public static Reminder reminder(@NonNull String name, @NonNull String desc, @NonNull ArrayList<String> days, @NonNull Calendar calendar) {
 
-        //, String replyText, int repeatMinute
-        
         Calendar calendarSchema = Calendar.getInstance();
         calendarSchema.set(2020, 0, 0, 0, 0, 0);
 
@@ -27,18 +29,11 @@ public class PojoInit {
 
         millis = millis / 1000;
         millis = millis / 60;
-
         millis = millis * 10;
 
         int id = (int) millis;
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
 
         return new Reminder(id, name, desc, days, calendar);
-        //        return new Reminder(id, year, month, dayOfMonth, hour, minute, repeatMinute, replyText == null ? "" : replyText, text);
     }
 
     /**
