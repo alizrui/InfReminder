@@ -40,7 +40,7 @@
     <string name="alarm">Alarma</string>
     <string name="vibration">Habilitar vibración</string>
     <string name="more_info"> Más información</string>
-    <string name="about_message">Esta aplicación ha sido realizada por: \n  Sammy Jonathan Claes\n  Nieves Codoñer Gil\n  Fernando Guillermo G Fiocca Paglia\n  Alejandro Iznardo Ruiz\ncomo proyecto final de Android Studio para la asignatura\n"Desarrollo de aplicaciones para dispositivos móviles"</string>
+    <string name="about_message">Esta aplicación ha sido realizada por:    Sammy Jonathan Claes   Nieves Codoñer Gil   Fernando Guillermo G Fiocca Paglia   Alejandro Iznardo Ruiz como proyecto final de Android Studio para la asignatura Desarrollo de aplicaciones para dispositivos móviles</string>
     <string name="ringtone">Seleccionar tono de alarma</string>
 
     <!-- Messages Preferences -->
