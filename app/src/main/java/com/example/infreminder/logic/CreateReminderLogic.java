@@ -10,8 +10,11 @@ import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
 import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Reminder;
+import com.example.infreminder.threads.AlarmManagerThread;
 import com.example.infreminder.view.interfaces.I_CreateReminderView;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,8 +33,8 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
     }
 
     @Override
-    public void createReminder(String name, String description, ArrayList<String> features, Calendar calendar) {
-        Reminder reminder = PojoInit.reminder(name,description,features,calendar);
+    public void createReminder(String name, String features, ArrayList<String> days, Calendar calendar) {
+        Reminder reminder = PojoInit.reminder(name,features,days,calendar);
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(createReminderView.getCreateReminderView()
                     .getContext()).reminderDao().getReminders();
@@ -53,9 +56,17 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
                     everythingOK = true;
                 }
             }
+            dbAcces.addReminder(reminder, true);
+
+            /* Crea AlarmManager para gestionar notificaciones*/
+            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(createReminderView.getCreateReminderView().getContext(),0);
+            try {
+                alarmManagerThread.throwAlarm(reminder);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }).start();
 
-        dbAcces.addReminder(reminder, true);
         createReminderView.getCreateReminderView().getActivity().onBackPressed();
     }
 

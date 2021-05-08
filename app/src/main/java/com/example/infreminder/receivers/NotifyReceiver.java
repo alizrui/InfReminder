@@ -37,7 +37,6 @@ public class NotifyReceiver extends BroadcastReceiver {
         if (id == -1) { return; }
         String name = intent.getStringExtra("name");
         String desc = intent.getStringExtra("desc");
-        boolean fullscreen = intent.getBooleanExtra("fullscreen", false); // NO FUNCIONA RN
         boolean big_desc = intent.getBooleanExtra("big_desc", false);
         int repeatEvery = intent.getIntExtra("repeatEvery", 0);
 
@@ -64,7 +63,7 @@ public class NotifyReceiver extends BroadcastReceiver {
         }
         PendingIntent resultPendingIntent = createResultPendingIntent(context, resultIntent);
 
-        Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery, fullscreen);
+        Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
@@ -94,16 +93,8 @@ public class NotifyReceiver extends BroadcastReceiver {
      */
 
     private Notification createNotification(Context context, @NonNull NotificationCompat.Builder builder,
-                                            @NonNull PendingIntent pendingIntent, NotificationCompat.Action replyAction, Wiki wiki, int repeatEvery, boolean fullscreen) {
-        if(fullscreen) {
-            builder.setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setFullScreenIntent(pendingIntent, true);
-        }
-        else {
-            builder.setContentIntent(pendingIntent);
-        }
-
+                                            @NonNull PendingIntent pendingIntent, NotificationCompat.Action replyAction, Wiki wiki, int repeatEvery) {
+        builder.setContentIntent(pendingIntent);
 
         if (replyAction != null) {
             builder.addAction(replyAction);
@@ -140,10 +131,6 @@ public class NotifyReceiver extends BroadcastReceiver {
                 .setContentTitle(title)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        //** METER FOTOS **//
-        //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
-        //builder.setStyle(new NotificationCompat.BigPictureStyle().setBigContentTitle("QUE PASA").bigPicture(bitmap)); //linea de pruebas
 
         if(big_desc){
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(desc));

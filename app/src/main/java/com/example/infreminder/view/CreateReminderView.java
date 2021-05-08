@@ -53,11 +53,11 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_reminder, container, false);
         createReminderLogic = new CreateReminderLogic(this);
-        tieDate = (TextInputEditText) view.findViewById(R.id.tIDay);
-        tieName = (TextInputEditText) view.findViewById(R.id.tIName);
-        tieDescription = (TextInputEditText) view.findViewById(R.id.tIDescription);
-        bAccept = (Button) view.findViewById(R.id.bAccept);
-        scFijoReminder = (SwitchCompat) view.findViewById(R.id.scFijoReminder);
+        tieDate = view.findViewById(R.id.tIDay);
+        tieName = view.findViewById(R.id.tIName);
+        tieDescription = view.findViewById(R.id.tIDescription);
+        bAccept = view.findViewById(R.id.bAccept);
+        scFijoReminder = view.findViewById(R.id.scFijoReminder);
 
         /**
          * Apartado listeners para desactivar el botón de aceptar si los datos obligatorios no
@@ -107,6 +107,7 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
                 jsonObject.put("repeat_every", repeatEvery);
                 jsonObject.put("reply_text", "");
                 jsonObject.put("big_desc", false);
+                jsonObject.put("only_once", true);
 
             } catch (JSONException e) {
                 e.printStackTrace();

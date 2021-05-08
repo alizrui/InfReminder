@@ -52,8 +52,39 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
 
     @Override
     public void createSpecialReminder(String name, Calendar date, JSONObject features) {
-        Log.d("LOL", "SpecialReminder " + date.toString());
-        //Waiting for create reminder
+        Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features), new ArrayList<>(), date);
+        new Thread(() -> {
+            List<Reminder> listRem = ReminderDatabase.getInstance(view.getCreateSpecialView()
+                    .getContext()).reminderDao().getReminders();
+
+            /* Comprueba que no existen otros recordatorios con ese id */
+            boolean everythingOK = false;
+            while(!everythingOK){
+                boolean exists = false;
+                int myid = reminder.getId();
+                for(Reminder rem:listRem){
+                    if (rem.getId() == myid) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if(exists){
+                    reminder.setId(myid + 1);
+                } else {
+                    everythingOK = true;
+                }
+            }
+            /* Crea AlarmManager para gestionar notificaciones*/
+            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(view.getCreateSpecialView().getContext(),0);
+            try {
+                alarmManagerThread.throwAlarm(reminder);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ReminderDatabase.getInstance(view.getCreateSpecialView().getContext()).reminderDao().addReminder(reminder);
+        }).start();
+
+        view.getCreateSpecialView().getActivity().onBackPressed();
     }
 
     @Override
@@ -64,13 +95,6 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
         /* GregorianCalendar(year,month,dayofmonth,hourofday,minute) */
         Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min,0);
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
-
-        /* Json con las características*/
-        try {
-            features.put("fullscreen",false);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features), days, dateAlarm);
 

@@ -47,7 +47,6 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
     private RadioButton rbOnlyDay;
 
     private SwitchCompat scDesc;
-    private SwitchCompat scPhoto;
     private SwitchCompat scWiki;
 
     private SwitchCompat scFixed;
@@ -81,7 +80,6 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         rgDays = view.findViewById(R.id.rgSpecial);
 
         scDesc = view.findViewById(R.id.scDesc);
-        scPhoto = view.findViewById(R.id.scFoto);
         scWiki = view.findViewById(R.id.scWiki);
 
         scFixed = view.findViewById(R.id.scFijoSpecial);
@@ -95,17 +93,10 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         scDesc.setOnCheckedChangeListener((buttonView, isChecked) -> {
             etDesc.setEnabled(isChecked);
             if(isChecked) {
-                scPhoto.setChecked(false);
                 scWiki.setChecked(false);
             }
         });
 
-        scPhoto.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked) {
-                scDesc.setChecked(false);
-                scWiki.setChecked(false);
-            }
-        });
 
         scWiki.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (getHTML != null && getHTML.isAlive()) {
@@ -114,7 +105,6 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
 
             if(isChecked) {
                 scDesc.setChecked(false);
-                scPhoto.setChecked(false);
                 getHTML = new GetHTML(this);
                 getHTML.start();
             } else {
@@ -122,9 +112,7 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
             }
         });
 
-        rbOnlyDay.setOnClickListener(v -> {
-            logic.showDatePickerDialog(date);
-        });
+        rbOnlyDay.setOnClickListener(v -> { logic.showDatePickerDialog(date); });
 
         rbSelectDays.setOnClickListener(v ->{
             openSelectDaysDialog();
@@ -172,7 +160,7 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         int hour = tpTime.getHour();
         int min = tpTime.getMinute();
 
-        ArrayList<String> days = new ArrayList<>();
+        ArrayList<String> days;
         JSONObject jsonObject = new JSONObject();
 
         /* Metiendo campos */
@@ -187,8 +175,6 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         if(scDesc.isChecked()){
             desc = etDesc.getText().toString();
             big_desc = true;
-        } else if (scPhoto.isChecked()){
-
         } else if (scWiki.isChecked()){
             if(wiki == null) return;
             replyText = wiki;

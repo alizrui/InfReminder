@@ -50,7 +50,6 @@ public class AlarmManagerThread extends Thread {
         intent.putExtra("desc", (String) jsonObject.get("desc"));
         intent.putExtra("replyText", (String) jsonObject.get("reply_text"));
         intent.putExtra("repeatEvery", (Integer) jsonObject.get("repeat_every"));
-        intent.putExtra("fullscreen", (boolean) jsonObject.get("fullscreen"));
         intent.putExtra("big_desc", (boolean) jsonObject.get("big_desc"));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
@@ -65,9 +64,6 @@ public class AlarmManagerThread extends Thread {
         /* GregorianCalendar(year,month,dayofmonth,hourofday,minute) */
         Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min,0);
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
-
-        /* Json con las características*/
-        //String json = createJson(features);
 
         Reminder reminder = PojoInit.reminder(name, features, days, dateAlarm);
 
