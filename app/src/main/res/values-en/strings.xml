@@ -56,6 +56,6 @@
     <string name="reminder_of_day">"Reminders for the day: "</string>
     <string name="no_reminder">There are no reminders for this day</string>
     <string name="general">General</string>
-    <string name="desc_long">Long text</string>
+    <string name="desc_long">Long description</string>
     <string name="reply_desc">Enable answer notification option</string>
 </resources>
