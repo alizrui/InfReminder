@@ -100,19 +100,6 @@ public class MainActivity extends AppCompatActivity implements I_MainActivity {
         }).attach();
 
     }
-
-    /**
-     * Resume la actividad.
-     * Cierra el menu al volver a la actividad
-     */
-    @Override
-    protected void onResume() {
-        if(ContainerActivity.aContainerOut){
-            showMenu(null);
-        }
-        super.onResume();
-    }
-
     /**
      * Crea el menu.
      *
