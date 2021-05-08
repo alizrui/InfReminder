@@ -52,6 +52,7 @@ public class AlarmManagerThread extends Thread {
         intent.putExtra("replyText", (String) jsonObject.get("reply_text"));
         intent.putExtra("repeatEvery", (Integer) jsonObject.get("repeat_every"));
         intent.putExtra("big_desc", (boolean) jsonObject.get("big_desc"));
+        intent.putExtra("vibration_mode", (Integer) jsonObject.get("vibration_mode"));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 

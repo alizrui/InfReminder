@@ -1,10 +1,17 @@
 package com.example.infreminder.logic;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.infreminder.R;
+import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.database.DatabaseAccess;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateReminderLogic;
@@ -15,6 +22,7 @@ import com.example.infreminder.view.interfaces.I_CreateReminderView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,19 +32,26 @@ import java.util.Date;
 import java.util.List;
 
 public class CreateReminderLogic implements I_CreateReminderLogic {
-    private I_CreateReminderView createReminderView;
+    private I_CreateReminderView view;
     private DatabaseAccess dbAcces;
 
     public CreateReminderLogic(I_CreateReminderView fragment) {
-        createReminderView = fragment;
-        dbAcces = new DatabaseAccess(createReminderView.getCreateReminderView(),null,null);
+        view = fragment;
+        dbAcces = new DatabaseAccess(view.getCreateReminderView(),null,null);
     }
 
     @Override
-    public void createReminder(String name, String features, ArrayList<String> days, Calendar calendar) {
-        Reminder reminder = PojoInit.reminder(name,features,days,calendar);
+    public void createReminder(String name, JSONObject features, ArrayList<String> days, Calendar calendar) {
+        int vib = checkVibration();
+        try {
+            features.put("vibration_mode", vib);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features),days,calendar);
         new Thread(() -> {
-            List<Reminder> listRem = ReminderDatabase.getInstance(createReminderView.getCreateReminderView()
+            List<Reminder> listRem = ReminderDatabase.getInstance(view.getCreateReminderView()
                     .getContext()).reminderDao().getReminders();
 
             /* Comprueba que no existen otros recordatorios con ese id */
@@ -59,7 +74,7 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
             dbAcces.addReminder(reminder, true);
 
             /* Crea AlarmManager para gestionar notificaciones*/
-            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(createReminderView.getCreateReminderView().getContext(),0);
+            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(view.getCreateReminderView().getContext(),0);
             try {
                 alarmManagerThread.throwAlarm(reminder);
             } catch (JSONException e) {
@@ -67,17 +82,37 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
             }
         }).start();
 
-        createReminderView.getCreateReminderView().getActivity().onBackPressed();
+        view.getCreateReminderView().getActivity().onBackPressed();
+    }
+
+    /**
+     * Comprueba la vibración que hay seleccionada en preferences.
+     */
+    private int checkVibration(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(view.getCreateReminderView().getContext());
+        int vib = 0;
+        String vibPref = prefs.getString("vibration","");
+        android.content.res.Resources resources = view.getCreateReminderView().getContext().getResources();
+
+        if(vibPref.equals(resources.getString(R.string.vibrate_short))){
+            vib=1;
+        } else if (vibPref.equals(resources.getString(R.string.vibrate_long))){
+            vib=2;
+        } else if (vibPref.equals(resources.getString(R.string.vibrate_special))){
+            vib=3;
+        }
+
+        return vib;
     }
 
 
     @Override
     public void createAlertDialog(int title, int message, int botonYes, int botonNo) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(createReminderView.getCreateReminderView().getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getCreateReminderView().getContext());
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setPositiveButton(botonYes, (dialog, which) -> {
-            createReminderView.getCreateReminderView().getActivity().onBackPressed();
+            view.getCreateReminderView().getActivity().onBackPressed();
         });
         builder.setNegativeButton(botonNo, null);
         AlertDialog dialog = builder.create();
@@ -98,7 +133,7 @@ public class CreateReminderLogic implements I_CreateReminderLogic {
             final String selectedDate = s1 + day + "/" + s2 + (month + 1) + "/" + year;
             tie.setText(selectedDate);
         });
-        newFragment.show(createReminderView.getCreateReminderView().getActivity().getSupportFragmentManager(), "datePicker");
+        newFragment.show(view.getCreateReminderView().getActivity().getSupportFragmentManager(), "datePicker");
     }
 
     @Override

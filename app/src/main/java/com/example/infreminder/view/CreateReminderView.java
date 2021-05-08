@@ -113,7 +113,7 @@ public class CreateReminderView extends Fragment implements I_CreateReminderView
                 e.printStackTrace();
             }
             createReminderLogic.createReminder(tieName.getText().toString(),
-                    Utils.jsonToString(jsonObject), new ArrayList<>(),cal);
+                    jsonObject, new ArrayList<>(),cal);
         });
         return view;
     }

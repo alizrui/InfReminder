@@ -2,6 +2,8 @@ package com.example.infreminder.logic.interfaces;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -10,11 +12,11 @@ public interface I_CreateReminderLogic {
      * Crea un recordatorio y lo inserta en la base de datos
      *
      * @param name Nombre del recordatorio
-     * @param description Descripción del recordatorio (Opcional)
-     * @param features Características del recordatorio
+     * @param features características del recordatorio
+     * @param days dias que suena el recordatorio(vacio)
      * @param calendar Calendario del recordatorio
      */
-    void createReminder(String name, String description, ArrayList<String> features, Calendar calendar);
+    void createReminder(String name, JSONObject features, ArrayList<String> days, Calendar calendar);
 
     /**
      * Crea un dialogo con un alertDialog con los parámetros especificados

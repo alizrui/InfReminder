@@ -1,7 +1,10 @@
 package com.example.infreminder.logic;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.example.infreminder.R;
 import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
@@ -20,7 +23,7 @@ import java.util.List;
 
 public class CreateAlarmLogic implements I_CreateAlarmLogic {
 
-    private I_CreateAlarmView createAlarmView;
+    private I_CreateAlarmView view;
 
     /**
      * Crea una instancia de la capa lógica.
@@ -28,7 +31,7 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
      * @param fragment
      */
     public CreateAlarmLogic(I_CreateAlarmView fragment) {
-        createAlarmView = fragment;
+        view = fragment;
     }
 
     @Override
@@ -45,10 +48,15 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
         jsonObject.put("fullscreen", false); // NO FUNCIONA RN
         jsonObject.put("big_desc", false);
 
+        /* Vibración y sonido */
+        int vib = checkVibration();
+        jsonObject.put("vibration_mode", vib);
+
+
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(jsonObject), days, dateAlarm);
 
         new Thread(() -> {
-            List<Reminder> listRem = ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().getReminders();
+            List<Reminder> listRem = ReminderDatabase.getInstance(view.getCreateAlarmView().getContext()).reminderDao().getReminders();
 
             /* Comprueba que no existen otros recordatorios con ese id */
             boolean everythingOK = false;
@@ -69,16 +77,36 @@ public class CreateAlarmLogic implements I_CreateAlarmLogic {
             }
 
             /* Crea AlarmManager para gestionar notificaciones*/
-            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(createAlarmView.getCreateAlarmView().getContext(),0);
+            AlarmManagerThread alarmManagerThread = new AlarmManagerThread(view.getCreateAlarmView().getContext(),0);
             try {
                 alarmManagerThread.throwAlarm(reminder);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            ReminderDatabase.getInstance(createAlarmView.getCreateAlarmView().getContext()).reminderDao().addReminder(reminder);
+            ReminderDatabase.getInstance(view.getCreateAlarmView().getContext()).reminderDao().addReminder(reminder);
 
         }).start();
 
+    }
+
+    /**
+     * Comprueba la vibración que hay seleccionada en preferences.
+     */
+    private int checkVibration(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(view.getCreateAlarmView().getContext());
+        int vib = 0;
+        String vibPref = prefs.getString("vibration","");
+        android.content.res.Resources resources = view.getCreateAlarmView().getContext().getResources();
+
+        if(vibPref.equals(resources.getString(R.string.vibrate_short))){
+            vib=1;
+        } else if (vibPref.equals(resources.getString(R.string.vibrate_long))){
+            vib=2;
+        } else if (vibPref.equals(resources.getString(R.string.vibrate_special))){
+            vib=3;
+        }
+
+        return vib;
     }
 
     @Override

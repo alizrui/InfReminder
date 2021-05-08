@@ -2,14 +2,17 @@ package com.example.infreminder.logic;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.net.sip.SipSession;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.infreminder.R;
 import com.example.infreminder.Utils.Utils;
 import com.example.infreminder.database.ReminderDatabase;
 import com.example.infreminder.logic.interfaces.I_CreateSpecialLogic;
@@ -55,6 +58,14 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
     @Override
     public void createSpecialReminder(String name, Calendar date, JSONObject features) {
         date.set(Calendar.SECOND, 0);
+
+        int vib = checkVibration();
+        try {
+            features.put("vibration_mode", vib);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features), new ArrayList<>(), date);
         new Thread(() -> {
             List<Reminder> listRem = ReminderDatabase.getInstance(view.getCreateSpecialView()
@@ -99,6 +110,13 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
         Calendar dateAlarm = new GregorianCalendar(rightNow.get(Calendar.YEAR), rightNow.get(Calendar.MONTH), rightNow.get(Calendar.DAY_OF_MONTH), hour, min,0);
         dateAlarm.add(Calendar.DAY_OF_MONTH, daysToNext);
 
+        int vib = checkVibration();
+        try {
+            features.put("vibration_mode", vib);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Reminder reminder = PojoInit.reminder(name, Utils.jsonToString(features), days, dateAlarm);
 
         new Thread(() -> {
@@ -134,6 +152,26 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
     }
 
 
+    /**
+     * Comprueba la vibración que hay seleccionada en preferences.
+     */
+    private int checkVibration(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(view.getCreateSpecialView().getContext());
+        int vib = 0;
+        String vibPref = prefs.getString("vibration","");
+        android.content.res.Resources resources = view.getCreateSpecialView().getContext().getResources();
+
+        if(vibPref.equals(resources.getString(R.string.vibrate_short))){
+            vib=1;
+        } else if (vibPref.equals(resources.getString(R.string.vibrate_long))){
+            vib=2;
+        } else if (vibPref.equals(resources.getString(R.string.vibrate_special))){
+            vib=3;
+        }
+
+
+        return vib;
+    }
 
     /**
      * Comprueba cuantos días faltan para la siguiente alarma y los devuelve.

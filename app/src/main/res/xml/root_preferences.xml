@@ -1,9 +1,9 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+<PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 
-    <PreferenceCategory app:title="@string/reminder">
+    <PreferenceCategory android:title="@string/reminder">
         <com.example.infreminder.preference.TimePreference
             android:title="@string/reminder"
             android:summary="@string/picker_description"
@@ -16,14 +16,15 @@
             android:key="ringtone"
             android:title="@string/ringtone"
             android:icon="@drawable/ic_sound"
-            android:summary="@string/ringtone_description"
-            />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="vibration"
+            android:summary="@string/ringtone_description" />
+
+        <ListPreference
             android:title="@string/vibration"
+            android:key="vibration"
             android:icon="@drawable/ic_vibration"
-            android:summary="@string/vibration_description"/>
+            android:entries="@array/vibration_options"
+            android:entryValues="@array/vibration_options"
+            android:defaultValue="@string/vibrate_no" />
 
     </PreferenceCategory>
 </PreferenceScreen>

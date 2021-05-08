@@ -58,4 +58,8 @@
     <string name="general">General</string>
     <string name="desc_long">Long description</string>
     <string name="reply_desc">Enable answer notification option</string>
+    <string name="vibrate_no">No vibration</string>
+    <string name="vibrate_short">Short vibration</string>
+    <string name="vibrate_long">Long vibration</string>
+    <string name="vibrate_special">Special vibration</string>
 </resources>

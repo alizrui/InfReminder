@@ -34,13 +34,13 @@ public class NotifyReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         int id = intent.getIntExtra("id", -1);
         if (id == -1) { return; }
         String name = intent.getStringExtra("name");
         String desc = intent.getStringExtra("desc");
         boolean big_desc = intent.getBooleanExtra("big_desc", false);
         int repeatEvery = intent.getIntExtra("repeatEvery", 0);
+        int vibrationMode = intent.getIntExtra("vibration_mode", 0);
 
         /* Gestión de notificaciones con wiki */
         String replyText = intent.getStringExtra("replyText");
@@ -70,7 +70,16 @@ public class NotifyReceiver extends BroadcastReceiver {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
         Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
-        v.vibrate(v.vibrate(new long[]{0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500}, -1);
+        if(vibrationMode==1){
+            v.vibrate(new long[]{300,300,300},-1);
+        } else if(vibrationMode==2){
+            v.vibrate(new long[]{3000,3000,3000},-1);
+        } else if(vibrationMode==3){
+            v.vibrate(new long[]{0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500}, -1);
+        }
+        else{
+            //NO VIBRAR
+        }
 
         notificationManagerCompat.notify(id, notification);
         AlarmManagerThread thread = new AlarmManagerThread(context, id);

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -91,7 +92,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             startActivityForResult(intent,REQUEST_CODE_ALERT_RINGTONE);
         }
         else if(preference.getKey().equals(KEY_VIBRATION_PREFERENCE)) {
-            if(prefs.getBoolean("vibration",false)) {
+            if(prefs.getString("vibration", getString(R.string.vibrate_no)) != null) {
                 Vibrator v = (Vibrator) getActivity().getSystemService(getContext().VIBRATOR_SERVICE);
                 v.vibrate(300);
             }
@@ -117,6 +118,3 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onActivityResult(requestCode, resultCode, data);
     }
 }
-
-
-

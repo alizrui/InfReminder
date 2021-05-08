@@ -15,4 +15,11 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <array name="vibration_options">
+        <item>@string/vibrate_no</item>
+        <item>@string/vibrate_short</item>
+        <item>@string/vibrate_long</item>
+        <item>@string/vibrate_special</item>
+    </array>
 </resources>

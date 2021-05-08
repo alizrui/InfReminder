@@ -73,5 +73,10 @@
     <string name="desc_long">Descripción larga</string>
     <string name="reply_desc">Activa la opción responder a notificación</string>
     <string name="general">General</string>
+    <string name="vibrate_no">Sin vibración</string>
+    <string name="vibrate_short">Vibración corta</string>
+    <string name="vibrate_long">Vibración larga</string>
+    <string name="vibrate_special">Vibración especial</string>
+
 
 </resources>
