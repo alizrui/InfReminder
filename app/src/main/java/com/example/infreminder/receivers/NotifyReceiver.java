@@ -22,6 +22,7 @@ import androidx.core.app.TaskStackBuilder;
 
 import com.example.infreminder.R;
 import com.example.infreminder.activities.IntroActivity;
+import com.example.infreminder.activities.ReplyActivity;
 import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Wiki;
 import com.example.infreminder.threads.AlarmManagerThread;
@@ -50,12 +51,12 @@ public class NotifyReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = initNotificationBuilder(context, name, desc, wiki, big_desc);
 
-        NotificationCompat.Action replyAction = null;
+        boolean replyAction = false;
 
         Intent resultIntent;
 
         if (wiki != null) {
-            replyAction = createReplyPendingIntent(context, id, name, wiki.getTitle());
+            replyAction = true;
             resultIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(wiki.getHref()));
         }
         else {
@@ -63,7 +64,7 @@ public class NotifyReceiver extends BroadcastReceiver {
         }
         PendingIntent resultPendingIntent = createResultPendingIntent(context, resultIntent);
 
-        Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery);
+        Notification notification = createNotification(context, builder, resultPendingIntent, replyAction, wiki, repeatEvery, id);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
@@ -74,9 +75,6 @@ public class NotifyReceiver extends BroadcastReceiver {
 
     }
 
-
-
-
     /**
      * Crea el objeto de la notificación.
      * Se le asigna un intent cuando se pulse la notificación. En caso que sea una notificación con
@@ -86,21 +84,30 @@ public class NotifyReceiver extends BroadcastReceiver {
      * @param context
      * @param builder la notificación en construcción
      * @param pendingIntent acción al pulsar la notificación
-     * @param replyAction acción si se debe responder
+     * @param replyAction booelan que te dice si se responde la notifiación
      * @param wiki en caso de que se tenga que responder
      * @param repeatEvery si es -1 la notificación se quedará en el canal
      * @return el objeto Notification
      */
 
     private Notification createNotification(Context context, @NonNull NotificationCompat.Builder builder,
-                                            @NonNull PendingIntent pendingIntent, NotificationCompat.Action replyAction, Wiki wiki, int repeatEvery) {
+                                            @NonNull PendingIntent pendingIntent, boolean replyAction, Wiki wiki, int repeatEvery, int id) {
         builder.setContentIntent(pendingIntent);
 
-        if (replyAction != null) {
-            builder.addAction(replyAction);
+        if (replyAction) {
+
+            Intent openReplyAction = new Intent(context, NotifyReply.class);
+            openReplyAction.putExtra("id", id);
+            Log.d("lll", wiki.getTitle());
+            openReplyAction.putExtra("title", wiki.getTitle());
+            PendingIntent openReplyActionPendingIntent = PendingIntent.getBroadcast(context, 0, openReplyAction, 0);
+            builder.addAction(R.drawable.ic_alarm, context.getString(R.string.reply), openReplyActionPendingIntent);
+
             Intent openUrlAction = new Intent(context, NotifyUrl.class).putExtra("url", wiki.getHref());
             PendingIntent openUrlActionPendingIntent = PendingIntent.getBroadcast(context, 0, openUrlAction, 0);
             builder.addAction(R.drawable.ic_alarm, context.getString(R.string.open_wiki), openUrlActionPendingIntent);
+
+            builder.setAutoCancel(false);
         }
 
         Notification notification = builder.build();
@@ -145,38 +152,6 @@ public class NotifyReceiver extends BroadcastReceiver {
         }
 
         return builder;
-    }
-
-    /**
-     * Declara la acción hace la notificación.
-     * Se construye un RemoteInput para poder responder la notificación usando de key la concatenación
-     * del título de la notificación y el id. Luego define un intent que llamará a NotifyReply donde
-     * le definiremos unos extras. Luego con ese intent creamos el PendingIntent que hará el broadcast
-     * para que pueda escucharlo NotifyReply. Finalmente creamos la acción que lanzará el broadcast
-     * para poder enlazarla a la notificación.
-     *
-     * @param context
-     * @param id de la notificación
-     * @param title de la notificación
-     * @param replyText texto que debe reescribirse
-     * @return action con el input y la acción que hará al enviar ese input
-     */
-
-    private NotificationCompat.Action createReplyPendingIntent(Context context, int id, String title, String replyText) {
-
-        String keyReply = title + id;
-        RemoteInput remoteInput = new RemoteInput.Builder(keyReply).setLabel(replyText).build();
-
-        Intent intent = new Intent(context, NotifyReply.class);
-        intent.putExtra("id", id);
-        intent.putExtra("title", title);
-        intent.putExtra("replyText", replyText);
-
-        PendingIntent replyPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        return new NotificationCompat.Action.Builder(R.drawable.ic_alarm, context.getString(R.string.reply), replyPendingIntent)
-                .addRemoteInput(remoteInput)
-                .build();
     }
 
     /**
