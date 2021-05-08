@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_alarm"
+            android:textColor="#4527A0"
+            android:layout_margin="8dp"
+            android:textSize="24sp" />
+
         <TimePicker
             android:id="@+id/tpHours"
             android:layout_width="match_parent"
