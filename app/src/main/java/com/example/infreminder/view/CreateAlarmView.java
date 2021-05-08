@@ -40,19 +40,12 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
     private TimePicker tpTime;
     private EditText etName;
     private EditText etDes;
-
     private SwitchCompat scFijo;
-
     private RadioButton rbSelectDays;
-
     private RadioGroup rgDays;
-
-
     private Button bNewAlarm;
 
-    /* */
     private ArrayList<String> daysSelected;
-
 
     public CreateAlarmView() { }
 
@@ -127,6 +120,11 @@ public class CreateAlarmView extends Fragment implements I_CreateAlarmView {
         dialog.show(getChildFragmentManager(),null);
     }
 
+    /**
+     * Manda a la lógica crear una alarma con los campos introducidos.
+     *
+     * @throws JSONException
+     */
     @SuppressLint("NonConstantResourceId")
     public void createAlarm() throws JSONException {
         String name = etName.getText().toString();
