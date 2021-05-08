@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Vibrator;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -68,8 +69,10 @@ public class NotifyReceiver extends BroadcastReceiver {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
-        notificationManagerCompat.notify(id, notification);
+        Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
+        v.vibrate(v.vibrate(new long[]{0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500}, -1);
 
+        notificationManagerCompat.notify(id, notification);
         AlarmManagerThread thread = new AlarmManagerThread(context, id);
         thread.start();
 
@@ -106,12 +109,10 @@ public class NotifyReceiver extends BroadcastReceiver {
             Intent openUrlAction = new Intent(context, NotifyUrl.class).putExtra("url", wiki.getHref());
             PendingIntent openUrlActionPendingIntent = PendingIntent.getBroadcast(context, 0, openUrlAction, 0);
             builder.addAction(R.drawable.ic_alarm, context.getString(R.string.open_wiki), openUrlActionPendingIntent);
-
             builder.setAutoCancel(false);
         }
 
         Notification notification = builder.build();
-
         if (repeatEvery == -1) {
             notification.flags |= Notification.FLAG_NO_CLEAR;
         }
@@ -132,18 +133,17 @@ public class NotifyReceiver extends BroadcastReceiver {
      */
 
     private NotificationCompat.Builder initNotificationBuilder(@NonNull Context context, @NonNull String title, String desc, Wiki wiki, boolean big_desc) {
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_alarm)
                 .setContentTitle(title)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
         if(big_desc){
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(desc));
         }
         else if (desc != null && !desc.isEmpty()) {
             builder.setContentText(desc);
+
         }
 
         if (wiki != null) {

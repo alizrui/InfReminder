@@ -17,6 +17,8 @@ import com.example.infreminder.pojo.PojoInit;
 import com.example.infreminder.pojo.Reminder;
 import com.example.infreminder.pojo.Wiki;
 import com.example.infreminder.threads.AlarmManagerThread;
+import com.example.infreminder.view.CreateReminderView;
+import com.example.infreminder.view.CreateSpecialView;
 import com.example.infreminder.view.interfaces.I_CreateSpecialView;
 
 import org.json.JSONException;
@@ -189,6 +191,7 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
             DatePickerDialog d = new DatePickerDialog(getActivity(), listener, year, month, day);
+            d.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             return d;
         }
     }
