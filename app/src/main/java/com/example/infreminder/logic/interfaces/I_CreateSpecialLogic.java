@@ -38,4 +38,10 @@ public interface I_CreateSpecialLogic {
      */
     void createSpecialAlarm(int hour, int min, String name, ArrayList<String> days, JSONObject features);
 
+    /**
+     * Comprueba si el dispositivo tiene conexión a internet
+     * @return
+     */
+    boolean isConnected();
+
 }

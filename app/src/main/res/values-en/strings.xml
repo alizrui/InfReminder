@@ -62,4 +62,6 @@
     <string name="vibrate_short">Short vibration</string>
     <string name="vibrate_long">Long vibration</string>
     <string name="vibrate_special">Special vibration</string>
+    <string name="title_connection">No Internet conection found</string>
+    <string name="body_connection">Without an active internet connection, the message option cannot be selected:</string>
 </resources>

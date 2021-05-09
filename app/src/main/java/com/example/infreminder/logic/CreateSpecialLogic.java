@@ -3,13 +3,18 @@ package com.example.infreminder.logic;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.infreminder.R;
@@ -23,6 +28,7 @@ import com.example.infreminder.threads.AlarmManagerThread;
 import com.example.infreminder.view.CreateReminderView;
 import com.example.infreminder.view.CreateSpecialView;
 import com.example.infreminder.view.interfaces.I_CreateSpecialView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,8 +103,6 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
             }
             ReminderDatabase.getInstance(view.getCreateSpecialView().getContext()).reminderDao().addReminder(reminder);
         }).start();
-
-        view.getCreateSpecialView().getActivity().onBackPressed();
     }
 
     @Override
@@ -149,6 +153,21 @@ public class CreateSpecialLogic implements I_CreateSpecialLogic {
             }
             ReminderDatabase.getInstance(view.getCreateSpecialView().getContext()).reminderDao().addReminder(reminder);
         }).start();
+    }
+
+    @Override
+    public boolean isConnected() {
+        boolean result = false;
+        ConnectivityManager manager = (ConnectivityManager) view.getCreateSpecialView().getContext()
+        .getSystemService(view.getCreateSpecialView().getContext().CONNECTIVITY_SERVICE);
+        final Network activeNetwork = manager.getActiveNetwork();
+        if (activeNetwork != null) {
+            final NetworkCapabilities networkCapabilities = manager.getNetworkCapabilities(activeNetwork);
+            result = networkCapabilities != null && (
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
+        }
+        return result;
     }
 
 

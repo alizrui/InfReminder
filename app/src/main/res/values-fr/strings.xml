@@ -62,4 +62,6 @@
     <string name="vibrate_short">Vibration courte</string>
     <string name="vibrate_long">Vibration longue</string>
     <string name="vibrate_special">Vibration special</string>
+    <string name="title_connection">Vous n\'avez pas une conexion à Internet active</string>
+    <string name="body_connection">Sans connexion internet active, vous ne pouvez pas sélectionner l’option de message</string>
 </resources>

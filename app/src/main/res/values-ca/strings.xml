@@ -62,4 +62,6 @@
     <string name="vibrate_short">Vibració curta</string>
     <string name="vibrate_long">Vibració llarga</string>
     <string name="vibrate_special">Vibració especial</string>
+    <string name="title_connection">No hi ha conexió a internet</string>
+    <string name="body_connection">"Sense una conexió a internet "</string>
 </resources>

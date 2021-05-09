@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
@@ -29,6 +30,7 @@ import com.example.infreminder.logic.interfaces.I_CreateAlarmLogic;
 import com.example.infreminder.logic.interfaces.I_CreateSpecialLogic;
 import com.example.infreminder.threads.GetHTML;
 import com.example.infreminder.view.interfaces.I_CreateSpecialView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,9 +72,7 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_special, container, false);
-
         logic = new CreateSpecialLogic(this);
-
 
         /* Get the views */
         tpTime = view.findViewById(R.id.tpSpecial);
@@ -90,6 +90,17 @@ public class CreateSpecialView extends Fragment implements I_CreateSpecialView {
         rbSelectDays = view.findViewById(R.id.rbSelectDaysSpecial);
 
         bNewSpecial = view.findViewById(R.id.bNewSpecial);
+
+        /*Check for internet connection */
+        if(!logic.isConnected()) {
+            scWiki.setClickable(false);
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            builder.setTitle(R.string.title_connection);
+            builder.setMessage(R.string.body_connection);
+            builder.setPositiveButton(R.string.accept,null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
 
         /* Listeners */
         etName.addTextChangedListener(new TextWatcher() {
